@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Hide the spinner for WebKit browsers */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hide the spinner for Mozilla Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* .welcome-text{
+    font-family: "Pixelify Sans", sans-serif;
+} */
+
+.nav-heading{
+    font-family: "Pixelify Sans", sans-serif;
+}
+
+.welcome-text{
+    font-family: "Rubik Pixels", system-ui;
+}
+
+.link-text{
+    font-family: "Lilita One", sans-serif;
+}

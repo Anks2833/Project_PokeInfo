@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import axios from "axios";
+import Headings from "./Headings";
+import { NavLink } from "react-router-dom";
 import { MdArrowDropDownCircle } from "react-icons/md";
 
 
 const Pokedex = () => {
 
   const [pokemon, setPokemon] = useState([])
+  // const [typesData, setTypesData] = useState([])
 
   useEffect(() => {
 
@@ -23,18 +26,37 @@ const Pokedex = () => {
 
   }, [])
 
+  function pokemonTypeColors(type) {
+    if (type === "Grass") return "bg-[#7AC74C]";
+    if (type === "Fire") return "bg-[#EE8130]";
+    if (type === "Water") return "bg-[#6390F0]";
+    if (type === "Electric") return "bg-[#F7D02C]";
+    if (type === "Ground") return "bg-[#E2BF65]";
+    if (type === "Rock") return "bg-[#B6A136]";
+    if (type === "Fairy") return "bg-[#D685AD]";
+    if (type === "Poison") return "bg-[#A33EA1]";
+    if (type === "Bug") return "bg-[#A6B91A]";
+    if (type === "Dragon") return "bg-[#6F35FC]";
+    if (type === "Psychic") return "bg-[#F95587]";
+    if (type === "Flying") return "bg-[#A98FF3]";
+    if (type === "Fighting") return "bg-[#C22E28]";
+    if (type === "Normal") return "bg-[#A8A77A]";
+    if (type === "Ghost") return "bg-[#735797]";
+    if (type === "Ice") return "bg-[#96D9D6]";
+    if (type === "Dark") return "bg-[#705746]";
+    if (type === "Steel") return "bg-[#B7B7CE]";
+    return "bg-[#000]"; // Default bg color
+  }
+
 
   return (
-
 
     <div className="min-h-screen w-full bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px]">
       <div className="w-full min-h-screen text-white">
 
 
         {/* The heading */}
-        <div className="w-full flex justify-center text-[2.5vw] text-white">
-          <h1 className="link-text font-semibold bg-[#00091D] px-32 border-[2px] border-zinc-100 shadow-md shadow-teal-300 rounded-bl-full rounded-br-full">Pokédex</h1>
-        </div>
+        <Headings value={"Pokédex"}/>
 
         {/* pokemons */}
         <div className="w-full flex justify-center items-center gap-[1vw] px-20 mt-20">
@@ -172,15 +194,15 @@ const Pokedex = () => {
         </div>
 
         {/* All pokemons */}
-        <div className="w-full min-h-20 mt-20 flex flex-wrap justify-start px-10 gap-6 pb-10">
+        <div className="w-full min-h-20 mt-20 flex flex-wrap justify-start px-10 gap-6 pb-20">
 
           {pokemon.map((poke, index) => {
             return (
 
-              < div key={index} className="cursor-pointer w-[22vw] h-[35vw] bg-[#0A141E] border border-zinc-100 rounded-xl overflow-hidden shadow-sm shadow-zinc-100" >
+              <NavLink to={`/pokeinfo/${poke.number}`} key={index} className="cursor-pointer w-[22vw] h-[35vw] bg-[#0A141E] border border-zinc-100 rounded-xl overflow-hidden shadow-sm shadow-zinc-100" >
 
                 {/* Image div */}
-                <div div className="relative w-full flex justify-center items-center" >
+                <div className="relative w-full flex justify-center items-center" >
                   {/* <img className="absolute top-0" src="/images/pokedex.png" alt="" /> */}
                   <img className="absolute top-10 w-72 border-2 rounded-full shadow-md shadow-emerald-300" src={poke.image} alt="nonimg" />
                 </div>
@@ -202,14 +224,24 @@ const Pokedex = () => {
                   </div>
 
                   {/* Type */}
-                  <div className="w-full flex justify-center mt-2 gap-2">
-                    <h1 className="text-2xl bg-emerald-600 px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner">{poke.type1}</h1>
-                    <h1 className="text-2xl bg-fuchsia-600 px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner">{poke.type2}</h1>
+                  <div className="w-full flex justify-center items-center mt-2 gap-2">
+                    <div className="w-1/2 flex justify-center items-center">
+                      <h1
+                        className={
+                          `${pokemonTypeColors(poke.type1)}
+                        text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`
+                        }>
+                        {poke.type1}
+                      </h1>
+                    </div>
+                    <div className="w-1/2 flex justify-center items-center">
+                      <h1 className={`${pokemonTypeColors(poke.type2)} ${poke.type2 ? "text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner" : "text-2xl border border-white px-10 py-2 rounded-full"}`}>{poke.type2 || "NA"}</h1>
+                    </div>
                   </div>
 
                 </div>
 
-              </div>
+              </NavLink>
             )
           })}
 
@@ -220,4 +252,27 @@ const Pokedex = () => {
 
   )
 }
+
 export default Pokedex
+
+// bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px]
+
+//${poke.type1 === "Grass" ? "bg-[#7AC74C]" :
+// poke.type1 === "Fire" ? "bg-[#EE8130]" :
+// poke.type1 === "Water" ? "bg-[#6390F0]" :
+// poke.type1 === "Electric" ? "bg-[#F7D02C]" :
+// poke.type1 === "Ground" ? "bg-[#E2BF65]" :
+// poke.type1 === "Rock" ? "bg-[#B6A136]" :
+// poke.type1 === "Fairy" ? "bg-[#D685AD]" :
+// poke.type1 === "Poison" ? "bg-[#A33EA1]" :
+// poke.type1 === "Bug" ? "bg-[#A6B91A]" :
+// poke.type1 === "Dragon" ? "bg-[#6F35FC]" :
+// poke.type1 === "Psychic" ? "bg-[#F95587]" :
+// poke.type1 === "Flying" ? "bg-[#A98FF3]" :
+// poke.type1 === "Fighting" ? "bg-[#C22E28]" :
+// poke.type1 === "Normal" ? "bg-[#A8A77A]" :
+// poke.type1 === "Ghost" ? "bg-[#735797]" :
+// poke.type1 === "Ice" ? "bg-[#96D9D6]" :
+// poke.type1 === "Dark" ? "bg-[#705746]" :
+// poke.type1 === "Steel" ? "bg-[#B7B7CE]" : "bg-[#000]"
+// }

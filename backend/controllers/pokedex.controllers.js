@@ -1,5 +1,6 @@
-import { pokemonModel } from "../models/pokemon.models.js"
 import { v2 as cloudinary } from 'cloudinary';
+import fs from "fs"
+import { pokemonModel } from "../models/pokemon.models.js"
 // import { uploadOnCloudinary } from "../utils/cloudinary.js"
 
 const pokedexController = async (req, res) => {
@@ -13,13 +14,25 @@ const pokedexController = async (req, res) => {
             api_secret: process.env.CLOUDINARY_API_SECRET
         });
 
-        const result = await cloudinary.uploader.upload(req.file.path, {
+        const imageResult = await cloudinary.uploader.upload(req.files.image[0].path, {
             resource_type: "auto",
             folder: "uploads"
         });
 
+        // Assuming 'gender1' and 'gender2' are also fields in your form
+        const gender1Result = await cloudinary.uploader.upload(req.files.gender1[0].path, {
+            resource_type: "auto",
+            folder: "uploads"
+        });
+        const gender2Result = await cloudinary.uploader.upload(req.files.gender2[0].path, {
+            resource_type: "auto",
+            folder: "uploads"
+        });
+
+        // Convert number to string and pad with leading zeros
+        const paddedNumber = req.body.number.toString().padStart(3, '0');
+
         const {
-            number,
             name,
             description,
             type1,
@@ -32,15 +45,15 @@ const pokedexController = async (req, res) => {
         } = req.body
 
         const createdPokemon = await pokemonModel.create({
-            number,
+            number: paddedNumber,
             name,
-            image: result.secure_url, // Cloudinary returns the secure URL of the uploaded image
+            image: imageResult.secure_url, // Cloudinary returns the secure URL of the uploaded image
             description,
             type1,
             type2,
             abilities,
-            // gender1: req.file.buffer,
-            // gender2: req.file.buffer,
+            gender1: gender1Result.secure_url, // Cloudinary returns the secure URL of the uploaded image
+            gender2: gender2Result.secure_url, // Cloudinary returns the secure URL of the uploaded image
             category,
             height,
             weight,
@@ -48,11 +61,32 @@ const pokedexController = async (req, res) => {
         })
 
         res.send(createdPokemon)
-        console.log(result);
+
+         // Delete files from local storage
+         fs.unlink(req.files.image[0].path, (err) => {
+            if (err) {
+                console.log(`Failed to delete image file ${err}`);
+            } else {
+                console.log("Image file deleted successfully");
+            }
+        });
+        fs.unlink(req.files.gender1[0].path, (err) => {
+            if (err) {
+                console.log(`Failed to delete gender1 file ${err}`);
+            } else {
+                console.log("Gender1 file deleted successfully");
+            }
+        });
+        fs.unlink(req.files.gender2[0].path, (err) => {
+            if (err) {
+                console.log(`Failed to delete gender2 file ${err}`);
+            } else {
+                console.log("Gender2 file deleted successfully");
+            }
+        });
 
     } catch (error) {
         console.error(error);
-        res.status(500).send('Upload failed');
     }
 
 }

@@ -23,9 +23,18 @@ input[type="number"] {
 }
 
 .welcome-text{
-    font-family: "Rubik Pixels", system-ui;
+    font-family: "Lilita One", system-ui;
+    -webkit-text-stroke: 1px black;
 }
 
 .link-text{
-    font-family: "Lilita One", sans-serif;
+    font-family: sans-serif;
+}
+
+.glow{
+  text-shadow: 5px 2px 9px rgba(142, 142, 142, 1);
+}
+
+.glow1{
+  text-shadow: 5px 2px 9px rgb(52 211 153);
 }

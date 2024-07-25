@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react"
-import { FaInfoCircle } from "react-icons/fa"
+import { useEffect, useState } from "react"
 import { NavLink } from "react-router-dom";
-
+import { FaInfoCircle } from "react-icons/fa"
+import { GiSoundOn } from "react-icons/gi";
+// import { GiSoundOff } from "react-icons/gi";
 
 
 const Navbar = () => {
@@ -49,8 +50,9 @@ const Navbar = () => {
         </NavLink>
 
         {/* The info button on top-right and the modal */}
-        <div className="w-full text-3xl flex justify-end items-center text-white">
-          <FaInfoCircle />
+        <div className="w-full text-3xl flex justify-end items-center text-white gap-5">
+          <div className="w-fit text-5xl cursor-pointer"><GiSoundOn /></div>
+          <div className="w-fit cursor-pointer"><FaInfoCircle /></div>
         </div>
 
       </div>

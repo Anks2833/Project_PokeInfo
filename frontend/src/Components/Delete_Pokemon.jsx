@@ -1,5 +1,5 @@
 //A component to delete a pokemon through admin dashboard
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from 'react-hook-form';
 import axios from "axios"
 import { IoIosArrowDropdownCircle } from "react-icons/io";
@@ -8,7 +8,7 @@ import { IoIosArrowDropdownCircle } from "react-icons/io";
 const Delete_Pokemon = () => {
 
     const [isOpen, setIsOpen] = useState(false);
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset} = useForm();
     const [deletePokemon, setDeletePokemon] = useState('');
 
     const onSubmit = async (data) => {
@@ -43,8 +43,8 @@ const Delete_Pokemon = () => {
             <div className={`${isOpen ? "w-[60vw] min-h-32 border border-zinc-100 rounded-xl mb-10 p-10" : "hidden"}`}>
 
                 <form className="flex flex-wrap justify-center items-center gap-3" onSubmit={handleSubmit(onSubmit)}>
-                    <input className="w-[25vw] rounded-lg bg-zinc-800 text-white" {...register("number")} placeholder="Number" type="number" />
-                    <input type="submit" value="Delete" className="px-10 py-2 rounded-lg bg-red-600 text-white" />
+                    <input className="w-[25vw] rounded-lg bg-zinc-800 text-white" {...register("number")} placeholder="Number: Enter In A Format Like This 002" type="number" />
+                    <input type="submit" value="Delete" className="px-10 py-2 rounded-lg bg-red-600 text-white cursor-pointer" />
                 </form>
 
                 <div>

@@ -1,4 +1,3 @@
-import React from "react";
 import New_Pokemon from "./New_Pokemon";
 import Delete_Pokemon from "./Delete_Pokemon";
 

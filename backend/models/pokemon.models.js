@@ -2,7 +2,7 @@ import mongoose from "mongoose"
 
 const PokemonSchema = new mongoose.Schema({
   number: {
-    type: Number,
+    type: String,
     unique: true // Ensures each Pokémon has a unique number
   },
 
@@ -33,11 +33,11 @@ const PokemonSchema = new mongoose.Schema({
   }],
 
   gender1: {
-    type: Buffer
+    type: String
   },
 
   gender2: {
-    type: Buffer
+    type: String
   },
 
   category: {

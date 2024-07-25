@@ -1,4 +1,3 @@
-import React from "react"
 import { Route, Routes } from "react-router-dom"
 
 
@@ -11,6 +10,7 @@ import Moves from "../Components/Moves"
 import Pokedex from "../Components/Pokedex"
 import AdminPanel from "../Components/AdminPanel"
 import AdminDashboard from "../Components/AdminDashboard"
+import Pokemon_Details from "../Components/Pokemon_Details"
 
 const Routing = () => {
   return (
@@ -25,6 +25,7 @@ const Routing = () => {
         <Route path="/pokedex" element={<Pokedex />}/>
         <Route path="/adminlogin" element={<AdminPanel />}/>
         <Route path="/admindashboard" element={<AdminDashboard />}/>
+        <Route path="/pokeinfo/:number" element={<Pokemon_Details/>} />
     </Routes>
   )
 }

@@ -7,11 +7,10 @@ Welcome to the Pokemon Universe Explorer, a comprehensive web application that b
 
 ## Technology Stack
 
-- **Frontend**: React
+- **Frontend**: React.js
 - **Backend**: Node.js & Express.js
 - **Database**: MongoDB & Mongoose.js
-- **State Management**: Redux
-- **Styling**: Tailwind CSS
+- **Styling**: CSS, Tailwind CSS
 
 ## Features
 

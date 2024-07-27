@@ -37,11 +37,14 @@ const pokedexController = async (req, res) => {
             description,
             type1,
             type2,
-            abilities,
+            ability,
             category,
             height,
             weight,
-            weakness
+            weakness,
+            evolution1,
+            evolution2,
+            evolution3,
         } = req.body
 
         const createdPokemon = await pokemonModel.create({
@@ -51,13 +54,16 @@ const pokedexController = async (req, res) => {
             description,
             type1,
             type2,
-            abilities,
+            ability,
             gender1: gender1Result.secure_url, // Cloudinary returns the secure URL of the uploaded image
             gender2: gender2Result.secure_url, // Cloudinary returns the secure URL of the uploaded image
             category,
             height,
             weight,
-            weakness
+            weakness,
+            evolution1,
+            evolution2,
+            evolution3,
         })
 
         res.send(createdPokemon)

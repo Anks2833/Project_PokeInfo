@@ -73,6 +73,8 @@ const Pokemon_Details = () => {
     return "bg-[#000]"; // Default bg color
   }
 
+  
+
   return (
 
     <div className="w-full min-h-screen bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px]">
@@ -117,14 +119,11 @@ const Pokemon_Details = () => {
               </div>
 
               <div className="w-[20vw] flex flex-wrap justify-start gap-2 text-xl">
-                <div className="bg-orange-600 px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner">Fire</div>
-                <div className="bg-blue-600 px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner">Ice</div>
-                <div className="bg-sky-600 px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner">Flying</div>
-                <div className="bg-violet-600 px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner">Psychic</div>
-                <div className="bg-fuchsia-600 px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner">Ghost</div>
-                <div className="bg-slate-600 px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner">Normal</div>
-                <div className="bg-amber-600 px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner">Electric</div>
-
+                {pokemon.weakness && pokemon.weakness.map((weakness, index) => (
+                  <div key={index} className={`${pokemonTypeColors(weakness)} px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>
+                    {weakness}
+                  </div>
+                ))}
               </div>
 
 
@@ -192,7 +191,7 @@ const Pokemon_Details = () => {
               {/* Ability */}
               <div className="flex items-center gap-2">
                 <h1 className="text-2xl font-bold text-blue-500">Ability:</h1>
-                <h1 className="text-2xl">{pokemon.abilities}</h1>
+                <h1 className="text-2xl">{pokemon.ability}</h1>
                 <div className="text-xl text-amber-400 cursor-pointer"><FaQuestionCircle /></div>
               </div>
 

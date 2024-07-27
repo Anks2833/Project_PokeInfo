@@ -4,12 +4,39 @@ import { useState } from "react";
 import { useForm } from 'react-hook-form';
 import axios from "axios"
 import { IoIosArrowDropdownCircle } from "react-icons/io";
-import { MdCancel } from "react-icons/md";
+// import { MdCancel } from "react-icons/md";
 
 const New_Pokemon = () => {
 
+    // const [abilities, setAbilities] = useState([])
+    const [selectedWeaknesses, setSelectedWeaknesses] = useState([]);
+
     const [isOpen, setIsOpen] = useState(false);
+
     const { register, handleSubmit, reset } = useForm();
+
+    const pokemonTypes = [
+        { type: "Grass", bgColor: "#7AC74C" },
+        { type: "Fire", bgColor: "#FFC107" },
+        { type: "Water", bgColor: "#2196F3" },
+        { type: "Electric", bgColor: "#FF9800" },
+        { type: "Ice", bgColor: "#4CAF50" },
+        { type: "Fighting", bgColor: "#8E24AA" },
+        { type: "Poison", bgColor: "#8E24AA" },
+        { type: "Ground", bgColor: "#9C27B0" },
+        { type: "Flying", bgColor: "#03A9F4" },
+        { type: "Psychic", bgColor: "#FF69B4" },
+        { type: "Bug", bgColor: "#8BC34A" },
+        { type: "Rock", bgColor: "#9C27B0" },
+        { type: "Ghost", bgColor: "#9C27B0" },
+        { type: "Steel", bgColor: "#9C27B0" },
+        { type: "Dragon", bgColor: "#9C27B0" },
+        { type: "Dark", bgColor: "#9C27B0" },
+        { type: "Fairy", bgColor: "#9C27B0" },
+        { type: "Normal", bgColor: "#A8A77A" }
+
+    ]
+
     const onSubmit = async (data) => {
 
         let formData = new FormData()
@@ -17,15 +44,23 @@ const New_Pokemon = () => {
         formData.append('name', data.name);
         formData.append('type1', data.type1);
         formData.append('type2', data.type2);
-        formData.append('abilities', data.abilities);
+        formData.append('ability', data.ability);
         formData.append('category', data.category);
         formData.append('height', data.height);
         formData.append('weight', data.weight);
-        formData.append('weakness', data.weakness);
+        // Handling weaknesses as an array
+        selectedWeaknesses.forEach((weakness, index) => {
+            formData.append(`weakness[${index}]`, weakness);
+        });
         formData.append('image', data.image[0]);
         formData.append('gender1', data.gender1[0]);
         formData.append('gender2', data.gender2[0]);
         formData.append('description', data.description)
+
+        formData.append('evolution1', data.evo1)
+        formData.append('evolution2', data.evo2)
+        formData.append('evolution3', data.evo3)
+
 
         await axios.post('/api/pokedex', formData)
             .then((response) => {
@@ -40,6 +75,16 @@ const New_Pokemon = () => {
 
     const toggleDropDown = () => {
         setIsOpen(!isOpen);
+    };
+
+    const toggleWeaknessSelection = (weaknessType) => {
+        setSelectedWeaknesses(prevState => {
+            if (prevState.includes(weaknessType)) {
+                return prevState.filter(type => type !== weaknessType);
+            } else {
+                return [...prevState, weaknessType];
+            }
+        });
     };
 
     return (
@@ -85,55 +130,47 @@ const New_Pokemon = () => {
                         <input id="Gender2" className="w-[25vw] rounded-lg bg-zinc-800 text-white" {...register("gender2")} placeholder="Gender-1" type="file" />
                     </div>
 
-                    {/* Abilities */}
-                    <input className="w-[25vw] rounded-lg bg-zinc-800 text-white" {...register("abilities", { required: true })} placeholder="Abilities" type="text" />
-                    {/* Add Ability Button */}
-                    <button className="bg-blue-700 px-8 py-2 rounded-xl font-semibold text-white" type="button">Add</button>
-                    {/* Remove Ability Button */}
-                    <button className="bg-red-700 px-8 py-2 rounded-xl font-semibold text-white" type="button">Remove</button>
-                    {/* DIV to add abilities and push them in the array */}
-                    <div className="w-[50vw] h-[8vw] border border-zinc-500 p-4 bg-zinc-800">
-                        <h1 className="text-white text-2xl">Abilities:</h1>
+                    {/* Ability */}
+                    <input className="w-[25vw] rounded-lg bg-zinc-800 text-white" {...register("ability", { required: true })} placeholder="Ability" type="text" />
 
-                        <div className="w-full">
-                            <div className="w-fit flex items-center mt-2">
-                                <h1 className="w-fit bg-white px-4 py-2 rounded-tl-xl rounded-bl-xl">Overgrow</h1>
-                                <div className="text-white text-3xl cursor-pointer"><MdCancel /></div>
-                            </div>
-                        </div>
-                    </div>
 
                     {/* Category */}
-                    <input className="w-[20vw] rounded-lg bg-zinc-800 text-white" {...register("category", { required: true })} placeholder="Category" type="text" />
+                    <input className="w-[25vw] rounded-lg bg-zinc-800 text-white" {...register("category", { required: true })} placeholder="Category" type="text" />
 
                     {/* Height */}
-                    <input className="w-[10vw] rounded-lg bg-zinc-800 text-white" {...register("height", { required: true })} placeholder="Height" type="number" />
+                    <input className="w-[25vw] rounded-lg bg-zinc-800 text-white" {...register("height", { required: true })} placeholder="Height" type="text" />
 
                     {/* Weight */}
-                    <input className="w-[10vw] rounded-lg bg-zinc-800 text-white" {...register("weight", { required: true })} placeholder="Weight" type="number" />
+                    <input className="w-[25vw] rounded-lg bg-zinc-800 text-white" {...register("weight", { required: true })} placeholder="Weight" type="text" />
 
                     {/* Weaknesses */}
-                    <input className="w-[25vw] rounded-lg bg-zinc-800 text-white" {...register("weakness", { required: true })} placeholder="Weaknesses" type="text" />
-
-                    {/* Add Weakness Button */}
-                    <button className="bg-blue-700 px-8 py-2 rounded-xl font-semibold text-white" type="button">Add</button>
-                    {/* Remove Weakness Button */}
-                    <button className="bg-red-700 px-8 py-2 rounded-xl font-semibold text-white" type="button">Remove</button>
-
-                    {/* DIV to add abilities and push them in the array */}
-                    <div className="w-[50vw] h-[8vw] border border-zinc-500 p-4 bg-zinc-800">
+                    <div className="w-[50vw] min-h-[8vw] border border-zinc-500 p-4 bg-zinc-800 rounded-lg">
                         <h1 className="text-white text-2xl">Weaknesses:</h1>
 
-                        <div className="w-full">
-                            <div className="w-fit flex items-center mt-2">
-                                <h1 className="w-fit bg-white px-4 py-2 rounded-tl-xl rounded-bl-xl">Fire</h1>
-                                <div className="text-white text-3xl cursor-pointer"><MdCancel /></div>
+                        <div className="w-full flex flex-col gap-4">
+                            <div className="w-fit flex flex-wrap gap-3 items-center mt-5">
+                                {pokemonTypes.map((poke, index) => {
+                                    return (
+                                        <h1 onClick={() => toggleWeaknessSelection(poke.type)} key={index} className={`w-fit cursor-pointer bg-[${poke.bgColor}] text-white px-4 py-2 rounded-tl-xl rounded-xl`}>{poke.type}</h1>
+                                    )
+                                })}
+                            </div>
+
+                            <div className="w-full h-32 border border-zinc-700 rounded-xl p-4 flex flex-wrap gap-2">
+                                {selectedWeaknesses.map((weakness, index) => (
+                                    <h1 key={index} className="w-fit h-fit bg-red-500 text-white px-4 py-2 rounded-xl">{weakness}</h1>
+                                ))}
                             </div>
                         </div>
                     </div>
 
                     {/* Description */}
                     <textarea rows="10" cols="100" className="resize-none rounded-lg bg-zinc-800 text-white" {...register("description", { required: true })} placeholder="Description"></textarea>
+
+                    {/* Evolution */}
+                        <input className="w-[16vw] rounded-lg text-white bg-zinc-800" {...register("evo1")} placeholder="Evolution-1" type="text" />
+                        <input className="w-[16vw] rounded-lg text-white bg-zinc-800" {...register("evo2")} placeholder="Evolution-2" type="text" />
+                        <input className="w-[16vw] rounded-lg text-white bg-zinc-800" {...register("evo3")} placeholder="Evolution-3" type="text" />
 
                     {/* Submit Button */}
                     <input className="bg-blue-600 px-32 py-3 rounded-xl text-white text-xl font-semibold cursor-pointer" type="submit" value="Create" />

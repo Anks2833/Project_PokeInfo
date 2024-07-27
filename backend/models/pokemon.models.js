@@ -28,15 +28,26 @@ const PokemonSchema = new mongoose.Schema({
     type: String,
   },
 
-  abilities: [{
+  ability: {
     type: String
-  }],
+  },
 
   gender1: {
     type: String
   },
 
   gender2: {
+    type: String
+  },
+  evolution1: {
+    type: String
+  },
+  
+  evolution2: {
+    type: String
+  },
+
+  evolution3: {
     type: String
   },
 

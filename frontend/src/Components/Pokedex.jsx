@@ -48,6 +48,50 @@ const Pokedex = () => {
     return "bg-[#000]"; // Default bg color
   }
 
+  function pokemonTypeShadow(type) {
+    if (type === "Grass") return "shadow-[#7AC74C]";
+    if (type === "Fire") return "shadow-[#EE8130]";
+    if (type === "Water") return "shadow-[#6390F0]";
+    if (type === "Electric") return "shadow-[#F7D02C]";
+    if (type === "Ground") return "shadow-[#E2BF65]";
+    if (type === "Rock") return "shadow-[#B6A136]";
+    if (type === "Fairy") return "shadow-[#D685AD]";
+    if (type === "Poison") return "shadow-[#A33EA1]";
+    if (type === "Bug") return "shadow-[#A6B91A]";
+    if (type === "Dragon") return "shadow-[#6F35FC]";
+    if (type === "Psychic") return "shadow-[#F95587]";
+    if (type === "Flying") return "shadow-[#A98FF3]";
+    if (type === "Fighting") return "shadow-[#C22E28]";
+    if (type === "Normal") return "shadow-[#A8A77A]";
+    if (type === "Ghost") return "shadow-[#735797]";
+    if (type === "Ice") return "shadow-[#96D9D6]";
+    if (type === "Dark") return "shadow-[#705746]";
+    if (type === "Steel") return "shadow-[#B7B7CE]";
+    return "shadow-[#fff]"; // Default bg color
+  }
+
+  function pokemonTypeBorder(type) {
+    if (type === "Grass") return "border-[#7AC74C]";
+    if (type === "Fire") return "border-[#EE8130]";
+    if (type === "Water") return "border-[#6390F0]";
+    if (type === "Electric") return "border-[#F7D02C]";
+    if (type === "Ground") return "border-[#E2BF65]";
+    if (type === "Rock") return "border-[#B6A136]";
+    if (type === "Fairy") return "border-[#D685AD]";
+    if (type === "Poison") return "border-[#A33EA1]";
+    if (type === "Bug") return "border-[#A6B91A]";
+    if (type === "Dragon") return "border-[#6F35FC]";
+    if (type === "Psychic") return "border-[#F95587]";
+    if (type === "Flying") return "border-[#A98FF3]";
+    if (type === "Fighting") return "border-[#C22E28]";
+    if (type === "Normal") return "border-[#A8A77A]";
+    if (type === "Ghost") return "border-[#735797]";
+    if (type === "Ice") return "border-[#96D9D6]";
+    if (type === "Dark") return "border-[#705746]";
+    if (type === "Steel") return "border-[#B7B7CE]";
+    return "bg-[#000]"; // Default bg color
+  }
+
 
   return (
 
@@ -56,7 +100,7 @@ const Pokedex = () => {
 
 
         {/* The heading */}
-        <Headings value={"Pokédex"}/>
+        <Headings value={"Pokédex"} />
 
         {/* pokemons */}
         <div className="w-full flex justify-center items-center gap-[1vw] px-20 mt-20">
@@ -199,12 +243,12 @@ const Pokedex = () => {
           {pokemon.map((poke, index) => {
             return (
 
-              <NavLink to={`/pokeinfo/${poke.number}`} key={index} className="cursor-pointer w-[22vw] h-[35vw] bg-[#0A141E] border border-zinc-100 rounded-xl overflow-hidden shadow-sm shadow-zinc-100" >
+              <NavLink to={`/pokeinfo/${poke.number}`} key={index} className={`shadow-sm shadow-zinc-100 cursor-pointer w-[22vw] h-[35vw] bg-[#0A141E] border border-zinc-100 rounded-xl overflow-hidden`} >
 
                 {/* Image div */}
                 <div className="relative w-full flex justify-center items-center" >
                   {/* <img className="absolute top-0" src="/images/pokedex.png" alt="" /> */}
-                  <img className="absolute top-10 w-72 border-2 rounded-full shadow-md shadow-emerald-300" src={poke.image} alt="nonimg" />
+                  <img className={`${pokemonTypeShadow(poke.type1)} ${pokemonTypeBorder(poke.type1)} absolute top-10 w-72 border rounded-full shadow-md`} src={poke.image} alt="nonimg" />
                 </div>
 
                 {/* info div */}
@@ -256,23 +300,3 @@ const Pokedex = () => {
 export default Pokedex
 
 // bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px]
-
-//${poke.type1 === "Grass" ? "bg-[#7AC74C]" :
-// poke.type1 === "Fire" ? "bg-[#EE8130]" :
-// poke.type1 === "Water" ? "bg-[#6390F0]" :
-// poke.type1 === "Electric" ? "bg-[#F7D02C]" :
-// poke.type1 === "Ground" ? "bg-[#E2BF65]" :
-// poke.type1 === "Rock" ? "bg-[#B6A136]" :
-// poke.type1 === "Fairy" ? "bg-[#D685AD]" :
-// poke.type1 === "Poison" ? "bg-[#A33EA1]" :
-// poke.type1 === "Bug" ? "bg-[#A6B91A]" :
-// poke.type1 === "Dragon" ? "bg-[#6F35FC]" :
-// poke.type1 === "Psychic" ? "bg-[#F95587]" :
-// poke.type1 === "Flying" ? "bg-[#A98FF3]" :
-// poke.type1 === "Fighting" ? "bg-[#C22E28]" :
-// poke.type1 === "Normal" ? "bg-[#A8A77A]" :
-// poke.type1 === "Ghost" ? "bg-[#735797]" :
-// poke.type1 === "Ice" ? "bg-[#96D9D6]" :
-// poke.type1 === "Dark" ? "bg-[#705746]" :
-// poke.type1 === "Steel" ? "bg-[#B7B7CE]" : "bg-[#000]"
-// }

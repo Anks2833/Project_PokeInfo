@@ -100,10 +100,10 @@ const New_Pokemon = () => {
             <div className={`${isOpen ? "w-[60vw] min-h-32 border border-zinc-100 rounded-xl mb-10 p-10 " : "hidden opacity-0"}`}>
 
                 <form className="flex flex-wrap justify-center items-center gap-3" onSubmit={handleSubmit(onSubmit)}>
-                    {/* Name */}
+                    {/* Number */}
                     <input className="w-[25vw] rounded-lg bg-zinc-800 text-white" {...register("number", { required: true })} placeholder="Number" type="number" />
 
-                    {/* Number */}
+                    {/* Name */}
                     <input className="w-[25vw] rounded-lg bg-zinc-800 text-white" {...register("name", { required: true })} placeholder="Name" type="text" />
 
                     {/* Pokemon-Type1 */}
@@ -151,14 +151,14 @@ const New_Pokemon = () => {
                             <div className="w-fit flex flex-wrap gap-3 items-center mt-5">
                                 {pokemonTypes.map((poke, index) => {
                                     return (
-                                        <h1 onClick={() => toggleWeaknessSelection(poke.type)} key={index} className={`w-fit cursor-pointer bg-[${poke.bgColor}] text-white px-4 py-2 rounded-tl-xl rounded-xl`}>{poke.type}</h1>
+                                        <h1 onClick={() => toggleWeaknessSelection(poke.type)} key={index} className="w-fit cursor-pointer bg-white text-black px-4 py-2 rounded-tl-xl rounded-xl">{poke.type}</h1>
                                     )
                                 })}
                             </div>
 
                             <div className="w-full h-32 border border-zinc-700 rounded-xl p-4 flex flex-wrap gap-2">
                                 {selectedWeaknesses.map((weakness, index) => (
-                                    <h1 key={index} className="w-fit h-fit bg-red-500 text-white px-4 py-2 rounded-xl">{weakness}</h1>
+                                    <h1 key={index} className="w-fit h-fit bg-white text-black px-4 py-2 rounded-xl">{weakness}</h1>
                                 ))}
                             </div>
                         </div>
@@ -167,10 +167,23 @@ const New_Pokemon = () => {
                     {/* Description */}
                     <textarea rows="10" cols="100" className="resize-none rounded-lg bg-zinc-800 text-white" {...register("description", { required: true })} placeholder="Description"></textarea>
 
-                    {/* Evolution */}
-                        <input className="w-[16vw] rounded-lg text-white bg-zinc-800" {...register("evo1")} placeholder="Evolution-1" type="text" />
-                        <input className="w-[16vw] rounded-lg text-white bg-zinc-800" {...register("evo2")} placeholder="Evolution-2" type="text" />
-                        <input className="w-[16vw] rounded-lg text-white bg-zinc-800" {...register("evo3")} placeholder="Evolution-3" type="text" />
+                    {/* Evolution-1 */}
+                    {/* <div className="w-[50vw] flex gap-6">
+                        <input className="w-[30vw] rounded-lg text-white bg-zinc-800" {...register("evo1")} placeholder="Evolution-1" type="text" />
+                        <input id="Gender1" className="w-[25vw] rounded-lg bg-zinc-800 text-white" {...register("evoimg1")} type="file" />
+                    </div> */}
+                    
+                    {/* Evolution-2 */}
+                    {/* <div className="w-[50vw] flex gap-6">
+                        <input className="w-[30vw] rounded-lg text-white bg-zinc-800" {...register("evo2")} placeholder="Evolution-2" type="text" />
+                        <input id="Gender1" className="w-[25vw] rounded-lg bg-zinc-800 text-white" {...register("evoimg2")} type="file" />
+                    </div> */}
+
+                    {/* Evolution-3 */}
+                    {/* <div className="w-[50vw] flex gap-6">
+                        <input className="w-[30vw] rounded-lg text-white bg-zinc-800" {...register("evo3")} placeholder="Evolution-3" type="text" />
+                        <input id="Gender1" className="w-[25vw] rounded-lg bg-zinc-800 text-white" {...register("evoimg3")} type="file" />
+                    </div> */}
 
                     {/* Submit Button */}
                     <input className="bg-blue-600 px-32 py-3 rounded-xl text-white text-xl font-semibold cursor-pointer" type="submit" value="Create" />

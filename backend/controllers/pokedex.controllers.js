@@ -1,6 +1,7 @@
 import { v2 as cloudinary } from 'cloudinary';
 import fs from "fs"
 import { pokemonModel } from "../models/pokemon.models.js"
+// import { evolutionModel } from '../models/evolution.model.js';
 // import { uploadOnCloudinary } from "../utils/cloudinary.js"
 
 const pokedexController = async (req, res) => {
@@ -41,10 +42,7 @@ const pokedexController = async (req, res) => {
             category,
             height,
             weight,
-            weakness,
-            evolution1,
-            evolution2,
-            evolution3,
+            weakness
         } = req.body
 
         const createdPokemon = await pokemonModel.create({
@@ -61,9 +59,6 @@ const pokedexController = async (req, res) => {
             height,
             weight,
             weakness,
-            evolution1,
-            evolution2,
-            evolution3,
         })
 
         res.send(createdPokemon)

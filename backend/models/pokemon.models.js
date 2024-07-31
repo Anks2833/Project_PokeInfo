@@ -1,4 +1,4 @@
-import mongoose from "mongoose"
+import mongoose, { mongo } from "mongoose"
 
 const PokemonSchema = new mongoose.Schema({
   number: {
@@ -39,17 +39,6 @@ const PokemonSchema = new mongoose.Schema({
   gender2: {
     type: String
   },
-  evolution1: {
-    type: String
-  },
-  
-  evolution2: {
-    type: String
-  },
-
-  evolution3: {
-    type: String
-  },
 
   category: {
     type: String
@@ -65,7 +54,7 @@ const PokemonSchema = new mongoose.Schema({
 
   weakness: [{
     type: String,
-  }]
+  }],
 
 });
 

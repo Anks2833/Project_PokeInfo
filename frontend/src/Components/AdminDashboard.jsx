@@ -1,5 +1,7 @@
 import New_Pokemon from "./New_Pokemon";
 import Delete_Pokemon from "./Delete_Pokemon";
+import Evolution_Data from "./Evolution_Data";
+import New_Stats from "./New_Stats";
 
 const AdminDashboard = () => {
 
@@ -31,6 +33,13 @@ const AdminDashboard = () => {
             <Delete_Pokemon />
 
             {/* Update a pokemon */}
+            {/* <Update_Pokemon/> */}
+
+            {/* Evolution Data */}
+            <Evolution_Data/>
+
+            {/*Stats*/}
+            <New_Stats />
             
 
         </div>

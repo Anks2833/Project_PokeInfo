@@ -1,11 +1,27 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { NavLink } from "react-router-dom";
 import { FaInfoCircle } from "react-icons/fa"
 import { GiSoundOn } from "react-icons/gi";
-// import { GiSoundOff } from "react-icons/gi";
+import { GiSoundOff } from "react-icons/gi";
 
 
 const Navbar = () => {
+
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(null);
+
+  const togglePlayPause = () => {
+    const newIsPlaying = !isPlaying;
+    setIsPlaying(newIsPlaying);
+    if (audioRef.current) {
+      if (newIsPlaying) {
+        audioRef.current.play();
+      } else {
+        audioRef.current.pause();
+      }
+    }
+  };
+
 
   // State variables to manage scroll behavior
   const [prevScrollpos, setPrevScrollpos] = useState(window.pageYOffset);
@@ -51,7 +67,10 @@ const Navbar = () => {
 
         {/* The info button on top-right and the modal */}
         <div className="w-full text-3xl flex justify-end items-center text-white gap-5">
-          <div className="w-fit text-5xl cursor-pointer"><GiSoundOn /></div>
+          <div className="w-fit text-5xl cursor-pointer" onClick={togglePlayPause}>
+            {isPlaying ? <GiSoundOn /> : <GiSoundOff />}
+          </div>
+          <audio ref={audioRef} loop src="/audios/pokeAudio.mp3"></audio>
           <div className="w-fit cursor-pointer"><FaInfoCircle /></div>
         </div>
 

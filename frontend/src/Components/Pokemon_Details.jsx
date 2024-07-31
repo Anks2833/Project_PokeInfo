@@ -6,6 +6,7 @@ import Headings from "./Headings";
 import Evolution_Details_Parent from "./Evolution_Details_Parent";
 import { RiArrowDownDoubleFill } from "react-icons/ri";
 import { FaQuestionCircle } from "react-icons/fa";
+import Stats from "./Stats";
 
 const Pokemon_Details = () => {
 
@@ -73,7 +74,7 @@ const Pokemon_Details = () => {
     return "bg-[#000]"; // Default bg color
   }
 
-  
+
 
   return (
 
@@ -157,7 +158,7 @@ const Pokemon_Details = () => {
           {/* The info and description */}
           <div className="flex flex-col gap-2">
             {/* Information */}
-            <div className="w-[25vw] h-[20vw] flex flex-col justify-center gap-5 bg-[#00091D] px-8 py-10 rounded-xl border border-zinc-600 shadow shadow-violet-600">
+            <div className="w-[25vw] h-[20vw] flex flex-col justify-center gap-5 bg-[#00091D] px-5 py-10 rounded-xl border border-zinc-600 shadow shadow-violet-600">
 
               {/* Height */}
               <div className="flex items-center gap-2">
@@ -167,9 +168,9 @@ const Pokemon_Details = () => {
               </div>
 
               {/* Category */}
-              <div className="flex items-center gap-2">
+              <div className="w-full flex items-center gap-2">
                 <h1 className="text-2xl font-bold text-blue-500">Category:</h1>
-                <h1 className="text-2xl">{pokemon.category}</h1>
+                <h1 className="text-2xl">{pokemon.category} Pokémon</h1>
               </div>
 
               {/* Weight */}
@@ -215,9 +216,14 @@ const Pokemon_Details = () => {
 
         </div>
 
+        {/* Stats */}
+        <div className="w-full px-10 py-5 min-h-32 mt-20 flex">
+        <Stats number={number} />
+        </div>
+
         {/* Evolution-Info */}
         <div className="w-full px-10 py-5 min-h-32 mt-20 flex">
-          <Evolution_Details_Parent />
+          <Evolution_Details_Parent number={number} />
         </div>
 
       </div>

@@ -3,11 +3,13 @@ import axios from "axios";
 import Headings from "./Headings";
 import { NavLink } from "react-router-dom";
 import { MdArrowDropDownCircle } from "react-icons/md";
+import { IoMdArrowDropupCircle } from "react-icons/io";
 
 
 const Pokedex = () => {
 
   const [pokemon, setPokemon] = useState([])
+  const [showAdvancedSearch, setShowAdvancedSearch] = useState(false); //State for toggle
   // const [typesData, setTypesData] = useState([])
 
   useEffect(() => {
@@ -25,6 +27,39 @@ const Pokedex = () => {
     fetchData()
 
   }, [])
+
+  const toggleAdvancedSearch = () => {    //Toggle function
+    setShowAdvancedSearch(!showAdvancedSearch);
+  };
+
+  const typesData = [
+    { type: "Grass", color: "#7AC74C" },
+    { type: "Fire", color: "#EE8130" },
+    { type: "Water", color: "#6390F0" },
+    { type: "Normal", color: "#A8A77A" },
+    { type: "Electric", color: "#F7D02C" },
+    { type: "Ice", color: "#96D9D6" },
+    { type: "Fighting", color: "#C22E28" },
+    { type: "Poison", color: "#A33EA1" },
+    { type: "Ground", color: "#E2BF65" },
+    { type: "Flying", color: "#A98FF3" },
+    { type: "Psychic", color: "#F95587" },
+    { type: "Bug", color: "#A6B91A" },
+    { type: "Rock", color: "#B6A136" },
+    { type: "Ghost", color: "#735797" },
+    { type: "Dragon", color: "#6F35FC" },
+    { type: "Dark", color: "#705746" },
+    { type: "Steel", color: "#B7B7CE" },
+    { type: "Fairy", color: "#D685AD" },
+  ]
+
+  const areaData = [
+    { name: "Kanto" },
+    { name: "Johto" },
+    { name: "Hoenn" },
+    { name: "Sinnoh" },
+    { name: "Unova" },
+  ]
 
   function pokemonTypeColors(type) {
     if (type === "Grass") return "bg-[#7AC74C]";
@@ -210,8 +245,8 @@ const Pokedex = () => {
                       <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                     </svg>
                   </div>
-                  <input type="search" className="w-full p-4 ps-10 text-sm text-black rounded-full bg-zinc-100" placeholder="Search by Name or Number" required />
-                  <button type="submit" className="text-black absolute end-2.5 bottom-2.5 bg-teal-300 font-medium rounded-tr-full rounded-br-full text-sm px-6 py-2">Search</button>
+                  <input type="search" className="w-full p-4 ps-10 text-sm border border-zinc-100 rounded-full bg-[#00091D] caret-white text-white" placeholder="Search by Name or Number" required />
+                  <button type="submit" className="text-white absolute end-2.5 bottom-2.5 bg-indigo-600 font-medium rounded-tr-full rounded-br-full text-sm px-6 py-2">Search</button>
                 </div>
               </form>
 
@@ -225,17 +260,92 @@ const Pokedex = () => {
         </div>
 
         {/* Advanced search */}
-        <div className="flex flex-col items-center justify-center">
-
-          <div className="w-[60vw] min-h-32 border-[2px] border-zinc-100 shadow-md shadow-teal-300 bg-[#00091D] rounded-bl-full rounded-br-full flex flex-col items-center justify-center">
-            <h1 className="text-5xl">Show Advanced Search</h1>
-            <div className="mt-5 text-4xl">
-              <MdArrowDropDownCircle />
+        {!showAdvancedSearch && ( // Conditional rendering based on state
+          <div className="flex flex-col items-center justify-center">
+            <div className="w-[60vw] min-h-32 border-[2px] border-zinc-100 shadow-md shadow-teal-300 bg-[#00091D] rounded-bl-full rounded-br-full flex flex-col items-center justify-center">
+              <h1 className="text-5xl">Show Advanced Search</h1>
+              <div onClick={toggleAdvancedSearch} className="mt-5 text-4xl cursor-pointer">
+                <MdArrowDropDownCircle />
+              </div>
             </div>
           </div>
+        )}
 
-          {/* <div className="w-[60vw] min-h-20 bg-red-600"></div> */}
-        </div>
+        {/* Advanced search- Expanded */}
+        {showAdvancedSearch && (
+          <div className="flex flex-col items-center justify-center">
+
+            <div className="w-[60vw] min-h-32 border-[2px] border-zinc-100 shadow-md shadow-teal-300 bg-[#00091D] rounded-bl-3xl rounded-br-3xl flex flex-col items-center justify-center">
+
+              {/* Types and abilities */}
+              <div className="w-full flex justify-between px-8 py-5">
+                {/* Types */}
+                <div className="w-1/2 flex flex-col gap-4">
+                  <div><h1 className="text-3xl border-b border-b-zinc-100 pb-3">Type</h1></div>
+
+                  <div className="w-full flex flex-wrap items-center gap-4">
+                    {typesData.map((type, index) => {
+                      return (
+                        <h1 key={index} className={`text-white border border-[${type.color}] px-8 py-1 rounded-full cursor-pointer`}>{type.type}</h1>
+                      )
+                    })}
+                  </div>
+                </div>
+
+                {/* Ability and number */}
+                <div className="w-1/2 flex flex-col items-center gap-6 py-4">
+                  {/* Ability */}
+                  <div className="w-[25vw] h-[10vw] border rounded-xl flex flex-col justify-normal px-10 py-5 gap-3">
+                    <h1 className="text-3xl">Ability</h1>
+                    <select className="rounded-full" id="cars">
+                      <option className="text-black" value="volvo">Volvo</option>
+                      <option className="text-black" value="saab">Saab</option>
+                      <option className="text-black" value="mercedes">Mercedes</option>
+                      <option className="text-black" value="audi">Audi</option>
+                    </select>
+                  </div>
+
+                  {/* Number */}
+                  <div className="w-[25vw] h-[10vw] border rounded-xl flex flex-col justify-center px-10 py-5 gap-6">
+                    <h1 className="text-3xl">Number 1-1001</h1>
+                    <h1><input className="w-[20vw]" type="range" defaultValue={0} /></h1>
+                  </div>
+
+                </div>
+              </div>
+
+              {/* Area */}
+              <div className="w-full flex flex-col px-8 py-5">
+                <div><h1 className="text-3xl border-b border-b-zinc-100 pb-3">Area</h1></div>
+
+                <div className="w-full flex flex-wrap items-center gap-4 py-4">
+                  {areaData.map((area, index) => {
+                    return (
+                      <h1 key={index} className={`text-white border border-white px-8 py-1 rounded-full cursor-pointer`}>{area.name}</h1>
+                    )
+                  })}
+                </div>
+              </div>
+
+              {/* Buttons */}
+              <div className="w-full flex justify-center gap-20 items-center py-10 text-2xl">
+                <h1 className="bg-pink-600 hover:bg-transparent transition-all border hover:border border-pink-600 px-20 py-3 rounded-full cursor-pointer">Reset</h1>
+
+                <h1 className="bg-lime-600 hover:bg-transparent transition-all border hover:border border-lime-600 px-20 py-3 rounded-full cursor-pointer">Search</h1>
+              </div>
+
+              {/* Hide button */}
+              <div className="w-full flex flex-col items-center py-5">
+                <h1 className="text-5xl">Hide Advanced Search</h1>
+                <div onClick={toggleAdvancedSearch} className="mt-5 text-4xl cursor-pointer"><IoMdArrowDropupCircle /></div>
+              </div>
+
+            </div>
+
+            {/* <div className="w-[60vw] min-h-20 bg-red-600"></div> */}
+          </div>
+        )
+        }
 
         {/* All pokemons */}
         <div className="w-full min-h-20 mt-20 flex flex-wrap justify-start px-10 gap-6 pb-20">

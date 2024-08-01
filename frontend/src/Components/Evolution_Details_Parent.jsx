@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { NavLink } from 'react-router-dom';
 import axios from "axios"
 
-// import { RiArrowRightDoubleFill } from "react-icons/ri";
+import { RiArrowRightDoubleFill } from "react-icons/ri";
 
 
 const Evolution_Details_Parent = (props) => {
@@ -96,10 +96,10 @@ const Evolution_Details_Parent = (props) => {
 
                 {evoData.length > 0 ?
 
-                    <div className="flex gap-52">
+                    <div className="relative flex gap-52">
 
                         {/* Evo1 */}
-                        <NavLink to={`/pokeinfo/${evoData.number1}`} className="py-12 flex flex-col items-center gap-2">
+                        <NavLink to={`/pokeinfo/${evoData[0].number1}`} className="py-12 flex flex-col items-center gap-2">
 
                             {/* Image */}
                             <div className={`${pokemonTypeBorder(evoData[0].type11)} bg-zinc-900 border-[6px] rounded-full`}>
@@ -126,6 +126,8 @@ const Evolution_Details_Parent = (props) => {
                             </div>
 
                         </NavLink>
+
+                        {evoData[0].number2 && <div className="absolute left-[25vw] top-[10vw] text-6xl text-amber-500"><RiArrowRightDoubleFill /></div>}
 
                         {/* Evo2 */}
                         <NavLink to={`/pokeinfo/${evoData[0].number2}`} className="py-12 flex flex-col items-center gap-2">
@@ -155,6 +157,8 @@ const Evolution_Details_Parent = (props) => {
                             </div>
 
                         </NavLink>
+
+                        {evoData[0].number3 && <div className="absolute right-[25vw] top-[10vw] text-6xl text-amber-500"><RiArrowRightDoubleFill /></div>}
 
                         {/* Evo3 */}
                         <NavLink to={`/pokeinfo/${evoData[0].number3}`} className="py-12 flex flex-col items-center gap-2">
@@ -187,7 +191,7 @@ const Evolution_Details_Parent = (props) => {
                     </div>
                     :
 
-                    <h1>No Evolutions Found</h1>
+                    <h1>This Pokémon Does Not Evolve</h1>
                 }
 
             </div>

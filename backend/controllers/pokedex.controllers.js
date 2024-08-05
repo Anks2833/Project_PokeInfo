@@ -63,14 +63,15 @@ const pokedexController = async (req, res) => {
 
         res.send(createdPokemon)
 
-         // Delete files from local storage
-         fs.unlink(req.files.image[0].path, (err) => {
+        // Delete files from local storage
+        fs.unlink(req.files.image[0].path, (err) => {
             if (err) {
                 console.log(`Failed to delete image file ${err}`);
             } else {
                 console.log("Image file deleted successfully");
             }
         });
+
         fs.unlink(req.files.gender1[0].path, (err) => {
             if (err) {
                 console.log(`Failed to delete gender1 file ${err}`);
@@ -78,6 +79,7 @@ const pokedexController = async (req, res) => {
                 console.log("Gender1 file deleted successfully");
             }
         });
+
         fs.unlink(req.files.gender2[0].path, (err) => {
             if (err) {
                 console.log(`Failed to delete gender2 file ${err}`);
@@ -93,15 +95,35 @@ const pokedexController = async (req, res) => {
 }
 
 const showPokedexData = async (req, res) => {
-    
+
     try {
 
-        let foundPokemons = await pokemonModel.find().sort({number: 1}).exec()
+        let foundPokemons = await pokemonModel.find().sort({ number: 1 }).exec()
         res.send(foundPokemons)
     } catch (error) {
 
         console.log(`Error fetching sorted products ${error}`);
     }
+}
+
+const getPokemonImages = async (req, res) => {
+
+    try {
+
+        // Fetch a certain number of random documents
+        const images = await pokemonModel.aggregate([
+            { $sample: { size: 12 } } // Adjust the size according to how many images you need
+        ]);
+
+        // Extract image URLs from the documents
+        const imageUrls = images.map(image => image.image);
+
+        res.send(imageUrls); // Send an array of image URLs
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server Error');
+    }
+
 }
 
 const deletePokemon = async (req, res) => {
@@ -129,4 +151,4 @@ const deletePokemon = async (req, res) => {
 
 // }
 
-export { pokedexController, showPokedexData, deletePokemon }
+export { pokedexController, showPokedexData, getPokemonImages, deletePokemon }

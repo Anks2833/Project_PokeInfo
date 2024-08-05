@@ -3,6 +3,11 @@
 @tailwind components;
 @tailwind utilities;
 
+*::selection {
+  background-color: indigo;
+
+}
+
 /* Hide the spinner for WebKit browsers */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
@@ -19,23 +24,50 @@ input[type="number"] {
     font-family: "Pixelify Sans", sans-serif;
 } */
 
-.nav-heading{
-    font-family: "Pixelify Sans", sans-serif;
+.nav-heading {
+  font-family: "Pixelify Sans", sans-serif;
 }
 
-.welcome-text{
-    font-family: "Lilita One", system-ui;
-    -webkit-text-stroke: 1px black;
+.welcome-text {
+  font-family: "Lilita One", system-ui;
+  -webkit-text-stroke: 1px black;
 }
 
-.link-text{
-    font-family: sans-serif;
+.link-text {
+  font-family: sans-serif;
 }
 
-.glow{
+.glow {
   text-shadow: 5px 2px 9px rgba(142, 142, 142, 1);
 }
 
-.glow1{
+.glow1 {
   text-shadow: 5px 2px 9px rgb(52 211 153);
+}
+
+/* The styling of pokemon name in the component pokemon_details.jsx */
+.pokemon-name-text {
+
+  text-shadow:
+    0 0 10px var(--color1),
+    0 0 20px var(--color2),
+    0 0 40px var(--color3),
+    0 0 80px var(--color4);
+
+  color: azure;
+  --color1: azure;
+  --color2: aqua;
+  --color3: dodgerblue;
+  --color4: blue;
+
+}
+
+.arrow {
+  --t: 45%;
+  --h: 40%;
+  
+  aspect-ratio: 3/2;
+  width: 30vw;
+  height: 10vw;
+  clip-path: polygon(100% calc(50% - var(--t)/2),var(--h) calc(50% - var(--t)/2),var(--h) 0,0 50%,var(--h) 100%,var(--h) calc(50% + var(--t)/2),100% calc(50% + var(--t)/2));
 }

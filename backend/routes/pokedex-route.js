@@ -5,6 +5,7 @@ import { upload } from "../middlewares/multer.middleware.js";
 import {
     pokedexController,
     showPokedexData,
+    getPokemonImages,
     deletePokemon,
 } from "../controllers/pokedex.controllers.js";
 
@@ -30,6 +31,7 @@ router.post("/stats",upload.none(), createStats)
 
 router.get("/pokedex", showPokedexData)
 router.get("/pokeinfo/:number", pokeInfoController)
+router.get("/pokedex/randomimage", getPokemonImages)
 router.get("/evolution", showEvolutionData)
 router.get("/stats", findStats)
 

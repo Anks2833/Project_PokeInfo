@@ -1,15 +1,23 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Headings from "./Headings";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { MdArrowDropDownCircle } from "react-icons/md";
 import { IoMdArrowDropupCircle } from "react-icons/io";
+import { useForm } from 'react-hook-form';
 
 
 const Pokedex = () => {
 
+  const number = useParams()
+  const { register, handleSubmit } = useForm();
+
   const [pokemon, setPokemon] = useState([])
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isSearchMode, setIsSearchMode] = useState(false);
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false); //State for toggle
+  const [pokemonNumber, setPokemonNumber] = useState('');
+  const [imageUrls, setImageUrls] = useState([]);
   // const [typesData, setTypesData] = useState([])
 
   useEffect(() => {
@@ -28,9 +36,59 @@ const Pokedex = () => {
 
   }, [])
 
+  useEffect(() => {
+    axios.get('/api/pokedex/randomimage')
+      .then((response) => {
+        setImageUrls(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error)
+      });
+  }, []);
+
+  const findByNumber = async (number) => {
+    try {
+      const response = await axios.get(`/api/findnum/${number}`);
+      setPokemonNumber(response.data);
+      // Optionally, update the state with the fetched Pokémon data
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  const randomImage = (url) => {
+
+    // Generate a random index within the array bounds
+    const randomIndex = Math.floor(Math.random() * url.length);
+
+    const randomImageUrl = url.find((element, index) => index === randomIndex);
+
+    return randomImageUrl
+  }
+
+  //To toggle the advanced search dropdown
   const toggleAdvancedSearch = () => {    //Toggle function
     setShowAdvancedSearch(!showAdvancedSearch);
   };
+
+  // Function to handle search input change
+  const handleSearchChange = (event) => {
+    const value = event.target.value;
+    setSearchTerm(value);
+    if (value.trim() !== '') {
+      setIsSearchMode(true);
+    } else {
+      setIsSearchMode(false);
+    }
+  };
+
+  //To filter out pokemons based on name and number
+  const filteredPokemonList = pokemon.filter((pokemon) =>
+    pokemon.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    pokemon.number.toString().includes(searchTerm)
+  );
+
 
   const typesData = [
     { type: "Grass", color: "#7AC74C" },
@@ -145,38 +203,38 @@ const Pokedex = () => {
             <div>
               <div className="relative w-[8vw] h-[8vw] border-2 border-teal-200 shadow-md shadow-emerald-300 rounded-full">
                 <img className="mix-blend-soft-light" src="/images/pokeball.png" alt="notfound" />
-                <img className="absolute top-0" src="/images/zapdos.png" alt="notfound" />
+                <img className="absolute top-0" src={randomImage(imageUrls)} alt="notfound" />
               </div>
             </div>
 
             <div className="flex flex-col gap-5">
               <div className="relative w-[8vw] h-[8vw] border-2 border-teal-200 shadow-md shadow-emerald-300 rounded-full">
                 <img className="mix-blend-soft-light" src="/images/pokeball.png" alt="notfound" />
-                <img className="absolute top-0 w-28" src="/images/groudon.png" alt="notfound" />
+                <img className="absolute top-0 w-28" src={randomImage(imageUrls)} alt="notfound" />
               </div>
 
               <div className="relative w-[8vw] h-[8vw] border-2 border-teal-200 shadow-md shadow-emerald-300 rounded-full">
                 <img className="mix-blend-soft-light" src="/images/pokeball.png" alt="notfound" />
-                <img className="absolute top-0" src="/images/hooh.png" alt="notfound" />
+                <img className="absolute top-0" src={randomImage(imageUrls)} alt="notfound" />
               </div>
             </div>
 
             <div>
               <div className="relative w-[8vw] h-[8vw] border-2 border-teal-200 shadow-md shadow-emerald-300 rounded-full">
                 <img className="mix-blend-soft-light" src="/images/pokeball.png" alt="notfound" />
-                <img className="absolute top-0 left-2 w-24" src="/images/zekrom.png" alt="notfound" />
+                <img className="absolute top-0 left-2 w-24" src={randomImage(imageUrls)} alt="notfound" />
               </div>
             </div>
 
             <div className="flex flex-col gap-5">
               <div className="relative w-[8vw] h-[8vw] border-2 border-teal-200 shadow-md shadow-emerald-300 rounded-full">
                 <img className="mix-blend-soft-light" src="/images/pokeball.png" alt="notfound" />
-                <img className="absolute top-0 w-28" src="/images/dialga.png" alt="notfound" />
+                <img className="absolute top-0 w-28" src={randomImage(imageUrls)} alt="notfound" />
               </div>
 
               <div className="relative w-[8vw] h-[8vw] border-2 border-teal-200 shadow-md shadow-emerald-300 rounded-full">
                 <img className="mix-blend-soft-light" src="/images/pokeball.png" alt="notfound" />
-                <img className="absolute top-0 left-2 w-28" src="/images/darkrai.png" alt="notfound" />
+                <img className="absolute top-0 left-2 w-28" src={randomImage(imageUrls)} alt="notfound" />
               </div>
             </div>
           </div>
@@ -185,7 +243,7 @@ const Pokedex = () => {
           <div className="flex items-center justify-center">
             <div className="relative w-[16vw] h-[16vw] border-2 border-teal-200 shadow-md shadow-emerald-300 rounded-full">
               <img className="mix-blend-overlay" src="/images/pokeball.png" alt="notfound" />
-              <img className="absolute top-4" src="/images/arceus.png" alt="notfound" />
+              <img className="absolute top-4" src={randomImage(imageUrls)} alt="notfound" />
             </div>
           </div>
 
@@ -194,38 +252,38 @@ const Pokedex = () => {
             <div className="flex flex-col gap-5">
               <div className="relative w-[8vw] h-[8vw] border-2 border-teal-200 shadow-md shadow-emerald-300 rounded-full">
                 <img className="mix-blend-soft-light" src="/images/pokeball.png" alt="notfound" />
-                <img className="absolute top-0 w-28" src="/images/entei.png" alt="notfound" />
+                <img className="absolute top-0 w-28" src={randomImage(imageUrls)} alt="notfound" />
               </div>
 
               <div className="relative w-[8vw] h-[8vw] border-2 border-teal-200 shadow-md shadow-emerald-300 rounded-full">
                 <img className="mix-blend-soft-light" src="/images/pokeball.png" alt="notfound" />
-                <img className="absolute top-0 left-3 w-24" src="/images/deoxys.png" alt="notfound" />
+                <img className="absolute top-0 left-3 w-24" src={randomImage(imageUrls)} alt="notfound" />
               </div>
             </div>
 
             <div>
               <div className="relative w-[8vw] h-[8vw] border-2 border-teal-200 shadow-md shadow-emerald-300 rounded-full">
                 <img className="mix-blend-soft-light" src="/images/pokeball.png" alt="notfound" />
-                <img className="absolute top-0 w-32" src="/images/kyogre.png" alt="notfound" />
+                <img className="absolute top-0 w-32" src={randomImage(imageUrls)} alt="notfound" />
               </div>
             </div>
 
             <div className="flex flex-col gap-5">
               <div className="relative w-[8vw] h-[8vw] border-2 border-teal-200 shadow-md shadow-emerald-300 rounded-full">
                 <img className="mix-blend-soft-light" src="/images/pokeball.png" alt="notfound" />
-                <img className="absolute top-0 left-3 w-52" src="/images/raykuaza.png" alt="notfound" />
+                <img className="absolute top-0 left-3 w-52" src={randomImage(imageUrls)} alt="notfound" />
               </div>
 
               <div className="relative w-[8vw] h-[8vw] border-2 border-teal-200 shadow-md shadow-emerald-300 rounded-full">
                 <img className="mix-blend-soft-light" src="/images/pokeball.png" alt="notfound" />
-                <img className="absolute top-2 left-4 w-96" src="/images/mew.png" alt="notfound" />
+                <img className="absolute top-2 left-4 w-96" src={randomImage(imageUrls)} alt="notfound" />
               </div>
             </div>
 
             <div>
               <div className="relative w-[8vw] h-[8vw] border-2 border-teal-200 shadow-md shadow-emerald-300 rounded-full">
                 <img className="mix-blend-soft-light" src="/images/pokeball.png" alt="notfound" />
-                <img className="absolute top-0 w-96" src="/images/giratina.png" alt="notfound" />
+                <img className="absolute top-0 w-96" src={randomImage(imageUrls)} alt="notfound" />
               </div>
             </div>
           </div>
@@ -238,15 +296,22 @@ const Pokedex = () => {
           <div className="w-[60vw] bg-[#00091D] border-[2px] border-zinc-100 shadow-md shadow-teal-300 rounded-tl-full rounded-tr-full py-10">
             <div className="">
 
-              <form className="max-w-md mx-auto">
+              <form className="max-w-md mx-auto" value={searchTerm} onChange={handleSearchChange} onSubmit={handleSubmit((data) => findByNumber(data.pokemonNumber))}>
                 <div className="relative">
+                  {/* The svg */}
                   <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                     <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                       <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                     </svg>
                   </div>
-                  <input type="search" className="w-full p-4 ps-10 text-sm border border-zinc-100 rounded-full bg-[#00091D] caret-white text-white" placeholder="Search by Name or Number" required />
-                  <button type="submit" className="text-white absolute end-2.5 bottom-2.5 bg-indigo-600 font-medium rounded-tr-full rounded-br-full text-sm px-6 py-2">Search</button>
+                  {/* The input box */}
+                  <input
+                    type="search"
+                    {...register("pokemonNumber", { required: true })}
+                    className="w-full p-4 ps-10 text-sm border border-zinc-100 rounded-full bg-[#00091D] caret-white text-white"
+                    placeholder="Search by Name or Number"
+                    required
+                  />
                 </div>
               </form>
 
@@ -277,10 +342,10 @@ const Pokedex = () => {
 
             <div className="w-[60vw] min-h-32 border-[2px] border-zinc-100 shadow-md shadow-teal-300 bg-[#00091D] rounded-bl-3xl rounded-br-3xl flex flex-col items-center justify-center">
 
-              {/* Types and abilities */}
+              {/* Types */}
               <div className="w-full flex justify-between px-8 py-5">
                 {/* Types */}
-                <div className="w-1/2 flex flex-col gap-4">
+                <div className="w-full flex flex-col gap-4">
                   <div><h1 className="text-3xl border-b border-b-zinc-100 pb-3">Type</h1></div>
 
                   <div className="w-full flex flex-wrap items-center gap-4">
@@ -290,27 +355,6 @@ const Pokedex = () => {
                       )
                     })}
                   </div>
-                </div>
-
-                {/* Ability and number */}
-                <div className="w-1/2 flex flex-col items-center gap-6 py-4">
-                  {/* Ability */}
-                  <div className="w-[25vw] h-[10vw] border rounded-xl flex flex-col justify-normal px-10 py-5 gap-3">
-                    <h1 className="text-3xl">Ability</h1>
-                    <select className="rounded-full" id="cars">
-                      <option className="text-black" value="volvo">Volvo</option>
-                      <option className="text-black" value="saab">Saab</option>
-                      <option className="text-black" value="mercedes">Mercedes</option>
-                      <option className="text-black" value="audi">Audi</option>
-                    </select>
-                  </div>
-
-                  {/* Number */}
-                  <div className="w-[25vw] h-[10vw] border rounded-xl flex flex-col justify-center px-10 py-5 gap-6">
-                    <h1 className="text-3xl">Number 1-1001</h1>
-                    <h1><input className="w-[20vw]" type="range" defaultValue={0} /></h1>
-                  </div>
-
                 </div>
               </div>
 
@@ -348,58 +392,115 @@ const Pokedex = () => {
         }
 
         {/* All pokemons */}
-        <div className="w-full min-h-20 mt-20 flex flex-wrap justify-start px-10 gap-6 pb-20">
+        {
+          isSearchMode ? (
 
-          {pokemon.map((poke, index) => {
-            return (
+            // Render each Pokemon from filtered list
+            <div className="pokemon-list w-full min-h-20 mt-20 flex flex-wrap justify-start px-10 gap-6 pb-20">
+              {filteredPokemonList.map((poke, index) => (
 
-              <NavLink to={`/pokeinfo/${poke.number}`} key={index} className={`shadow-sm shadow-zinc-100 cursor-pointer w-[22vw] h-[35vw] bg-[#0A141E] border border-zinc-100 rounded-xl overflow-hidden`} >
+                <NavLink to={`/pokeinfo/${poke.number}`} key={index} className={`shadow-sm shadow-zinc-100 cursor-pointer w-[22vw] h-[35vw] bg-[#0A141E] border border-zinc-100 rounded-xl overflow-hidden`} >
 
-                {/* Image div */}
-                <div className="relative w-full flex justify-center items-center" >
-                  {/* <img className="absolute top-0" src="/images/pokedex.png" alt="" /> */}
-                  <img className={`${pokemonTypeShadow(poke.type1)} ${pokemonTypeBorder(poke.type1)} absolute top-10 w-72 border rounded-full shadow-md`} src={poke.image} alt="nonimg" />
-                </div>
-
-                {/* info div */}
-                <div className="mt-80 flex flex-col items-start px-6">
-
-                  {/* The name and number */}
-                  <div className="flex flex-col py-4 text-4xl">
-                    {/* The number */}
-                    <div>
-                      <h1 className="">#{poke.number}</h1>
-                    </div>
-
-                    {/* The name */}
-                    <div>
-                      <h1 className="font-semibold">{poke.name}</h1>
-                    </div>
+                  {/* Image div */}
+                  <div className="relative w-full flex justify-center items-center" >
+                    <img className={`${pokemonTypeShadow(poke.type1)} ${pokemonTypeBorder(poke.type1)} absolute top-10 w-72 border rounded-full shadow-md`} src={poke.image} alt="nonimg" />
                   </div>
 
-                  {/* Type */}
-                  <div className="w-full flex justify-center items-center mt-2 gap-2">
-                    <div className="w-1/2 flex justify-center items-center">
-                      <h1
-                        className={
-                          `${pokemonTypeColors(poke.type1)}
+                  {/* info div */}
+                  <div className="mt-80 flex flex-col items-start px-6">
+
+                    {/* The name and number */}
+                    <div className="flex flex-col py-4 text-4xl">
+                      {/* The number */}
+                      <div>
+                        <h1 className="">#{poke.number}</h1>
+                      </div>
+
+                      {/* The name */}
+                      <div>
+                        <h1 className="font-semibold">{poke.name}</h1>
+                      </div>
+                    </div>
+
+                    {/* Type */}
+                    <div className="w-full flex justify-center items-center mt-2 gap-2">
+                      <div className="w-1/2 flex justify-center items-center">
+                        <h1
+                          className={
+                            `${pokemonTypeColors(poke.type1)}
+        text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`
+                          }>
+                          {poke.type1}
+                        </h1>
+                      </div>
+                      <div className="w-1/2 flex justify-center items-center">
+                        <h1 className={`${pokemonTypeColors(poke.type2)} ${poke.type2 ? "text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner" : "text-2xl border border-white px-10 py-2 rounded-full"}`}>{poke.type2 || "NA"}</h1>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </NavLink>
+
+              ))}
+            </div>
+
+          ) : (
+            // Render each Pokemon from full list
+            <div className="w-full min-h-20 mt-20 flex flex-wrap justify-start px-10 gap-6 pb-20">
+
+              {pokemon.map((poke, index) => {
+                return (
+
+                  <NavLink to={`/pokeinfo/${poke.number}`} key={index} className={`shadow-sm shadow-zinc-100 cursor-pointer w-[22vw] h-[35vw] bg-[#0A141E] border border-zinc-100 rounded-xl overflow-hidden`} >
+
+                    {/* Image div */}
+                    <div className="relative w-full flex justify-center items-center" >
+                      {/* <img className="absolute top-0" src="/images/pokedex.png" alt="" /> */}
+                      <img className={`${pokemonTypeShadow(poke.type1)} ${pokemonTypeBorder(poke.type1)} absolute top-10 w-72 border rounded-full shadow-md`} src={poke.image} alt="nonimg" />
+                    </div>
+
+                    {/* info div */}
+                    <div className="mt-80 flex flex-col items-start px-6">
+
+                      {/* The name and number */}
+                      <div className="flex flex-col py-4 text-4xl">
+                        {/* The number */}
+                        <div>
+                          <h1 className="">#{poke.number}</h1>
+                        </div>
+
+                        {/* The name */}
+                        <div>
+                          <h1 className="font-semibold">{poke.name}</h1>
+                        </div>
+                      </div>
+
+                      {/* Type */}
+                      <div className="w-full flex justify-center items-center mt-2 gap-2">
+                        <div className="w-1/2 flex justify-center items-center">
+                          <h1
+                            className={
+                              `${pokemonTypeColors(poke.type1)}
                         text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`
-                        }>
-                        {poke.type1}
-                      </h1>
+                            }>
+                            {poke.type1}
+                          </h1>
+                        </div>
+                        <div className="w-1/2 flex justify-center items-center">
+                          <h1 className={`${pokemonTypeColors(poke.type2)} ${poke.type2 ? "text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner" : "text-2xl border border-white px-10 py-2 rounded-full"}`}>{poke.type2 || "NA"}</h1>
+                        </div>
+                      </div>
+
                     </div>
-                    <div className="w-1/2 flex justify-center items-center">
-                      <h1 className={`${pokemonTypeColors(poke.type2)} ${poke.type2 ? "text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner" : "text-2xl border border-white px-10 py-2 rounded-full"}`}>{poke.type2 || "NA"}</h1>
-                    </div>
-                  </div>
 
-                </div>
+                  </NavLink>
+                )
+              })}
 
-              </NavLink>
-            )
-          })}
-
-        </div>
+            </div>
+          )
+        }
 
       </div >
     </div >

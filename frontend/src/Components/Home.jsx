@@ -13,14 +13,14 @@ const Home = () => {
       {/* Links */}
       <div className="absolute top-[60%] left-[20%] translate-x-[-50%] translate-y-[-50%] flex gap-4">
         <div className="w-[12vw] flex flex-col items-center gap-6">
-          <NavLink className="link-text w-full rounded-lg hover:rounded-xl hover:transition-all shadow-md shadow-black flex items-center justify-center text-white px-8 py-2 bg-red-600 font-semibold" to="/pokedex">Pokédex</NavLink>
-          <NavLink className="link-text w-full rounded-lg hover:rounded-xl hover:transition-all shadow-md shadow-black flex items-center justify-center text-white px-8 py-2 bg-red-600 font-semibold" to="/moves">Moves</NavLink>
-          <NavLink className="link-text w-full rounded-lg hover:rounded-xl hover:transition-all shadow-md shadow-black flex items-center justify-center text-white px-8 py-2 bg-red-600 font-semibold" to="/abilities">Abilities</NavLink>
+          <NavLink className="link-text w-full rounded-lg hover:rounded-xl hover:transition-all shadow-md shadow-black flex items-center justify-center text-zinc-800 px-8 py-2 bg-amber-400 font-semibold" to="/pokedex">Pokédex</NavLink>
+          <NavLink className="link-text w-full rounded-lg hover:rounded-xl hover:transition-all shadow-md shadow-black flex items-center justify-center text-zinc-800 px-8 py-2 bg-amber-400 font-semibold" to="/moves">Moves</NavLink>
+          <NavLink className="link-text w-full rounded-lg hover:rounded-xl hover:transition-all shadow-md shadow-black flex items-center justify-center text-zinc-800 px-8 py-2 bg-amber-400 font-semibold" to="/abilities">Abilities</NavLink>
         </div>
         <div className="w-[12vw] flex flex-col items-center gap-6">
-          <NavLink className="link-text w-full rounded-lg hover:rounded-xl hover:transition-all shadow-md shadow-black flex items-center justify-center text-white px-8 py-2 bg-red-600 font-semibold" to="/items">Items</NavLink>
-          <NavLink className="link-text w-full rounded-lg hover:rounded-xl hover:transition-all shadow-md shadow-black flex items-center justify-center text-white px-8 py-2 bg-red-600 font-semibold" to="/locations">Locations</NavLink>
-          <NavLink className="link-text w-full rounded-lg hover:rounded-xl hover:transition-all shadow-md shadow-black flex flex-col items-center justify-center text-white px-8 py-2 bg-red-600 font-semibold leading-none" to="/gym-leaders-elite-four"><span>Gym Leaders-</span><span>Elite Four</span></NavLink>
+          <NavLink className="link-text w-full rounded-lg hover:rounded-xl hover:transition-all shadow-md shadow-black flex items-center justify-center text-zinc-800 px-8 py-2 bg-amber-400 font-semibold" to="/items">Items</NavLink>
+          <NavLink className="link-text w-full rounded-lg hover:rounded-xl hover:transition-all shadow-md shadow-black flex items-center justify-center text-zinc-800 px-8 py-2 bg-amber-400 font-semibold" to="/locations">Locations</NavLink>
+          <NavLink className="link-text w-full rounded-lg hover:rounded-xl hover:transition-all shadow-md shadow-black flex flex-col items-center justify-center text-zinc-800 px-8 py-2 bg-amber-400 font-semibold leading-none" to="/gym-leaders-elite-four"><span>Gym Leaders-</span><span>Elite Four</span></NavLink>
         </div>
       </div>
 

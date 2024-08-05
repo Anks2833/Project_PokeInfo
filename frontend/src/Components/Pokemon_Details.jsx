@@ -1,7 +1,7 @@
 //A Component to show the detail of each pokemon card
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import Headings from "./Headings";
 import Evolution_Details_Parent from "./Evolution_Details_Parent";
 import { RiArrowDownDoubleFill } from "react-icons/ri";
@@ -137,9 +137,9 @@ const Pokemon_Details = () => {
 
             {/* The number and name */}
             <div className="flex flex-col items-center">
-              <div><h1 className="text-5xl text-blue-500 font-light">#{pokemon.number}</h1></div>
+              <div><h1 className="text-5xl text-white font-semibold">#{pokemon.number}</h1></div>
 
-              <div><h1 className="glow text-6xl font-semibold">{pokemon.name}</h1></div>
+              <div><h1 className="pokemon-name-text text-6xl font-semibold">{pokemon.name}</h1></div>
             </div>
 
             {/* The image of pokemon */}
@@ -226,6 +226,10 @@ const Pokemon_Details = () => {
           <Evolution_Details_Parent number={number} />
         </div>
 
+      </div>
+
+      <div className="w-full text-white py-10 flex items-center justify-center">
+        <NavLink to="/pokedex" className="arrow bg-indigo-600 flex items-center justify-center font-semibold cursor-pointer pl-40 text-3xl hover:translate-x-[-0.2vw] transition-all">Back To Pokedex</NavLink>
       </div>
 
     </div>

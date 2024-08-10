@@ -8,7 +8,7 @@ const App = () => {
     <div className="w-full h-screen">
       <Navbar />
       <Routing/>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   )
 }

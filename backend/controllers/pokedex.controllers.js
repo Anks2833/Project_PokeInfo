@@ -1,8 +1,6 @@
 import { v2 as cloudinary } from 'cloudinary';
 import fs from "fs"
 import { pokemonModel } from "../models/pokemon.models.js"
-// import { evolutionModel } from '../models/evolution.model.js';
-// import { uploadOnCloudinary } from "../utils/cloudinary.js"
 
 const pokedexController = async (req, res) => {
 
@@ -112,13 +110,13 @@ const getPokemonImages = async (req, res) => {
 
         // Fetch a certain number of random documents
         const images = await pokemonModel.aggregate([
-            { $sample: { size: 12 } } // Adjust the size according to how many images you need
+            { $sample: { size: 13 } } // Adjust the size according to how many images you need
         ]);
 
         // Extract image URLs from the documents
-        const imageUrls = images.map(image => image.image);
+        // const imageUrls = images.map(image => image.image);
 
-        res.send(imageUrls); // Send an array of image URLs
+        res.send(images); // Send an array of image URLs
     } catch (error) {
         console.error(error);
         res.status(500).send('Server Error');
@@ -144,11 +142,5 @@ const deletePokemon = async (req, res) => {
         res.status(500).send('An error occurred while deleting the Pokémon.');
     }
 }
-
-// const updatePokemon = async (req, res) => {
-
-//     let {} = req.body
-
-// }
 
 export { pokedexController, showPokedexData, getPokemonImages, deletePokemon }

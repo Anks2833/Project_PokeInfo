@@ -4,6 +4,10 @@ import Headings from "./Headings";
 import { NavLink } from "react-router-dom";
 import { MdArrowDropDownCircle } from "react-icons/md";
 import { IoMdArrowDropupCircle } from "react-icons/io";
+import { Suspense } from 'react'
+import { Canvas } from '@react-three/fiber'
+import { OrbitControls } from '@react-three/drei'
+import Charizard from '../../public/Charizard'
 
 
 const Pokedex = () => {
@@ -76,10 +80,10 @@ const Pokedex = () => {
   };
 
   // Function to handle reset
-  // const handleReset = () => {
-  //   setSelectedTypes('');
-  //   setSelectedTypeColor('');
-  // };
+  const handleReset = () => {
+    setSelectedType('');
+    setSelectedTypeColor('');
+  };
 
 
   const typesData = [
@@ -180,7 +184,7 @@ const Pokedex = () => {
 
   return (
 
-    <div className="min-h-screen w-full bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px]">
+    <div className="relative min-h-screen w-full bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px] overflow-x-hidden">
       <div className="w-full min-h-screen text-white">
 
 
@@ -282,6 +286,23 @@ const Pokedex = () => {
 
           </div>
         )}
+
+
+        <div className='w-fit h-[80vh] absolute translate-x-[0%] translate-y-[0%] z-10'>
+          <Canvas>
+            <ambientLight intensity={5} />
+            <OrbitControls
+              enableZoom={false}
+              enablePan={false}
+              autoRotate={true} // Enable automatic rotation
+              autoRotateSpeed={2} // Speed of automatic rotation
+              autoRotateAxis={[1, 0, 0]} // Rotate around the X-axis
+            />
+            <Suspense fallback={null}>
+              <Charizard />
+            </Suspense>
+          </Canvas>
+        </div>
 
         {/* Input search */}
         <div className="w-full flex flex-col items-center mt-20">

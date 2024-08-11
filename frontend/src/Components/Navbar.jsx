@@ -3,12 +3,21 @@ import { NavLink } from "react-router-dom";
 import { FaInfoCircle } from "react-icons/fa"
 import { GiSoundOn } from "react-icons/gi";
 import { GiSoundOff } from "react-icons/gi";
+import { ImCross } from "react-icons/im";
+import { FaInstagram } from "react-icons/fa6";
+import { FaLinkedin } from "react-icons/fa6";
+import Modal from "./Modal";
 
 
 const Navbar = () => {
 
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   const togglePlayPause = () => {
     const newIsPlaying = !isPlaying;
@@ -71,7 +80,35 @@ const Navbar = () => {
             {isPlaying ? <GiSoundOn /> : <GiSoundOff />}
           </div>
           <audio ref={audioRef} loop src="/audios/pokeAudio.mp3"></audio>
-          <div className="w-fit cursor-pointer"><FaInfoCircle /></div>
+
+          <div onClick={openModal} className="w-fit cursor-pointer">
+            <FaInfoCircle />
+          </div>
+
+          <Modal isOpen={isModalOpen} onClose={closeModal}>
+            {/* Heading */}
+            <div className="w-full pb-1 flex justify-between items-center border-b-[1px] border-b-white">
+              <h1 className="text-2xl font-bold">pokéInfo</h1>
+              <button onClick={closeModal} className="text-lg hover:text-red-600 flex justify-center items-center transition-all p-3 rounded">
+                <ImCross />
+              </button>
+            </div>
+
+            {/* Description */}
+            <div className="w-full py-5">
+
+              <div className="w-full"><h1 className="text-xl font-semibold">Developed By</h1></div>
+              <div className="w-full"><h1 className="text-lg font-extralight">Ankur Dubey</h1></div>
+              <div className="w-full"><NavLink to="https://github.com/anks2833" target="_blank" className="text-lg font-light border-b-[1px] text-blue-600 border-b-blue-600">https://github.com/anks2833</NavLink></div>
+
+            </div>
+
+            {/* Socials */}
+            <div className="w-full flex gap-2">
+                <div className="text-lg hover:text-[#C13584] transition-all"><FaInstagram /></div>
+                <div className="text-lg hover:text-blue-600 transition-all"><FaLinkedin /></div>
+            </div>
+          </Modal>
         </div>
 
       </div>

@@ -2,34 +2,26 @@ import { NavLink } from 'react-router-dom'
 
 
 const Home = () => {
-  return (
-    <div className="relative w-full h-screen bg-zinc-900">
 
-      {/* the bg-image */}
-      <div className="w-full h-screen brightness-50">
-        <img className="w-full h-full" src="/images/eeve.jpg" alt="noimage" />
+
+  return (
+    <div className="relative w-full h-screen">
+
+      {/* The 3d animation */}
+      <div className="w-full h-screen brightness-50 overflow-hidden">
+        <video autoPlay loop muted src="/videos/infernape.mp4"></video>
       </div>
 
       {/* Links */}
-      <div className="absolute top-[51%] left-[20%] translate-x-[-50%] translate-y-[-50%] flex gap-4">
-        <div className="w-[12vw] flex flex-col items-center gap-6">
-          <NavLink className="link-text w-full rounded-lg hover:rounded-xl hover:transition-all shadow-md shadow-black flex items-center justify-center text-zinc-800 px-8 py-2 bg-amber-400 font-semibold" to="/pokedex">Pokédex</NavLink>
-          {/* <NavLink className="link-text w-full rounded-lg hover:rounded-xl hover:transition-all shadow-md shadow-black flex items-center justify-center text-zinc-800 px-8 py-2 bg-amber-400 font-semibold" to="/abilities">Abilities</NavLink> */}
-          {/* <NavLink className="link-text w-full rounded-lg hover:rounded-xl hover:transition-all shadow-md shadow-black flex items-center justify-center text-zinc-800 px-8 py-2 bg-amber-400 font-semibold" to="/moves">Moves</NavLink> */}
+      <div className="absolute top-[20%] right-[35vw] translate-x-[60%] flex gap-5">
+        <div className="w-full flex items-center gap-6">
+          <NavLink className="link-text w-full rounded-lg hover:rounded-xl hover:transition-all hover:scale-95 shadow-md shadow-black flex items-center justify-center text-zinc-900 px-8 py-2 bg-amber-400 font-semibold" to="/pokedex">Pokédex</NavLink>
         </div>
-        {/* <div className="w-[12vw] flex flex-col items-center gap-6"> */}
-          {/* <NavLink className="link-text w-full rounded-lg hover:rounded-xl hover:transition-all shadow-md shadow-black flex items-center justify-center text-zinc-800 px-8 py-2 bg-amber-400 font-semibold" to="/locations">Locations</NavLink> */}
-          {/* <NavLink className="link-text w-full rounded-lg hover:rounded-xl hover:transition-all shadow-md shadow-black flex flex-col items-center justify-center text-zinc-800 px-8 py-2 bg-amber-400 font-semibold leading-none" to="/gym-leaders-elite-four"><span>Gym Leaders-</span><span>Elite Four</span></NavLink> */}
-          {/* <NavLink className="link-text w-full rounded-lg hover:rounded-xl hover:transition-all shadow-md shadow-black flex items-center justify-center text-zinc-800 px-8 py-2 bg-amber-400 font-semibold" to="/items">Items</NavLink> */}
-        {/* </div> */}
       </div>
 
       {/* image art */}
       <div className="w-full flex justify-center">
-        {/* <img className="absolute bottom-12 z-[1] w-fit h-44" src="/gifs/pikachu.gif" alt="no-image" /> */}
-        {/* <img className="absolute bottom-0 z-[0] w-full h-[30vh]" src="/images/grass.png" alt="no-image" /> */}
-        {/* <img className="absolute z-[1] top-10 w-[15vw]" src="/gifs/charizard.gif" alt="noimg" /> */}
-        <h1 className="welcome-text absolute z-0 left-[5vw] bottom-[26vw] text-amber-400 text-6xl">WELCOME TRAINER</h1>
+        <h1 className="welcome-text absolute z-0 right-[30vw] top-[3vw] text-amber-400 text-[5vw]">WELCOME TRAINER</h1>
       </div>
 
     </div>

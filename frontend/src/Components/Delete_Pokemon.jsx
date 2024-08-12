@@ -2,13 +2,12 @@
 import { useState } from "react";
 import { useForm } from 'react-hook-form';
 import axios from "axios"
-import { IoIosArrowDropdownCircle } from "react-icons/io";
+import To_AdminDash from "./To_AdminDash";
 
 
 const Delete_Pokemon = () => {
 
-    const [isOpen, setIsOpen] = useState(false);
-    const { register, handleSubmit, reset} = useForm();
+    const { register, handleSubmit, reset } = useForm();
     const [deletePokemon, setDeletePokemon] = useState('');
 
     const onSubmit = async (data) => {
@@ -22,25 +21,20 @@ const Delete_Pokemon = () => {
                 console.log(err.message);
             });
 
-            reset()
+        reset()
     };
 
-    const toggleDropDown = () => {
-        setIsOpen(!isOpen);
-    };
 
 
     return (
         //Remove Pokemon
-        <div className="w-full mt-20 flex flex-col items-center gap-2">
-            <div className="flex items-center gap-2">
-                <h1 className="text-2xl text-white flex justify-center">Delete an existing Pokémon</h1>
-                <div onClick={()=>{toggleDropDown()}} className={`w-fit text-white text-3xl cursor-pointer ${isOpen ? "rotate-180" : "rotatet-0"}`}>
-                    <IoIosArrowDropdownCircle />
-                </div>
+        <div className="w-full min-h-screen bg-zinc-950 pt-20 flex flex-col items-center gap-6">
+
+            <div>
+                <h1 className="text-white text-4xl">Delete A Pokémon</h1>
             </div>
 
-            <div className={`${isOpen ? "w-[60vw] min-h-32 border border-zinc-100 rounded-xl mb-10 p-10" : "hidden"}`}>
+            <div className="w-[40vw] min-h-32 border border-zinc-100 bg-zinc-900 rounded-xl mb-10 p-10">
 
                 <form className="flex flex-wrap justify-center items-center gap-3" onSubmit={handleSubmit(onSubmit)}>
                     <input className="w-[25vw] rounded-lg bg-zinc-800 text-white" {...register("number")} placeholder="Number: Enter In A Format Like This 002" type="number" />
@@ -54,6 +48,9 @@ const Delete_Pokemon = () => {
                 </div>
 
             </div>
+
+            <To_AdminDash />
+
         </div>
     )
 }

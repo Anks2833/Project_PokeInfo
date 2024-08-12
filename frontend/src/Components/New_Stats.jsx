@@ -2,10 +2,9 @@ import { useState } from "react";
 import { useForm } from 'react-hook-form';
 import axios from "axios"
 import { IoIosArrowDropdownCircle } from "react-icons/io";
+import To_AdminDash from "./To_AdminDash";
 
 const New_Stats = () => {
-
-    const [isOpen, setIsOpen] = useState(false);
 
     const { register, handleSubmit, reset } = useForm();
 
@@ -32,22 +31,17 @@ const New_Stats = () => {
         reset()
     };
 
-    const toggleDropDown = () => {
-        setIsOpen(!isOpen);
-    };
-
     return (
 
         // Stats data
-        <div className="w-full mt-20 pb-10 flex flex-col items-center gap-2">
-            <div className="flex items-center gap-2">
-                <h1 className="text-2xl text-white flex justify-center">Create a new Stats Data</h1>
-                <div onClick={toggleDropDown} className={`w-fit text-white text-3xl cursor-pointer ${isOpen ? "rotate-180" : "rotatet-0"}`}>
-                    <IoIosArrowDropdownCircle />
-                </div>
+        <div className="w-full min-h-screen bg-zinc-950 pt-20 flex flex-col items-center gap-6">
+
+            <div>
+                <h1 className="text-white text-4xl">Pokémon Stats Data</h1>
             </div>
 
-            <div className={`${isOpen ? "w-[60vw] min-h-32 border border-zinc-100 rounded-xl mb-10 p-10 " : "hidden opacity-0"}`}>
+
+            <div className="w-[60vw] min-h-32 border border-zinc-100 bg-zinc-900 rounded-xl mb-10 p-10">
 
                 <form className="flex flex-wrap justify-center items-center gap-3" onSubmit={handleSubmit(onSubmit)}>
 
@@ -80,6 +74,9 @@ const New_Stats = () => {
 
                 </form>
             </div>
+
+            <To_AdminDash />
+
         </div>
     )
 }

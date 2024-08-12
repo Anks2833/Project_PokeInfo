@@ -78,160 +78,159 @@ const Pokemon_Details = () => {
 
   return (
 
-    <div className="w-full min-h-screen bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px]">
+    <div className="relative min-h-screen w-full bg-black">
+      <div className="bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]">
+        <div className="w-full min-h-screen text-white">
 
-      <div className="w-full min-h-screen text-white">
+          {/* The heading */}
+          <Headings value={"PokéDex"} />
 
-        {/* The heading */}
-        <Headings value={"PokéDex"} />
+          {/* Pokeinfo */}
+          <div className="w-full min-h-32 mt-20 flex justify-around py-2">
 
-        {/* Pokeinfo */}
-        <div className="w-full min-h-32 mt-20 flex justify-around py-2">
-
-          {/* Type and Weakness */}
-          <div className="flex flex-col gap-5">
-            {/* Type */}
-            <div className="flex flex-col gap-6 items-center bg-[#00091D] px-8 py-10 rounded-xl border border-zinc-600 shadow shadow-violet-600">
-              {/* Text */}
-              <div className="text-5xl text-blue-500">
-                <h1 className="font-semibold">Type</h1>
-              </div>
-
-              {/* Type-Names */}
-              <div className="flex gap-5">
-                {/* TypeName-1 */}
-                <div className="text-3xl">
-                  <h1 className={`${pokemonTypeColors(pokemon.type1)} text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>{pokemon.type1}</h1>
+            {/* Type and Weakness */}
+            <div className="flex flex-col gap-5">
+              {/* Type */}
+              <div className="flex flex-col gap-6 items-center bg-[#00091D] px-8 py-10 rounded-xl border border-zinc-600 shadow shadow-violet-600">
+                {/* Text */}
+                <div className="text-5xl text-blue-500">
+                  <h1 className="font-semibold">Type</h1>
                 </div>
 
-                {/* TypeName-2 */}
-                <div className="text-3xl">
-                  <h1 className={`${pokemonTypeColors(pokemon.type2)} text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>{pokemon.type2 || "NA"}</h1>
-                </div>
-              </div>
-
-            </div>
-
-            {/* Weakness */}
-            <div className="flex flex-col gap-5 items-center bg-[#00091D] px-8 py-10 rounded-xl border border-zinc-600 shadow shadow-violet-600">
-
-              <div className="text-5xl">
-                <h1 className="text-blue-500">Weaknesses</h1>
-              </div>
-
-              <div className="w-[20vw] flex flex-wrap justify-start gap-2 text-xl">
-                {pokemon.weakness && pokemon.weakness.map((weakness, index) => (
-                  <div key={index} className={`${pokemonTypeColors(weakness)} px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>
-                    {weakness}
+                {/* Type-Names */}
+                <div className="flex gap-5">
+                  {/* TypeName-1 */}
+                  <div className="text-3xl">
+                    <h1 className={`${pokemonTypeColors(pokemon.type1)} text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>{pokemon.type1}</h1>
                   </div>
-                ))}
-              </div>
 
-
-            </div>
-
-          </div>
-
-          {/* Pokemon Image With Its Name And Number*/}
-          <div className="flex flex-col items-center">
-
-            {/* The number and name */}
-            <div className="flex flex-col items-center">
-              <div><h1 className="text-5xl text-white font-semibold">#{pokemon.number}</h1></div>
-
-              <div><h1 className="pokemon-name-text text-6xl font-semibold">{pokemon.name}</h1></div>
-            </div>
-
-            {/* The image of pokemon */}
-            <div className="w-[25vw] h-[25vw] relative rounded-full overflow-hidden flex items-center justify-center">
-              {/* <img className="absolute z-0 brightness-75" src="/images/pokeball.png" alt="noimg" /> */}
-              <img className={`${pokemonTypeBorder(pokemon.type1)} absolute w-[22vw] border-[6px] bg-zinc-900 rounded-full p-6`} src={pokemon.image} alt="notfound" />
-            </div>
-
-            {/* The arrow pointing downwards */}
-            <div className="text-5xl text-zinc-400">
-              <RiArrowDownDoubleFill />
-            </div>
-
-          </div>
-
-          {/* The info and description */}
-          <div className="flex flex-col gap-2">
-            {/* Information */}
-            <div className="w-[25vw] h-[20vw] flex flex-col justify-center gap-5 bg-[#00091D] px-5 py-10 rounded-xl border border-zinc-600 shadow shadow-violet-600">
-
-              {/* Height */}
-              <div className="flex items-center gap-2">
-                <h1 className="text-2xl font-bold text-blue-500">Height:</h1>
-
-                <h1 className="text-2xl">{pokemon.height}m</h1>
-              </div>
-
-              {/* Category */}
-              <div className="w-full flex items-center gap-2">
-                <h1 className="text-2xl font-bold text-blue-500">Category:</h1>
-                <h1 className="text-2xl">{pokemon.category} Pokémon</h1>
-              </div>
-
-              {/* Weight */}
-              <div className="flex items-center gap-2">
-                <h1 className="text-2xl font-bold text-blue-500">Weight:</h1>
-                <h1 className="text-2xl">{pokemon.weight}kg</h1>
-              </div>
-
-              {/* Gender */}
-              <div className="flex items-center gap-2">
-                <h1 className="text-2xl font-bold text-blue-500">Gender:</h1>
-                <div className="flex items-center gap-2">
-                  <img className="w-6 h-6" src={pokemon.gender1} alt="noimg" />
-                  <h1 className="text-xl">/</h1>
-                  <img className="w-6 h-6" src={pokemon.gender2} alt="noimg" />
+                  {/* TypeName-2 */}
+                  <div className="text-3xl">
+                    <h1 className={`${pokemonTypeColors(pokemon.type2)} text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>{pokemon.type2 || "NA"}</h1>
+                  </div>
                 </div>
+
               </div>
 
-              {/* Ability */}
-              <div className="flex items-center gap-2">
-                <h1 className="text-2xl font-bold text-blue-500">Ability:</h1>
-                <h1 className="text-2xl">{pokemon.ability}</h1>
-                <div className="text-xl text-amber-400 cursor-pointer"><FaQuestionCircle /></div>
+              {/* Weakness */}
+              <div className="flex flex-col gap-5 items-center bg-[#00091D] px-8 py-10 rounded-xl border border-zinc-600 shadow shadow-violet-600">
+
+                <div className="text-5xl">
+                  <h1 className="text-blue-500">Weaknesses</h1>
+                </div>
+
+                <div className="w-[20vw] flex flex-wrap justify-start gap-2 text-xl">
+                  {pokemon.weakness && pokemon.weakness.map((weakness, index) => (
+                    <div key={index} className={`${pokemonTypeColors(weakness)} px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>
+                      {weakness}
+                    </div>
+                  ))}
+                </div>
+
+
+              </div>
+
+            </div>
+
+            {/* Pokemon Image With Its Name And Number*/}
+            <div className="flex flex-col items-center">
+
+              {/* The number and name */}
+              <div className="flex flex-col items-center">
+                <div><h1 className="text-5xl text-white font-semibold">#{pokemon.number}</h1></div>
+
+                <div><h1 className="pokemon-name-text text-6xl font-semibold">{pokemon.name}</h1></div>
+              </div>
+
+              {/* The image of pokemon */}
+              <div className="w-[25vw] h-[25vw] relative rounded-full overflow-hidden flex items-center justify-center">
+                <img className={`${pokemonTypeBorder(pokemon.type1)} absolute w-[22vw] border-[6px] bg-zinc-900 rounded-full p-6`} src={pokemon.image} alt="notfound" />
+              </div>
+
+              {/* The arrow pointing downwards */}
+              <div className="text-5xl text-zinc-400">
+                <RiArrowDownDoubleFill />
               </div>
 
             </div>
 
-            {/* Description */}
-            <div className="w-[25vw] h-[17vw] flex flex-col justify-start gap-5 bg-[#00091D] p-4 rounded-xl border border-zinc-600 shadow shadow-violet-600">
+            {/* The info and description */}
+            <div className="flex flex-col gap-2">
+              {/* Information */}
+              <div className="w-[25vw] h-[20vw] flex flex-col justify-center gap-5 bg-[#00091D] px-5 py-10 rounded-xl border border-zinc-600 shadow shadow-violet-600">
 
-              {/* Text */}
-              <div className="text-3xl">
-                <h1 className="text-blue-500 font-semibold">Description</h1>
+                {/* Height */}
+                <div className="flex items-center gap-2">
+                  <h1 className="text-2xl font-bold text-blue-500">Height:</h1>
+
+                  <h1 className="text-2xl">{pokemon.height}m</h1>
+                </div>
+
+                {/* Category */}
+                <div className="w-full flex items-center gap-2">
+                  <h1 className="text-2xl font-bold text-blue-500">Category:</h1>
+                  <h1 className="text-2xl">{pokemon.category} Pokémon</h1>
+                </div>
+
+                {/* Weight */}
+                <div className="flex items-center gap-2">
+                  <h1 className="text-2xl font-bold text-blue-500">Weight:</h1>
+                  <h1 className="text-2xl">{pokemon.weight}kg</h1>
+                </div>
+
+                {/* Gender */}
+                <div className="flex items-center gap-2">
+                  <h1 className="text-2xl font-bold text-blue-500">Gender:</h1>
+                  <div className="flex items-center gap-2">
+                    <img className="w-6 h-6" src={pokemon.gender1} alt="noimg" />
+                    <h1 className="text-xl">/</h1>
+                    <img className="w-6 h-6" src={pokemon.gender2} alt="noimg" />
+                  </div>
+                </div>
+
+                {/* Ability */}
+                <div className="flex items-center gap-2">
+                  <h1 className="text-2xl font-bold text-blue-500">Ability:</h1>
+                  <h1 className="text-2xl">{pokemon.ability}</h1>
+                  <div className="text-xl text-amber-400 cursor-pointer"><FaQuestionCircle /></div>
+                </div>
+
               </div>
 
-              {/* para */}
-              <div>
-                <p className="font-extralight">{pokemon.description}</p>
-              </div>
+              {/* Description */}
+              <div className="w-[25vw] h-[17vw] flex flex-col justify-start gap-5 bg-[#00091D] p-4 rounded-xl border border-zinc-600 shadow shadow-violet-600">
 
+                {/* Text */}
+                <div className="text-3xl">
+                  <h1 className="text-blue-500 font-semibold">Description</h1>
+                </div>
+
+                {/* para */}
+                <div>
+                  <p className="font-extralight">{pokemon.description}</p>
+                </div>
+
+              </div>
             </div>
+
+          </div>
+
+          {/* Stats */}
+          <div className="w-full px-10 py-5 min-h-32 mt-20 flex">
+            <Stats number={number} />
+          </div>
+
+          {/* Evolution-Info */}
+          <div className="w-full px-10 py-5 min-h-32 mt-20 flex">
+            <Evolution_Details_Parent number={number} />
           </div>
 
         </div>
 
-        {/* Stats */}
-        <div className="w-full px-10 py-5 min-h-32 mt-20 flex">
-        <Stats number={number} />
+        <div className="w-full text-white py-10 flex items-center justify-center">
+          <NavLink to="/pokedex" className="arrow bg-indigo-600 flex items-center justify-center font-semibold cursor-pointer pl-40 text-3xl hover:translate-x-[-0.2vw] transition-all">Back To Pokedex</NavLink>
         </div>
-
-        {/* Evolution-Info */}
-        <div className="w-full px-10 py-5 min-h-32 mt-20 flex">
-          <Evolution_Details_Parent number={number} />
-        </div>
-
       </div>
-
-      <div className="w-full text-white py-10 flex items-center justify-center">
-        <NavLink to="/pokedex" className="arrow bg-indigo-600 flex items-center justify-center font-semibold cursor-pointer pl-40 text-3xl hover:translate-x-[-0.2vw] transition-all">Back To Pokedex</NavLink>
-      </div>
-
     </div>
   )
 }

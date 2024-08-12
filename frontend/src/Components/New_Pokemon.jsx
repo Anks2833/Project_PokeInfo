@@ -1,17 +1,14 @@
 //A component to create new pokemon on admin dashboard
-
 import { useState } from "react";
 import { useForm } from 'react-hook-form';
 import axios from "axios"
-import { IoIosArrowDropdownCircle } from "react-icons/io";
-// import { MdCancel } from "react-icons/md";
+import To_AdminDash from "./To_AdminDash";
 
 const New_Pokemon = () => {
 
     // const [abilities, setAbilities] = useState([])
     const [selectedWeaknesses, setSelectedWeaknesses] = useState([]);
 
-    const [isOpen, setIsOpen] = useState(false);
 
     const { register, handleSubmit, reset } = useForm();
 
@@ -73,9 +70,6 @@ const New_Pokemon = () => {
         reset()
     };
 
-    const toggleDropDown = () => {
-        setIsOpen(!isOpen);
-    };
 
     const toggleWeaknessSelection = (weaknessType) => {
         setSelectedWeaknesses(prevState => {
@@ -89,15 +83,13 @@ const New_Pokemon = () => {
 
     return (
         //New pokemon
-        <div className="w-full mt-20 flex flex-col items-center gap-2">
-            <div className="flex items-center gap-2">
-                <h1 className="text-2xl text-white flex justify-center">Create a new Pokémon</h1>
-                <div onClick={toggleDropDown} className={`w-fit text-white text-3xl cursor-pointer ${isOpen ? "rotate-180" : "rotatet-0"}`}>
-                    <IoIosArrowDropdownCircle />
-                </div>
+        <div className="w-full min-h-screen bg-zinc-950 pt-20 flex flex-col items-center gap-6">
+
+            <div>
+                <h1 className="text-white text-4xl">Create A New Pokémon</h1>
             </div>
 
-            <div className={`${isOpen ? "w-[60vw] min-h-32 border border-zinc-100 rounded-xl mb-10 p-10 " : "hidden opacity-0"}`}>
+            <div className="w-[60vw] border border-zinc-100 bg-zinc-900 rounded-xl mb-10 p-10">
 
                 <form className="flex flex-wrap justify-center items-center gap-3" onSubmit={handleSubmit(onSubmit)}>
                     {/* Number */}
@@ -167,30 +159,18 @@ const New_Pokemon = () => {
                     {/* Description */}
                     <textarea rows="10" cols="100" className="resize-none rounded-lg bg-zinc-800 text-white" {...register("description", { required: true })} placeholder="Description"></textarea>
 
-                    {/* Evolution-1 */}
-                    {/* <div className="w-[50vw] flex gap-6">
-                        <input className="w-[30vw] rounded-lg text-white bg-zinc-800" {...register("evo1")} placeholder="Evolution-1" type="text" />
-                        <input id="Gender1" className="w-[25vw] rounded-lg bg-zinc-800 text-white" {...register("evoimg1")} type="file" />
-                    </div> */}
-                    
-                    {/* Evolution-2 */}
-                    {/* <div className="w-[50vw] flex gap-6">
-                        <input className="w-[30vw] rounded-lg text-white bg-zinc-800" {...register("evo2")} placeholder="Evolution-2" type="text" />
-                        <input id="Gender1" className="w-[25vw] rounded-lg bg-zinc-800 text-white" {...register("evoimg2")} type="file" />
-                    </div> */}
-
-                    {/* Evolution-3 */}
-                    {/* <div className="w-[50vw] flex gap-6">
-                        <input className="w-[30vw] rounded-lg text-white bg-zinc-800" {...register("evo3")} placeholder="Evolution-3" type="text" />
-                        <input id="Gender1" className="w-[25vw] rounded-lg bg-zinc-800 text-white" {...register("evoimg3")} type="file" />
-                    </div> */}
-
                     {/* Submit Button */}
                     <input className="bg-blue-600 px-32 py-3 rounded-xl text-white text-xl font-semibold cursor-pointer" type="submit" value="Create" />
 
                 </form>
+
             </div>
+
+            <To_AdminDash />
+
         </div>
     )
 }
 export default New_Pokemon
+
+    

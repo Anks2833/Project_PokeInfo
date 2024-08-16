@@ -14,19 +14,33 @@ const createEvolutions = async (req, res) => {
             api_secret: process.env.CLOUDINARY_API_SECRET
         });
 
-        const evolution1Result = await cloudinary.uploader.upload(req.files.evolution1[0].path, {
-            resource_type: "auto",
-            folder: "uploads"
-        });
+        console.log(req.files);
 
-        const evolution2Result = await cloudinary.uploader.upload(req.files.evolution2[0].path, {
-            resource_type: "auto",
-            folder: "uploads"
-        });
-        const evolution3Result = await cloudinary.uploader.upload(req.files.evolution3[0].path, {
-            resource_type: "auto",
-            folder: "uploads"
-        });
+        let evolution1Result, evolution2Result, evolution3Result;
+
+        // Upload evolution1 image if provided
+        if (req.files.evolution1 && req.files.evolution1[0]) {
+            evolution1Result = await cloudinary.uploader.upload(req.files.evolution1[0].path, {
+                resource_type: "auto",
+                folder: "uploads"
+            });
+        }
+
+        // Upload evolution2 image if provided
+        if (req.files.evolution2 && req.files.evolution2[0]) {
+            evolution2Result = await cloudinary.uploader.upload(req.files.evolution2[0].path, {
+                resource_type: "auto",
+                folder: "uploads"
+            });
+        }
+
+        // Upload evolution3 image if provided
+        if (req.files.evolution3 && req.files.evolution3[0]) {
+            evolution3Result = await cloudinary.uploader.upload(req.files.evolution3[0].path, {
+                resource_type: "auto",
+                folder: "uploads"
+            });
+        }
 
         const {
             name1,
@@ -43,50 +57,66 @@ const createEvolutions = async (req, res) => {
             type23,
         } = req.body
 
-        const createdEvolution = await evolutionModel.create({
+        // Create the evolution object with only the fields that have data
+        const evolutionData = {
             name1,
             number1,
-            image1: evolution1Result.secure_url,
+            image1: evolution1Result ? evolution1Result.secure_url : null,
             type11,
             type21,
             name2,
             number2,
-            image2: evolution2Result.secure_url,
+            image2: evolution2Result ? evolution2Result.secure_url : null,
             type12,
-            type22,
-            name3,
-            number3,
-            image3: evolution3Result.secure_url,
-            type13,
-            type23
-        })
+            type22
+        };
+
+        // Include evolution3 data only if it is provided
+        if (name3 && number3 && (type13 || type23) && evolution3Result) {
+            evolutionData.name3 = name3;
+            evolutionData.number3 = number3;
+            evolutionData.image3 = evolution3Result.secure_url;
+            evolutionData.type13 = type13;
+            evolutionData.type23 = type23;
+        }
+
+        const createdEvolution = await evolutionModel.create(evolutionData);
 
         res.send(createdEvolution)
 
         // Delete files from local storage
-        fs.unlink(req.files.evolution1[0].path, (err) => {
-            if (err) {
-                console.log(`Failed to delete image file ${err}`);
-            } else {
-                console.log("Image file deleted successfully");
-            }
-        });
+        if (req.files.evolution1 && req.files.evolution1[0]) {
+            fs.unlink(req.files.evolution1[0].path, (err) => {
+                if (err) {
+                    console.log(`Failed to delete image file ${err}`);
+                } else {
+                    console.log("Image file deleted successfully");
+                }
+            });
+        }
 
-        fs.unlink(req.files.evolution2[0].path, (err) => {
-            if (err) {
-                console.log(`Failed to delete image file ${err}`);
-            } else {
-                console.log("Image file deleted successfully");
-            }
-        });
 
-        fs.unlink(req.files.evolution3[0].path, (err) => {
-            if (err) {
-                console.log(`Failed to delete image file ${err}`);
-            } else {
-                console.log("Image file deleted successfully");
-            }
-        });
+        if (req.files.evolution2 && req.files.evolution2[0]) {
+            fs.unlink(req.files.evolution2[0].path, (err) => {
+                if (err) {
+                    console.log(`Failed to delete image file ${err}`);
+                } else {
+                    console.log("Image file deleted successfully");
+                }
+            });
+        }
+        
+
+        if (req.files.evolution3 && req.files.evolution3[0]) {
+            fs.unlink(req.files.evolution3[0].path, (err) => {
+                if (err) {
+                    console.log(`Failed to delete image file ${err}`);
+                } else {
+                    console.log("Image file deleted successfully");
+                }
+            });
+        }
+        
 
 
     } catch (error) {
@@ -95,12 +125,12 @@ const createEvolutions = async (req, res) => {
 
 }
 
-const showEvolutionData = async (req, res) => {
+const showEvolutionData = async (_, res) => {
     try {
 
         let foundEvolutions = await evolutionModel.find()
 
-        if(!foundEvolutions) return res.status(404).send({ message: 'Evolutions not found for this Pokémon.' });
+        if (!foundEvolutions) return res.status(404).send({ message: 'Evolutions not found for this Pokémon.' });
 
         res.send(foundEvolutions)
 

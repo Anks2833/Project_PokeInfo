@@ -9,7 +9,7 @@ const Home = () => {
 
       {/* The Image for Mobile */}
       <div className='w-full h-screen flex sm:hidden'>
-        <img className='w-full h-full object-cover object-center brightness-50' src="/images/eeve.jpg" alt="" />
+        <img className='w-full h-full object-cover object-center brightness-[0.3]' src="/images/eeve.jpg" alt="" />
       </div>
 
       {/* The 3d animation */}
@@ -19,7 +19,7 @@ const Home = () => {
 
 
       {/* Links */}
-      <div className="absolute flex top-[75vw] right-[30vw] sm:top-[20%] sm:right-[35vw] sm:translate-x-[60%] sm:flex gap-5">
+      <div className="absolute w-full px-24 sm:px-0 sm:w-fit flex justify-center top-[75vw] sm:top-[20%] sm:right-[35vw] sm:translate-x-[60%] sm:flex gap-5">
         <div className="w-full flex items-center gap-6">
           <NavLink className="link-text w-full rounded-lg sm:hover:rounded-xl sm:hover:transition-all sm:hover:scale-95 shadow-md shadow-black flex items-center justify-center text-zinc-900 px-8 py-2 bg-amber-400 font-semibold" to="/pokedex">Pokédex</NavLink>
         </div>

@@ -99,95 +99,101 @@ const Evolution_Details_Parent = (props) => {
                     <div className="relative flex gap-52">
 
                         {/* Evo1 */}
-                        <NavLink to={`/pokeinfo/${evoData[0].number1}`} className="py-12 flex flex-col items-center gap-2">
+                        {evoData[0].number1 && (
+                            <NavLink to={`/pokeinfo/${evoData[0].number1}`} className="py-12 flex flex-col items-center gap-2">
 
-                            {/* Image */}
-                            <div className={`${pokemonTypeBorder(evoData[0].type11)} bg-zinc-900 border-[6px] rounded-full`}>
-                                <img src={evoData[0].image1} alt="noimg" />
-                            </div>
-
-                            {/* Number and Name */}
-                            <div className="flex flex-col items-center">
-                                <h1 className="text-3xl">#{evoData[0].number1}</h1>
-                                <h1 className="text-3xl">{evoData[0].name1}</h1>
-                            </div>
-
-                            {/* Types */}
-                            <div className="flex gap-2">
-                                {/* Type-1 */}
-                                <div>
-                                    <h1 className={`${pokemonTypeColors(evoData[0].type11)} text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>{evoData[0].type11 || "NA"}</h1>
+                                {/* Image */}
+                                <div className={`${pokemonTypeBorder(evoData[0].type11)} bg-zinc-900 border-[6px] rounded-full`}>
+                                    <img src={evoData[0].image1} alt="noimg" />
                                 </div>
 
-                                {/* Type-2 */}
-                                <div>
-                                    <h1 className={`${pokemonTypeColors(evoData[0].type21)} text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>{evoData[0].type21 || "NA"}</h1>
+                                {/* Number and Name */}
+                                <div className="flex flex-col items-center">
+                                    <h1 className="text-3xl">#{evoData[0].number1}</h1>
+                                    <h1 className="text-3xl">{evoData[0].name1}</h1>
                                 </div>
-                            </div>
 
-                        </NavLink>
+                                {/* Types */}
+                                <div className="flex gap-2">
+                                    {/* Type-1 */}
+                                    <div>
+                                        <h1 className={`${pokemonTypeColors(evoData[0].type11)} text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>{evoData[0].type11 || "NA"}</h1>
+                                    </div>
+
+                                    {/* Type-2 */}
+                                    <div>
+                                        <h1 className={`${pokemonTypeColors(evoData[0].type21)} text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>{evoData[0].type21 || "NA"}</h1>
+                                    </div>
+                                </div>
+
+                            </NavLink>
+                        )}
 
                         {evoData[0].number2 && <div className="absolute left-[25vw] top-[10vw] text-6xl text-amber-500"><RiArrowRightDoubleFill /></div>}
 
                         {/* Evo2 */}
-                        <NavLink to={`/pokeinfo/${evoData[0].number2}`} className="py-12 flex flex-col items-center gap-2">
+                        {evoData[0].number2 && (
+                            <NavLink to={`/pokeinfo/${evoData[0].number2}`} className="py-12 flex flex-col items-center gap-2">
 
-                            {/* Image */}
-                            <div className={`${pokemonTypeBorder(evoData[0].type11)} bg-zinc-900 border-[6px] rounded-full`}>
-                                <img src={evoData[0].image2} alt="noimg" />
-                            </div>
-
-                            {/* Number and Name */}
-                            <div className="flex flex-col items-center">
-                                <h1 className="text-3xl">#{evoData[0].number2}</h1>
-                                <h1 className="text-3xl">{evoData[0].name2}</h1>
-                            </div>
-
-                            {/* Types */}
-                            <div className="flex gap-2">
-                                {/* Type-1 */}
-                                <div>
-                                    <h1 className={`${pokemonTypeColors(evoData[0].type12)} text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>{evoData[0].type12 || "NA"}</h1>
+                                {/* Image */}
+                                <div className={`${pokemonTypeBorder(evoData[0].type11)} bg-zinc-900 border-[6px] rounded-full`}>
+                                    <img src={evoData[0].image2} alt="noimg" />
                                 </div>
 
-                                {/* Type-2 */}
-                                <div>
-                                    <h1 className={`${pokemonTypeColors(evoData[0].type22)} text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>{evoData[0].type22 || "NA"}</h1>
+                                {/* Number and Name */}
+                                <div className="flex flex-col items-center">
+                                    <h1 className="text-3xl">#{evoData[0].number2}</h1>
+                                    <h1 className="text-3xl">{evoData[0].name2}</h1>
                                 </div>
-                            </div>
 
-                        </NavLink>
+                                {/* Types */}
+                                <div className="flex gap-2">
+                                    {/* Type-1 */}
+                                    <div>
+                                        <h1 className={`${pokemonTypeColors(evoData[0].type12)} text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>{evoData[0].type12 || "NA"}</h1>
+                                    </div>
+
+                                    {/* Type-2 */}
+                                    <div>
+                                        <h1 className={`${pokemonTypeColors(evoData[0].type22)} text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>{evoData[0].type22 || "NA"}</h1>
+                                    </div>
+                                </div>
+
+                            </NavLink>
+                        )}
 
                         {evoData[0].number3 && <div className="absolute right-[25vw] top-[10vw] text-6xl text-amber-500"><RiArrowRightDoubleFill /></div>}
 
                         {/* Evo3 */}
-                        <NavLink to={`/pokeinfo/${evoData[0].number3}`} className="py-12 flex flex-col items-center gap-2">
+                        {evoData[0].number3 && (
+                            <NavLink to={`/pokeinfo/${evoData[0].number3}`} className="py-12 flex flex-col items-center gap-2">
 
-                            {/* Image */}
-                            <div className={`${pokemonTypeBorder(evoData[0].type11)} bg-zinc-900 border-[6px] rounded-full`}>
-                                <img src={evoData[0].image3} alt="noimg" />
-                            </div>
-
-                            {/* Number and Name */}
-                            <div className="flex flex-col items-center">
-                                <h1 className="text-3xl">#{evoData[0].number3}</h1>
-                                <h1 className="text-3xl">{evoData[0].name3}</h1>
-                            </div>
-
-                            {/* Types */}
-                            <div className="flex gap-2">
-                                {/* Type-1 */}
-                                <div>
-                                    <h1 className={`${pokemonTypeColors(evoData[0].type13)} text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>{evoData[0].type13 || "NA"}</h1>
+                                {/* Image */}
+                                <div className={`${pokemonTypeBorder(evoData[0].type11)} bg-zinc-900 border-[6px] rounded-full`}>
+                                    <img src={evoData[0].image3} alt="noimg" />
                                 </div>
 
-                                {/* Type-2 */}
-                                <div>
-                                    <h1 className={`${pokemonTypeColors(evoData[0].type23)} text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>{evoData[0].type23 || "NA"}</h1>
+                                {/* Number and Name */}
+                                <div className="flex flex-col items-center">
+                                    <h1 className="text-3xl">#{evoData[0].number3}</h1>
+                                    <h1 className="text-3xl">{evoData[0].name3}</h1>
                                 </div>
-                            </div>
 
-                        </NavLink>
+                                {/* Types */}
+                                <div className="flex gap-2">
+                                    {/* Type-1 */}
+                                    <div>
+                                        <h1 className={`${pokemonTypeColors(evoData[0].type13)} text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>{evoData[0].type13 || "NA"}</h1>
+                                    </div>
+
+                                    {/* Type-2 */}
+                                    <div>
+                                        <h1 className={`${pokemonTypeColors(evoData[0].type23)} text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>{evoData[0].type23 || "NA"}</h1>
+                                    </div>
+                                </div>
+
+                            </NavLink>
+                        )}
                     </div>
                     :
 

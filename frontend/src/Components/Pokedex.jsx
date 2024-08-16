@@ -4,6 +4,7 @@ import Headings from "./Headings";
 import { NavLink } from "react-router-dom";
 import { MdArrowDropDownCircle } from "react-icons/md";
 import { IoMdArrowDropupCircle } from "react-icons/io";
+import { MdKeyboardDoubleArrowLeft } from "react-icons/md";
 import { Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei'
@@ -223,9 +224,15 @@ const Pokedex = () => {
           {/* The heading */}
           <Headings value={"Pokédex"} />
 
+          {/* Header for mobile devices */}
+          <div className="w-full h-[10vh] bg-red-700 px-3 flex fixed top-0 z-10 items-center text-2xl sm:hidden">
+              <div className="text-white"><MdKeyboardDoubleArrowLeft  /></div>
+              <div className="text-white"><h1 className="font-bold">Pokédex</h1></div>
+          </div>
+
           {/* pokemons */}
           {imageUrls.length > 0 && (
-            <div className="w-full flex justify-center items-center gap-[1vw] px-20 mt-20">
+            <div className="w-full hidden sm:flex justify-center items-center gap-[1vw] px-20 sm:mt-20">
 
               {/* First part */}
               <div className="flex items-center gap-2">
@@ -320,7 +327,7 @@ const Pokedex = () => {
           )}
 
 
-          <div className='w-fit h-[80vh] absolute translate-x-[0%] translate-y-[0%] z-10'>
+          <div className='w-fit h-[80vh] absolute translate-x-[0%] translate-y-[0%] z-10 hidden sm:block'>
             <Canvas>
               <ambientLight intensity={4} />
               <animated.group rotation-y={rotation}>
@@ -337,7 +344,7 @@ const Pokedex = () => {
             </Canvas>
           </div>
 
-          <div className='w-fit h-[80vh] absolute translate-x-[78vw] translate-y-[0%] z-10'>
+          <div className='w-fit h-[80vh] absolute translate-x-[78vw] translate-y-[0%] z-10 hidden sm:block'>
             <Canvas>
               <ambientLight intensity={2} />
               <PerspectiveCamera makeDefault position={[30, 20, 20]} />
@@ -356,7 +363,7 @@ const Pokedex = () => {
           </div>
 
           {/* Input search */}
-          <div className="w-full flex flex-col items-center mt-20">
+          <div className="w-full hidden sm:flex flex-col items-center mt-20">
 
             <div className="w-[60vw] bg-[#00091D] border-[2px] border-zinc-100 shadow-md shadow-teal-300 rounded-tl-full rounded-tr-full py-10">
               <div className="">
@@ -390,7 +397,7 @@ const Pokedex = () => {
 
           {/* Advanced search */}
           {!showAdvancedSearch && ( // Conditional rendering based on state
-            <div className="flex flex-col items-center justify-center">
+            <div className="hidden sm:flex flex-col items-center justify-center">
               <div className="w-[60vw] min-h-32 border-[2px] border-zinc-100 shadow-md shadow-teal-300 bg-[#00091D] rounded-bl-full rounded-br-full flex flex-col items-center justify-center">
                 <h1 className="text-5xl">Show Advanced Search</h1>
                 <div onClick={toggleAdvancedSearch} className="mt-5 text-4xl cursor-pointer">

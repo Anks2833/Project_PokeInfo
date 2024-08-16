@@ -16,11 +16,6 @@ const Routing = () => {
 
     <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/abilities" element={<Abilities />}/> */}
-        {/* <Route path="/gym-leaders-elite-four" element={<Gym_Leaders/>}/> */}
-        {/* <Route path="/items" element={<Items/>}/> */}
-        {/* <Route path="/locations" element={<Locations />}/> */}
-        {/* <Route path="/moves" element={<Moves />}/> */}
         <Route path="/pokedex" element={<Pokedex />}/>
         <Route path="/adminlogin" element={<AdminPanel />}/>
         <Route path="/admindashboard" element={<AdminDashboard />}/>

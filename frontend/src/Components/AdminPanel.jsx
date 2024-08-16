@@ -1,32 +1,60 @@
-import React from "react"
-
-
+import { useForm } from 'react-hook-form';
+import axios from "axios"
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from "react-toastify";
 
 const AdminPanel = () => {
+  const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
+
+  const onSubmit = async (data) => {
+
+    try {
+  
+      const response = await axios.post('/api/v1/user/login', data);
+  
+      console.log('Response:', response); // Debugging: Log the entire response
+  
+      if (response.status === 200) {
+        navigate('/admindashboard');
+        toast("Login Successful", {
+          position: "bottom-right",
+        })
+      } else {
+        console.log('Failed status:', response.status);
+        alert('Login failed');
+      }
+  
+    } catch (error) {
+      console.error('Error:', error.response?.data?.message || error.message || "Login failed");
+      alert(error.response?.data?.message || "Login failed");
+    }
+  };
+
   return (
 
     <div className="w-full h-screen bg-zinc-300 flex">
-        
-        <div className="w-1/2 h-screen flex flex-col justify-center bg-[#121212]">
-        
+
+      <div className="w-1/2 h-screen flex flex-col justify-center bg-[#121212]">
+
         {/* Heading */}
         <div className="w-full flex flex-col items-center justify-center text-white">
-            <h1 className="nav-heading text-zinc-100 text-[5vw] font-bold leading-none">POKEINFO</h1>
-            <h1 className="nav-heading text-amber-500 text-[2vw] font-light leading-none">Admin Login</h1>
+          <h1 className="nav-heading text-zinc-100 text-[5vw] font-bold leading-none">POKEINFO</h1>
+          <h1 className="nav-heading text-amber-500 text-[2vw] font-light leading-none">Admin Login</h1>
         </div>
 
         {/* Login form */}
         <div className="w-full mt-10">
-            <form className="w-full flex flex-col items-center gap-2">
-                <input className="w-[23vw] rounded-lg bg-zinc-900 outline-none text-white" type="email" placeholder="Enter email" />
-                <input className="w-[23vw] rounded-lg bg-zinc-900 outline-none text-white" type="password" placeholder="Enter password" />
-                <input className="w-[23vw] bg-purple-600 font-semibold rounded-lg text-white text-lg px-8 py-2 mt-2 cursor-pointer" type="button" value="Log In" />
-            </form>
+          <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col items-center gap-2">
+            <input className="w-[23vw] rounded-lg bg-zinc-900 outline-none text-white" {...register("username", { required: true })} required type="text" placeholder="Enter username" />
+            <input className="w-[23vw] rounded-lg bg-zinc-900 outline-none text-white" {...register("password", { required: true })} required type="password" placeholder="Enter password" />
+            <input className="w-[23vw] bg-purple-600 font-semibold rounded-lg text-white text-lg px-8 py-2 mt-2 cursor-pointer" type="submit" value="Log In" />
+          </form>
         </div>
 
-        </div>
+      </div>
 
-        <div className="w-1/2 h-screen bg-[url('/images/adminlogin-image.jpg')] bg-cover bg-center bg-no-repeat"></div>
+      <div className="w-1/2 h-screen bg-[url('/images/adminlogin-image.jpg')] bg-cover bg-center bg-no-repeat"></div>
 
 
     </div>

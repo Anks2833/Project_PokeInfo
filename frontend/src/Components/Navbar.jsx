@@ -81,7 +81,7 @@ const Navbar = () => {
           </div>
           <audio ref={audioRef} loop src="/audios/pokeAudio.mp3"></audio>
 
-          <div onClick={openModal} className="mt-10 sm:mt-0 w-fit cursor-pointer sm:hover:text-sky-500 transition-all">
+          <div onClick={openModal} className="mt-[12vw] sm:mt-0 w-fit cursor-pointer sm:hover:text-sky-500 transition-all">
             <FaInfoCircle />
           </div>
 

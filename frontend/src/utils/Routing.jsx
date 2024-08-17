@@ -1,5 +1,7 @@
 import { Route, Routes } from "react-router-dom"
 
+import PrivateRoute from "./PrivateRoute"
+import ScrollToTop from "./scrollToTop"
 
 import Home from "../Components/Home"
 import Pokedex from "../Components/Pokedex"
@@ -13,18 +15,46 @@ import New_Stats from "../Components/New_Stats"
 
 const Routing = () => {
   return (
-
+    
+    <>
+    
+    <ScrollToTop />
+    
     <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/pokedex" element={<Pokedex />}/>
-        <Route path="/adminlogin" element={<AdminPanel />}/>
-        <Route path="/admindashboard" element={<AdminDashboard />}/>
-        <Route path="/pokeinfo/:number" element={<Pokemon_Details/>} />
-        <Route path="/new_pokemon" element={<New_Pokemon />} />
-        <Route path="/delete_pokemon" element={<Delete_Pokemon />} />
-        <Route path="/evolution_data" element={<Evolution_Data />} />
-        <Route path="/stats_data" element={<New_Stats />} />
+      <Route path="/" element={<Home />} />
+      <Route path="/pokedex" element={<Pokedex />} />
+      <Route path="/adminlogin" element={<AdminPanel />} />
+      <Route path="/pokeinfo/:number" element={<Pokemon_Details />} />
+
+      <Route path="/admindashboard" element={
+        <PrivateRoute>
+          <AdminDashboard />
+        </PrivateRoute>
+      } />
+      <Route path="/new_pokemon" element={
+        <PrivateRoute>
+          <New_Pokemon />
+        </PrivateRoute>
+      } />
+      <Route path="/delete_pokemon" element={
+        <PrivateRoute>
+          <Delete_Pokemon />
+        </PrivateRoute>
+      } />
+      <Route path="/evolution_data" element={
+        <PrivateRoute>
+          <Evolution_Data />
+        </PrivateRoute>
+      } />
+      <Route path="/stats_data" element={
+        <PrivateRoute>
+          <New_Stats />
+        </PrivateRoute>
+      } />
     </Routes>
+    </>
+
+    
   )
 }
 

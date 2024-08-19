@@ -1,17 +1,44 @@
 //A Component to show the detail of each pokemon card
 import { useEffect, useState } from "react";
+import { motion, useAnimation } from "framer-motion"
 import axios from "axios";
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, useParams, useLocation  } from 'react-router-dom';
 import Headings from "./Headings";
 import Evolution_Details_Parent from "./Evolution_Details_Parent";
 import { RiArrowDownDoubleFill } from "react-icons/ri";
 import { FaQuestionCircle } from "react-icons/fa";
+import { MdOutlineDoubleArrow } from "react-icons/md";
 import Stats from "./Stats";
+import Heading_Mobile from "./Heading_Mobile";
 
 const Pokemon_Details = () => {
 
+  const controls = useAnimation();
+  const location = useLocation();
+
+  const variants = {
+    hidden: { opacity: 0 }, // Start position off-screen and transparent
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+        delay: 0.1 // Base delay for the first item
+      }
+    },
+  };
+
+  const inViewVariants = {
+    hidden: { y: 50, opacity: 0 },
+    inView: { y: 0, opacity: 1 }
+  }
+
   const { number } = useParams()
   const [pokemon, setPokemon] = useState([])
+
+  useEffect(() => {
+    controls.start('visible');
+  }, [location.pathname]); // Re-run the effect when the route changes
 
   useEffect(() => {
 
@@ -74,8 +101,6 @@ const Pokemon_Details = () => {
     return "bg-[#000]"; // Default bg color
   }
 
-
-
   return (
 
     <div className="relative min-h-screen w-full bg-black">
@@ -85,13 +110,30 @@ const Pokemon_Details = () => {
           {/* The heading */}
           <Headings value={"PokéDex"} />
 
+          {/* Header for mobile devices */}
+          <Heading_Mobile name={"Pokémon Detail"} to={"/pokedex"} />
+
           {/* Pokeinfo */}
-          <div className="w-full min-h-32 mt-20 flex justify-around py-2">
+          <div className="w-full min-h-32 mt-20 hidden sm:flex justify-around py-2">
 
             {/* Type and Weakness */}
             <div className="flex flex-col gap-5">
               {/* Type */}
-              <div className="flex flex-col gap-6 items-center bg-[#00091D] px-8 py-10 rounded-xl border border-zinc-600 shadow shadow-violet-600">
+              <motion.div
+                variants={{
+                  ...variants,
+                  visible: {
+                    ...variants.visible,
+                    transition: {
+                      ...variants.visible.transition,
+                      delay: 0.4 // Increment delay for the second item
+                    }
+                  }
+                }}
+                initial="hidden"
+                animate="visible"
+                className="flex flex-col gap-6 items-center bg-[#00091D] px-8 py-10 rounded-xl border border-zinc-600 shadow shadow-violet-600"
+              >
                 {/* Text */}
                 <div className="text-5xl text-blue-500">
                   <h1 className="font-semibold">Type</h1>
@@ -110,10 +152,24 @@ const Pokemon_Details = () => {
                   </div>
                 </div>
 
-              </div>
+              </motion.div>
 
               {/* Weakness */}
-              <div className="flex flex-col gap-5 items-center bg-[#00091D] px-8 py-10 rounded-xl border border-zinc-600 shadow shadow-violet-600">
+              <motion.div
+                variants={{
+                  ...variants,
+                  visible: {
+                    ...variants.visible,
+                    transition: {
+                      ...variants.visible.transition,
+                      delay: 0.5 // Increment delay for the second item
+                    }
+                  }
+                }}
+                initial="hidden"
+                animate="visible"
+                className="flex flex-col gap-5 items-center bg-[#00091D] px-8 py-10 rounded-xl border border-zinc-600 shadow shadow-violet-600"
+              >
 
                 <div className="text-5xl">
                   <h1 className="text-blue-500">Weaknesses</h1>
@@ -128,7 +184,7 @@ const Pokemon_Details = () => {
                 </div>
 
 
-              </div>
+              </motion.div>
 
             </div>
 
@@ -137,27 +193,92 @@ const Pokemon_Details = () => {
 
               {/* The number and name */}
               <div className="flex flex-col items-center">
-                <div><h1 className="text-5xl text-white font-semibold">#{pokemon.number}</h1></div>
+                <motion.h1
+                  variants={variants}
+                  initial="hidden"
+                  animate="visible"
+                  className="text-5xl text-white font-semibold"
+                >
+                  #{pokemon.number}
+                </motion.h1>
 
-                <div><h1 className="pokemon-name-text text-6xl font-semibold">{pokemon.name}</h1></div>
+                <motion.h1
+                  variants={{
+                    ...variants,
+                    visible: {
+                      ...variants.visible,
+                      transition: {
+                        ...variants.visible.transition,
+                        delay: 0.2 // Increment delay for the second item
+                      }
+                    }
+                  }}
+                  initial="hidden"
+                  animate="visible"
+                  className="pokemon-name-text text-6xl font-semibold"
+                >
+                  {pokemon.name}
+                </motion.h1>
               </div>
 
               {/* The image of pokemon */}
               <div className="w-[25vw] h-[25vw] relative rounded-full overflow-hidden flex items-center justify-center">
-                <img className={`${pokemonTypeBorder(pokemon.type1)} absolute w-[22vw] border-[6px] bg-zinc-900 rounded-full p-6`} src={pokemon.image} alt="notfound" />
+                <motion.img
+                  variants={{
+                    ...variants,
+                    visible: {
+                      ...variants.visible,
+                      transition: {
+                        ...variants.visible.transition,
+                        delay: 0.3 // Increment delay for the second item
+                      }
+                    }
+                  }}
+                  initial="hidden"
+                  animate="visible"
+                  className={`${pokemonTypeBorder(pokemon.type1)} absolute w-[22vw] border-[6px] bg-zinc-900 rounded-full p-6`}
+                  src={pokemon.image}
+                  alt="notfound"
+                />
               </div>
 
               {/* The arrow pointing downwards */}
-              <div className="text-5xl text-zinc-400">
+              <motion.div
+                className="text-5xl text-zinc-400"
+                animate={{
+                  y: [0, 60, 0], // Move downwards 100 units and then back to original position
+                  scale: [1, 1.2, 1] // Start at normal size, shrink to half size, then return to normal size
+                }}
+                transition={{
+                  duration: 2, // Duration of the animation in seconds
+                  ease: "easeInOut", // Easing function for smoothness
+                  repeat: Infinity, // Repeat the animation indefinitely
+                  repeatType: "reverse" // Reverse the animation on each iteration
+                }}
+              >
                 <RiArrowDownDoubleFill />
-              </div>
+              </motion.div>
 
             </div>
 
             {/* The info and description */}
             <div className="flex flex-col gap-2">
               {/* Information */}
-              <div className="w-[25vw] h-[20vw] flex flex-col justify-center gap-5 bg-[#00091D] px-5 py-10 rounded-xl border border-zinc-600 shadow shadow-violet-600">
+              <motion.div
+                variants={{
+                  ...variants,
+                  visible: {
+                    ...variants.visible,
+                    transition: {
+                      ...variants.visible.transition,
+                      delay: 0.6 // Increment delay for the second item
+                    }
+                  }
+                }}
+                initial="hidden"
+                animate="visible"
+                className="w-[25vw] h-[20vw] flex flex-col justify-center gap-5 bg-[#00091D] px-5 py-10 rounded-xl border border-zinc-600 shadow shadow-violet-600"
+              >
 
                 {/* Height */}
                 <div className="flex items-center gap-2">
@@ -195,10 +316,24 @@ const Pokemon_Details = () => {
                   <div className="text-xl text-amber-400 cursor-pointer"><FaQuestionCircle /></div>
                 </div>
 
-              </div>
+              </motion.div>
 
               {/* Description */}
-              <div className="w-[25vw] h-[17vw] flex flex-col justify-start gap-5 bg-[#00091D] p-4 rounded-xl border border-zinc-600 shadow shadow-violet-600">
+              <motion.div
+                variants={{
+                  ...variants,
+                  visible: {
+                    ...variants.visible,
+                    transition: {
+                      ...variants.visible.transition,
+                      delay: 0.7 // Increment delay for the second item
+                    }
+                  }
+                }}
+                initial="hidden"
+                animate="visible"
+                className="w-[25vw] h-[17vw] flex flex-col justify-start gap-5 bg-[#00091D] p-4 rounded-xl border border-zinc-600 shadow shadow-violet-600"
+              >
 
                 {/* Text */}
                 <div className="text-3xl">
@@ -210,24 +345,151 @@ const Pokemon_Details = () => {
                   <p className="font-extralight">{pokemon.description}</p>
                 </div>
 
+              </motion.div>
+            </div>
+
+          </div>
+
+          {/* Pokeinfo for mobile */}
+          <div className="w-full min-h-32 pt-24 sm:hidden flex flex-col gap-5 justify-around py-2">
+
+            {/* Pokemon Image With Its Name And Number*/}
+            <div className="flex flex-col items-center">
+
+              {/* The image of pokemon */}
+              <div className="w-[50vw] h-[50vw] relative rounded-full overflow-hidden flex items-center justify-center">
+                <img className={`${pokemonTypeBorder(pokemon.type1)} absolute w-full h-full border-2 bg-zinc-900 rounded-full p-6`} src={pokemon.image} alt="notfound" />
+              </div>
+
+              {/* The number, name and Type-Names  */}
+              <div className="flex flex-col items-center pt-2">
+                <h1 className="text-3xl text-white font-semibold">#{pokemon.number}</h1>
+                <h1 className="pokemon-name-text text-4xl font-semibold">{pokemon.name}</h1>
+              </div>
+
+              {/* Type-Names */}
+              <div className="flex justify-center gap-1 pt-4">
+                {/* TypeName-1 */}
+                <div className="">
+                  <h1 className={`${pokemonTypeColors(pokemon.type1)} text-sm px-10 py-2 rounded-md border border-zinc-900 shadow-black shadow-inner`}>{pokemon.type1}</h1>
+                </div>
+
+                {/* TypeName-2 */}
+                <div className="">
+                  <h1 className={`${pokemonTypeColors(pokemon.type2)} text-sm px-10 py-2 rounded-md border border-zinc-900 shadow-black shadow-inner`}>{pokemon.type2 || "NA"}</h1>
+                </div>
+              </div>
+            </div>
+
+            {/* Weakness */}
+            <div className="w-full flex flex-col justify-start gap-4 items-center py-3">
+
+              <div className="w-full flex justify-start items-end gap-1 pl-2 border-b border-b-zinc-600">
+                <div className="text-3xl"><MdOutlineDoubleArrow /></div>
+                <h1 className="text-blue-500 text-3xl">Weaknesses</h1>
+              </div>
+
+              <div className="flex flex-wrap justify-start gap-1 text-sm">
+                {pokemon.weakness && pokemon.weakness.map((weakness, index) => (
+                  <div key={index} className={`${pokemonTypeColors(weakness)} px-5 py-2 rounded-md border border-zinc-900 shadow-black shadow-inner`}>
+                    {weakness}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* The info and description */}
+            <div className="flex flex-col gap-5">
+              {/* Information */}
+              <div className="w-full flex flex-col justify-start gap-2 items-center py-3">
+
+                {/* Text */}
+                <div className="w-full flex justify-start items-end gap-1 pl-2 border-b border-b-zinc-600">
+                  <div className="text-3xl"><MdOutlineDoubleArrow /></div>
+                  <h1 className="text-blue-500 text-3xl">Information</h1>
+                </div>
+
+                {/* Height */}
+                <div className="w-full flex items-center gap-2 px-4">
+                  <h1 className="text-md font-bold text-blue-500">Height:</h1>
+
+                  <h1 className="text-md">{pokemon.height}m</h1>
+                </div>
+
+                {/* Category */}
+                <div className="w-full flex items-center gap-2 px-4">
+                  <h1 className="text-md font-bold text-blue-500">Category:</h1>
+                  <h1 className="text-md">{pokemon.category} Pokémon</h1>
+                </div>
+
+                {/* Weight */}
+                <div className="w-full flex items-center gap-2 px-4">
+                  <h1 className="text-md font-bold text-blue-500">Weight:</h1>
+                  <h1 className="text-md">{pokemon.weight}kg</h1>
+                </div>
+
+                {/* Gender */}
+                <div className="w-full flex items-center gap-2 px-4">
+                  <h1 className="text-md font-bold text-blue-500">Gender:</h1>
+                  <div className="flex items-center gap-2">
+                    <img className="w-3 h-3" src={pokemon.gender1} alt="noimg" />
+                    <h1 className="text-md">/</h1>
+                    <img className="w-3 h-3" src={pokemon.gender2} alt="noimg" />
+                  </div>
+                </div>
+
+                {/* Ability */}
+                <div className="w-full flex items-center gap-2 px-4">
+                  <h1 className="text-md font-bold text-blue-500">Ability:</h1>
+                  <h1 className="text-md">{pokemon.ability}</h1>
+                  <div className="text-sm text-amber-400 cursor-pointer"><FaQuestionCircle /></div>
+                </div>
+
+              </div>
+
+              {/* Description */}
+              <div className="w-full flex flex-col justify-start gap-2 items-center py-3">
+
+                {/* Text */}
+                <div className="w-full flex justify-start items-end gap-1 pl-2 border-b border-b-zinc-600">
+                  <div className="text-3xl"><MdOutlineDoubleArrow /></div>
+                  <h1 className="text-blue-500 text-3xl">Description</h1>
+                </div>
+
+                {/* para */}
+                <div className="w-full pl-3 pr-10 flex justify-start">
+                  <p className="font-extralight">{pokemon.description}</p>
+                </div>
+
               </div>
             </div>
 
           </div>
 
           {/* Stats */}
-          <div className="w-full px-10 py-5 min-h-32 mt-20 flex">
+          <motion.div
+            variants={inViewVariants}
+            initial="hidden"
+            whileInView="inView"
+            className="w-full py-5 min-h-32 sm:px-10 sm:mt-20 flex"
+          >
             <Stats number={number} />
-          </div>
+          </motion.div>
 
           {/* Evolution-Info */}
-          <div className="w-full px-10 py-5 min-h-32 mt-20 flex">
+          <motion.div
+            variants={inViewVariants}
+            initial="hidden"
+            whileInView="inView"
+            className="w-full py-5 min-h-32 px-0 sm:px-10 sm:mt-20 flex"
+          >
             <Evolution_Details_Parent number={number} />
-          </div>
+          </motion.div>
 
         </div>
 
-        <div className="w-full text-white py-10 flex items-center justify-center">
+        {/* Navlink to pokedex */}
+        <div className="w-full text-white py-10 hidden sm:flex items-center justify-center">
           <NavLink to="/pokedex" className="arrow bg-indigo-600 flex items-center justify-center font-semibold cursor-pointer pl-40 text-3xl hover:translate-x-[-0.2vw] transition-all">Back To Pokedex</NavLink>
         </div>
       </div>

@@ -44,8 +44,6 @@ const Evolution_Data = () => {
         formData.append('type13', type13);
         formData.append('type23', type23);
 
-        console.log("Form data being sent:", formData);
-
         await axios.post('/api/evolution', formData)
             .then((response) => {
                 console.log(response.data);

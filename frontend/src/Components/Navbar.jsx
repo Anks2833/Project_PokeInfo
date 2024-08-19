@@ -77,11 +77,11 @@ const Navbar = () => {
         {/* The info button on top-right and the modal */}
         <div className="w-full text-3xl flex justify-end items-center text-white gap-5">
           <div className="w-fit text-5xl cursor-pointer sm:flex hidden" onClick={togglePlayPause}>
-            {isPlaying ? <div className="text-green-400"><GiSoundOn /></div> : <div className="text-red-600"><GiSoundOff /></div>}
+            {isPlaying ? <div className="text-white"><GiSoundOn /></div> : <div className="text-red-600"><GiSoundOff /></div>}
           </div>
           <audio ref={audioRef} loop src="/audios/pokeAudio.mp3"></audio>
 
-          <div onClick={openModal} className="mt-[12vw] sm:mt-0 w-fit cursor-pointer sm:hover:text-emerald-300 transition-all">
+          <div onClick={openModal} className="mt-[12vw] sm:mt-0 w-fit cursor-pointer sm:hover:text-blue-600 transition-all">
             <FaInfoCircle />
           </div>
 

@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useForm } from 'react-hook-form';
 import axios from "axios"
+import { Checkbox, Typography } from "@material-tailwind/react";
 import To_AdminDash from "./To_AdminDash";
 import Type_Dropdown from "./Type_Dropdown";
 
@@ -12,8 +13,12 @@ const New_Pokemon = () => {
     const [selectedWeaknesses, setSelectedWeaknesses] = useState([]);
     const [imagePreview, setImagePreview] = useState("");
 
-
-    const { register, handleSubmit, watch, reset } = useForm();
+    const { register, handleSubmit, watch, reset } = useForm({
+        defaultValues: {
+            gender1: false,
+            gender2: false,
+        },
+    });
 
     const pokemonTypes = [
         { type: "Grass", bgColor: "#7AC74C" },
@@ -48,17 +53,14 @@ const New_Pokemon = () => {
         formData.append('category', data.category);
         formData.append('height', data.height);
         formData.append('weight', data.weight);
-
         // Handling weaknesses as an array
         selectedWeaknesses.forEach((weakness, index) => {
             formData.append(`weakness[${index}]`, weakness);
         });
-
         formData.append('image', data.image[0]);
-        formData.append('gender1', data.gender1[0]);
-        formData.append('gender2', data.gender2[0]);
+        formData.append('gender1', data.gender1 ? 'true' : 'false');
+        formData.append('gender2', data.gender2 ? 'true' : 'false');
         formData.append('description', data.description)
-
         formData.append('evolution1', data.evo1)
         formData.append('evolution2', data.evo2)
         formData.append('evolution3', data.evo3)
@@ -164,15 +166,29 @@ const New_Pokemon = () => {
                     {/* Gender-1 and 2 */}
                     <div className="w-full flex flex-wrap justify-center gap-2 bg-black p-4 border border-zinc-100 rounded-lg mx-10">
                         {/* Gender-1 */}
-                        <div >
-                            <label className="text-white" htmlFor="Gender1">Gender-1(Upload an appropriate svg): </label>
-                            <input id="Gender1" className="w-[25vw] rounded-lg bg-zinc-800 text-white" {...register("gender1")} placeholder="Gender-1" type="file" />
+                        <div className="flex items-center">
+                            {/* <input id="Gender1" className="w-[25vw] rounded-lg bg-zinc-800 text-white" {...register("gender1")} placeholder="Gender-1" type="file" /> */}
+                            <Checkbox
+                                {...register("gender1")}
+                                color="blue"
+                                label={
+                                    <Typography color="white">
+                                        Male
+                                    </Typography>
+                                } />
                         </div>
 
                         {/* Gender-2 */}
-                        <div>
-                            <label className="text-white" htmlFor="Gender2">Gender-2(Upload an appropriate svg): </label>
-                            <input id="Gender2" className="w-[25vw] rounded-lg bg-zinc-800 text-white" {...register("gender2")} placeholder="Gender-1" type="file" />
+                        <div className="flex items-center">
+                            {/* <input id="Gender2" className="w-[25vw] rounded-lg bg-zinc-800 text-white" {...register("gender2")} placeholder="Gender-1" type="file" /> */}
+                            <Checkbox
+                            {...register("gender2")}
+                                color="red"
+                                label={
+                                    <Typography color="white">
+                                        Female
+                                    </Typography>
+                                } />
                         </div>
                     </div>
 

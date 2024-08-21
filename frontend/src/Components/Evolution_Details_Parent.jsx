@@ -204,7 +204,9 @@ const Evolution_Details_Parent = (props) => {
                     </div>
                     :
 
-                    <h1>This Pokémon Does Not Evolve</h1>
+                    <div className="w-full flex justify-center items-center text-4xl px-40 gap-6 my-10">
+                        <h1>This Pokémon does not evolve.</h1>
+                    </div>
                 }
 
             </div>
@@ -226,11 +228,11 @@ const Evolution_Details_Parent = (props) => {
 
                         {/* Evo1 */}
                         {evoData[0].number1 && (
-                            <NavLink 
-                            to={`/pokeinfo/${evoData[0].number1}`}
-                             className={`w-full h-20 flex justify-between cursor-pointer overflow-hidden 
+                            <NavLink
+                                to={`/pokeinfo/${evoData[0].number1}`}
+                                className={`w-full h-20 flex justify-between cursor-pointer overflow-hidden 
                              ${getActiveClassName(location, `/pokeinfo/${evoData[0].number1}`)}`}
-                             >
+                            >
 
                                 {/* Image along with number and name */}
                                 <div className="w-1/2 flex justify-start pl-4 gap-2">
@@ -265,11 +267,11 @@ const Evolution_Details_Parent = (props) => {
 
                         {/* Evo2 */}
                         {evoData[0].number2 && (
-                            <NavLink 
-                            to={`/pokeinfo/${evoData[0].number2}`}
-                             className={`w-full h-20 flex justify-between cursor-pointer overflow-hidden 
+                            <NavLink
+                                to={`/pokeinfo/${evoData[0].number2}`}
+                                className={`w-full h-20 flex justify-between cursor-pointer overflow-hidden 
                              ${getActiveClassName(location, `/pokeinfo/${evoData[0].number2}`)}`}
-                             >
+                            >
 
                                 {/* Image along with number and name */}
                                 <div className="w-1/2 flex justify-start pl-4 gap-2">
@@ -304,11 +306,11 @@ const Evolution_Details_Parent = (props) => {
 
                         {/* Evo3 */}
                         {evoData[0].number3 && (
-                            <NavLink 
-                            to={`/pokeinfo/${evoData[0].number3}`}
-                             className={`w-full h-20 flex justify-between cursor-pointer overflow-hidden 
+                            <NavLink
+                                to={`/pokeinfo/${evoData[0].number3}`}
+                                className={`w-full h-20 flex justify-between cursor-pointer overflow-hidden 
                              ${getActiveClassName(location, `/pokeinfo/${evoData[0].number3}`)}`}
-                             >
+                            >
 
                                 {/* Image along with number and name */}
                                 <div className="w-1/2 flex justify-start pl-4 gap-2">
@@ -341,7 +343,9 @@ const Evolution_Details_Parent = (props) => {
                     </div>
                     :
 
-                    <h1>This Pokémon Does Not Evolve</h1>
+                    <div className="w-full flex justify-center items-center">
+                        <h1>This Pokémon Does Not Evolve</h1>
+                    </div>
                 }
 
             </div>

@@ -18,16 +18,6 @@ const pokedexController = async (req, res) => {
             folder: "uploads"
         });
 
-        // Assuming 'gender1' and 'gender2' are also fields in your form
-        const gender1Result = await cloudinary.uploader.upload(req.files.gender1[0].path, {
-            resource_type: "auto",
-            folder: "uploads"
-        });
-        const gender2Result = await cloudinary.uploader.upload(req.files.gender2[0].path, {
-            resource_type: "auto",
-            folder: "uploads"
-        });
-
         // Convert number to string and pad with leading zeros
         const paddedNumber = req.body.number.toString().padStart(3, '0');
 
@@ -40,8 +30,13 @@ const pokedexController = async (req, res) => {
             category,
             height,
             weight,
-            weakness
+            weakness,
+            gender1,
+            gender2
         } = req.body
+
+        const isGender1 = gender1 === "true";
+        const isGender2 = gender2 === "true";
 
         const createdPokemon = await pokemonModel.create({
             number: paddedNumber,
@@ -51,8 +46,8 @@ const pokedexController = async (req, res) => {
             type1,
             type2,
             ability,
-            gender1: gender1Result.secure_url, // Cloudinary returns the secure URL of the uploaded image
-            gender2: gender2Result.secure_url, // Cloudinary returns the secure URL of the uploaded image
+            gender1: isGender1 ? "https://res.cloudinary.com/dlchhddqg/image/upload/v1722444603/uploads/sdpbceanquurdxsrv3rz.png": "",
+            gender2: isGender2 ? "https://res.cloudinary.com/dlchhddqg/image/upload/v1722444604/uploads/jarx7dsv0mxyjcsf3wct.png": "", // Cloudinary returns the secure URL of the uploaded image
             category,
             height,
             weight,
@@ -67,22 +62,6 @@ const pokedexController = async (req, res) => {
                 console.log(`Failed to delete image file ${err}`);
             } else {
                 console.log("Image file deleted successfully");
-            }
-        });
-
-        fs.unlink(req.files.gender1[0].path, (err) => {
-            if (err) {
-                console.log(`Failed to delete gender1 file ${err}`);
-            } else {
-                console.log("Gender1 file deleted successfully");
-            }
-        });
-
-        fs.unlink(req.files.gender2[0].path, (err) => {
-            if (err) {
-                console.log(`Failed to delete gender2 file ${err}`);
-            } else {
-                console.log("Gender2 file deleted successfully");
             }
         });
 

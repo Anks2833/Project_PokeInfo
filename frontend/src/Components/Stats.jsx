@@ -87,7 +87,7 @@ const Stats = (props) => {
                     </div> :
 
                     <div className="w-full flex justify-center items-center text-4xl px-40 gap-6 my-10">
-                        <h1>No Stats Found For This Pokemon</h1>
+                        <h1>No Stats Found For This Pokémon</h1>
                     </div>
                 }
 

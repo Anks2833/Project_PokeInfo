@@ -10,7 +10,7 @@ Welcome to pokeInfo, a comprehensive web application that brings the world of Po
 - **Frontend**: React.js
 - **Backend**: Node.js & Express.js
 - **Database**: MongoDB & Mongoose.js
-- **Styling**: CSS, Tailwind CSS
+- **Libraries**: Tailwind CSS, Framer-Motion, React-Three-Fiber
 
 ## Features
 
@@ -18,4 +18,4 @@ Welcome to pokeInfo, a comprehensive web application that brings the world of Po
 
 ## Installation
 
-1. Clone the repository: 
+1. Clone the repository: https://github.com/Anks2833/Project_PokeInfo.git

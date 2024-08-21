@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { motion, useAnimation } from "framer-motion"
 import axios from "axios";
-import { NavLink, useParams, useLocation  } from 'react-router-dom';
+import { NavLink, useParams, useLocation } from 'react-router-dom';
 import Headings from "./Headings";
 import Evolution_Details_Parent from "./Evolution_Details_Parent";
 import { RiArrowDownDoubleFill } from "react-icons/ri";
@@ -300,14 +300,20 @@ const Pokemon_Details = () => {
                 </div>
 
                 {/* Gender */}
-                <div className="flex items-center gap-2">
-                  <h1 className="text-2xl font-bold text-blue-500">Gender:</h1>
+                {pokemon.gender1 || pokemon.gender2 === "" ?
+                  <div className="flex items-center text-2xl gap-2">
+                    <h1 className="text-2xl font-bold text-blue-500">Gender:</h1> 
+                    <h1>Unknown</h1>
+                  </div> :
                   <div className="flex items-center gap-2">
-                    <img className="w-6 h-6" src={pokemon.gender1} alt="noimg" />
-                    <h1 className="text-xl">/</h1>
-                    <img className="w-6 h-6" src={pokemon.gender2} alt="noimg" />
+                    <h1 className="text-2xl font-bold text-blue-500">Gender:</h1>
+                    <div className="flex items-center gap-2">
+                      <img className="w-6 h-6" src={pokemon.gender1} alt="noimg" />
+                      <h1 className="text-xl">/</h1>
+                      <img className="w-6 h-6" src={pokemon.gender2} alt="noimg" />
+                    </div>
                   </div>
-                </div>
+                }
 
                 {/* Ability */}
                 <div className="flex items-center gap-2">
@@ -431,11 +437,16 @@ const Pokemon_Details = () => {
                 {/* Gender */}
                 <div className="w-full flex items-center gap-2 px-4">
                   <h1 className="text-md font-bold text-blue-500">Gender:</h1>
-                  <div className="flex items-center gap-2">
-                    <img className="w-3 h-3" src={pokemon.gender1} alt="noimg" />
-                    <h1 className="text-md">/</h1>
-                    <img className="w-3 h-3" src={pokemon.gender2} alt="noimg" />
-                  </div>
+
+                  {pokemon.gender1 || pokemon.gender2 === "" ?
+                    <h1>Unknown</h1> :
+                    <div className="flex items-center gap-2">
+                      <img className="w-3 h-3" src={pokemon.gender1} alt="noimg" />
+                      <h1 className="text-md">/</h1>
+                      <img className="w-3 h-3" src={pokemon.gender2} alt="noimg" />
+                    </div>
+                  }
+
                 </div>
 
                 {/* Ability */}

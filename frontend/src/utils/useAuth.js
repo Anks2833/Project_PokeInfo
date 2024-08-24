@@ -9,11 +9,7 @@ const useAuth = () => {
         const checkAuth = async () => {
             try {
                 const response = await axios.get('https://project-pokeinfo.onrender.com/api/v1/user/profile', {
-                    withCredentials: true,
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    }
+                    withCredentials: true
                 });
                 console.log('Response:', response);
                 if (response.status === 200) {

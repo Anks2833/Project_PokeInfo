@@ -82,12 +82,18 @@ const logInUser = async (req, res) => {
 
 const logOutUser = async (_, res) => {
 
-    res.cookie("token", "", {
+    // Invalidate JWT token on server side
+    const decodedToken = jwt.decode(req.cookies.token);
+    const payload = { ...decodedToken, exp: 0 };
+    const invalidToken = jwt.sign(payload, process.env.JWT_SECRET);
+
+    res.cookie('token', invalidToken, {
         httpOnly: true,
         secure: true,
-    })
+        maxAge: 0 // Set maxAge to 0 to delete cookie immediately
+    });
 
-    res.status(200).send("Logged out successfully")
+    res.status(200).send("Logged out successfully");
 }
 
 const getUserProfile = (req, res) => {

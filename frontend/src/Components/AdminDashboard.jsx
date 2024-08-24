@@ -33,6 +33,7 @@ const AdminDashboard = () => {
             const response = await axios.post('https://project-pokeinfo.onrender.com/api/v1/user/logout');
 
             if (response.status === 200) {
+                localStorage.removeItem('token');
                 navigate('/adminlogin');
             } else {
                 console.log('Failed status:', response.status); // Debugging: Log the failed status

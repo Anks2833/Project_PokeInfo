@@ -283,7 +283,7 @@ const Pokedex = () => {
           <Heading_Mobile name={"Pokédex"} to={"/"} />
 
           {/* The arrow */}
-          <div className="fixed bottom-6 right-3 text-3xl cursor-pointer" onClick={handleScroll}>
+          <div className="hidden sm:block fixed bottom-6 right-3 text-3xl cursor-pointer" onClick={handleScroll}>
             <motion.div
               animate={{ rotate: isScrolled ? 180 : 0 }} // Rotate the arrow
               transition={{ duration: 0.5 }}

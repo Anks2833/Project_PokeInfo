@@ -65,7 +65,7 @@ const AdminPanel = () => {
 
       </div>
 
-      <div className="w-1/2 h-screen bg-[url('/images/adminlogin-image.jpg')] bg-cover bg-center bg-no-repeat"></div>
+      <div className="w-1/2 h-screen bg-[url('https://res.cloudinary.com/dlchhddqg/image/upload/v1724486623/uploads/Images/qbsgql0dmjoeeer0z7sz.jpg')] bg-cover bg-center bg-no-repeat"></div>
 
 
     </div>

@@ -69,12 +69,13 @@ const Pokedex = () => {
   const [isSearchMode, setIsSearchMode] = useState(false);
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false); //State for toggle
   const [imageUrls, setImageUrls] = useState([]);
-  const [bgColor, setBgColor] = useState([]);
+  const [bgColor] = useState([]);
   const [selectedType, setSelectedType] = useState('');
   const [selectedTypeColor, setSelectedTypeColor] = useState('');
   const [selectedArea, setSelectedArea] = useState(null);
   const [selectedAreaColor, setSelectedAreaColor] = useState('');
   const [selectedAreaTextColor, setSelectedAreaTextColor] = useState('');
+  const [imgUrl] = useState("https://res.cloudinary.com/dlchhddqg/image/upload/v1724486335/uploads/Images/butwyfgyhpo6rcmicyx3.png")
 
 
   // To fetch pokemon data of all pokemons
@@ -306,7 +307,7 @@ const Pokedex = () => {
                   className="w-[8vw] h-[8vw] relative border-2 border-teal-200 bg-black shadow-md shadow-emerald-300 rounded-full"
                 >
                   <NavLink to={`/pokeinfo/${imageUrls[0].number}`} className="">
-                    <img className="w-full h-full object-cover brightness-50" src="/images/pokeball.png" alt="notfound" />
+                    <img className="w-full h-full object-cover brightness-50" src={imgUrl} alt="notfound" />
                     <img className="w-full h-full absolute top-0 left-0" src={imageUrls[0].image} alt="notfound" />
                   </NavLink>
                 </motion.div>
@@ -321,7 +322,7 @@ const Pokedex = () => {
                     className="w-[8vw] h-[8vw] relative border-2 border-teal-200 bg-black shadow-md shadow-emerald-300 rounded-full"
                   >
                     <NavLink to={`/pokeinfo/${imageUrls[1].number}`} className="">
-                      <img className="w-full h-full object-cover brightness-50" src="/images/pokeball.png" alt="notfound" />
+                      <img className="w-full h-full object-cover brightness-50" src={imgUrl} alt="notfound" />
                       <img className="w-full h-full absolute top-0 left-0" src={imageUrls[1].image} alt="notfound" />
                     </NavLink>
                   </motion.div>
@@ -334,7 +335,7 @@ const Pokedex = () => {
                     className="w-[8vw] h-[8vw] relative border-2 border-teal-200 bg-black shadow-md shadow-emerald-300 rounded-full"
                   >
                     <NavLink to={`/pokeinfo/${imageUrls[2].number}`} className="">
-                      <img className="w-full h-full object-cover brightness-50" src="/images/pokeball.png" alt="notfound" />
+                      <img className="w-full h-full object-cover brightness-50" src={imgUrl} alt="notfound" />
                       <img className="w-full h-full absolute top-0 left-0" src={imageUrls[2].image} alt="notfound" />
                     </NavLink>
                   </motion.div>
@@ -348,7 +349,7 @@ const Pokedex = () => {
                   className="w-[8vw] h-[8vw] relative border-2 border-teal-200 bg-black shadow-md shadow-emerald-300 rounded-full"
                 >
                   <NavLink to={`/pokeinfo/${imageUrls[3].number}`} className="">
-                    <img className="w-full h-full object-cover brightness-50" src="/images/pokeball.png" alt="notfound" />
+                    <img className="w-full h-full object-cover brightness-50" src={imgUrl} alt="notfound" />
                     <img className="w-full h-full absolute top-0 left-0" src={imageUrls[3].image} alt="notfound" />
                   </NavLink>
                 </motion.div>
@@ -363,7 +364,7 @@ const Pokedex = () => {
                     className="w-[8vw] h-[8vw] relative border-2 border-teal-200 bg-black shadow-md shadow-emerald-300 rounded-full"
                   >
                     <NavLink to={`/pokeinfo/${imageUrls[4].number}`} className="">
-                      <img className="w-full h-full object-cover brightness-50" src="/images/pokeball.png" alt="notfound" />
+                      <img className="w-full h-full object-cover brightness-50" src={imgUrl} alt="notfound" />
                       <img className="w-full h-full absolute top-0 left-0" src={imageUrls[4].image} alt="notfound" />
                     </NavLink>
                   </motion.div>
@@ -376,7 +377,7 @@ const Pokedex = () => {
                     className="w-[8vw] h-[8vw] relative border-2 border-teal-200 bg-black shadow-md shadow-emerald-300 rounded-full"
                   >
                     <NavLink to={`/pokeinfo/${imageUrls[5].number}`} className="">
-                      <img className="w-full h-full object-cover brightness-50" src="/images/pokeball.png" alt="notfound" />
+                      <img className="w-full h-full object-cover brightness-50" src={imgUrl} alt="notfound" />
                       <img className="w-full h-full absolute top-0 left-0" src={imageUrls[5].image} alt="notfound" />
                     </NavLink>
                   </motion.div>
@@ -391,7 +392,7 @@ const Pokedex = () => {
                 className="w-[16vw] h-[16vw] relative border-2 border-teal-200 bg-black shadow-md shadow-emerald-300 rounded-full"
               >
                 <NavLink to={`/pokeinfo/${imageUrls[6].number}`} className="">
-                  <img className="w-full h-full object-cover brightness-50" src="/images/pokeball.png" alt="notfound" />
+                  <img className="w-full h-full object-cover brightness-50" src={imgUrl} alt="notfound" />
                   <img className="w-full h-full absolute top-0 left-0" src={imageUrls[6].image} alt="notfound" />
                 </NavLink>
               </motion.div>
@@ -409,7 +410,7 @@ const Pokedex = () => {
                     className="w-[8vw] h-[8vw] relative border-2 border-teal-200 bg-black shadow-md shadow-emerald-300 rounded-full"
                   >
                     <NavLink to={`/pokeinfo/${imageUrls[7].number}`} className="">
-                      <img className="w-full h-full object-cover brightness-50" src="/images/pokeball.png" alt="notfound" />
+                      <img className="w-full h-full object-cover brightness-50" src={imgUrl} alt="notfound" />
                       <img className="w-full h-full absolute top-0 left-0" src={imageUrls[7].image} alt="notfound" />
                     </NavLink>
                   </motion.div>
@@ -422,7 +423,7 @@ const Pokedex = () => {
                     className="w-[8vw] h-[8vw] relative border-2 border-teal-200 bg-black shadow-md shadow-emerald-300 rounded-full"
                   >
                     <NavLink to={`/pokeinfo/${imageUrls[8].number}`} className="">
-                      <img className="w-full h-full object-cover brightness-50" src="/images/pokeball.png" alt="notfound" />
+                      <img className="w-full h-full object-cover brightness-50" src={imgUrl} alt="notfound" />
                       <img className="w-full h-full absolute top-0 left-0" src={imageUrls[8].image} alt="notfound" />
                     </NavLink>
                   </motion.div>
@@ -436,7 +437,7 @@ const Pokedex = () => {
                   className="w-[8vw] h-[8vw] relative border-2 border-teal-200 bg-black shadow-md shadow-emerald-300 rounded-full"
                 >
                   <NavLink to={`/pokeinfo/${imageUrls[9].number}`} className="">
-                    <img className="w-full h-full object-cover brightness-50" src="/images/pokeball.png" alt="notfound" />
+                    <img className="w-full h-full object-cover brightness-50" src={imgUrl} alt="notfound" />
                     <img className="w-full h-full absolute top-0 left-0" src={imageUrls[9].image} alt="notfound" />
                   </NavLink>
                 </motion.div>
@@ -451,7 +452,7 @@ const Pokedex = () => {
                     className="w-[8vw] h-[8vw] relative border-2 border-teal-200 bg-black shadow-md shadow-emerald-300 rounded-full"
                   >
                     <NavLink to={`/pokeinfo/${imageUrls[10].number}`} className="">
-                      <img className="w-full h-full object-cover brightness-50" src="/images/pokeball.png" alt="notfound" />
+                      <img className="w-full h-full object-cover brightness-50" src={imgUrl} alt="notfound" />
                       <img className="w-full h-full absolute top-0 left-0" src={imageUrls[10].image} alt="notfound" />
                     </NavLink>
                   </motion.div>
@@ -464,7 +465,7 @@ const Pokedex = () => {
                     className="w-[8vw] h-[8vw] relative border-2 border-teal-200 bg-black shadow-md shadow-emerald-300 rounded-full"
                   >
                     <NavLink to={`/pokeinfo/${imageUrls[11].number}`} className="">
-                      <img className="w-full h-full object-cover brightness-50" src="/images/pokeball.png" alt="notfound" />
+                      <img className="w-full h-full object-cover brightness-50" src={imgUrl} alt="notfound" />
                       <img className="w-full h-full absolute top-0 left-0" src={imageUrls[11].image} alt="notfound" />
                     </NavLink>
                   </motion.div>
@@ -478,7 +479,7 @@ const Pokedex = () => {
                   className="w-[8vw] h-[8vw] relative border-2 border-teal-200 bg-black shadow-md shadow-emerald-300 rounded-full"
                 >
                   <NavLink to={`/pokeinfo/${imageUrls[12].number}`} className="">
-                    <img className="w-full h-full object-cover brightness-50" src="/images/pokeball.png" alt="notfound" />
+                    <img className="w-full h-full object-cover brightness-50" src={imgUrl} alt="notfound" />
                     <img className="w-full h-full absolute top-0 left-0" src={imageUrls[12].image} alt="notfound" />
                   </NavLink>
                 </motion.div>
@@ -488,7 +489,7 @@ const Pokedex = () => {
           )}
 
           {/* 3d model */}
-          <div className='w-fit h-[80vh] absolute translate-x-[0%] translate-y-[0%] z-10 hidden sm:block'>
+          <div className='w-fit h-[80vh] absolute translate-x-[0%] translate-y-[0%] z-[0] hidden sm:block'>
             <Canvas>
               <ambientLight intensity={4} />
               <animated.group rotation-y={rotation}>

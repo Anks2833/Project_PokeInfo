@@ -13,6 +13,7 @@ const Navbar = () => {
 
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
+  const[audioUrl] = useState("https://res.cloudinary.com/dlchhddqg/video/upload/v1724488303/uploads/Audios/z9fpi4dht0h26zboh9p4.mp3");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -69,7 +70,7 @@ const Navbar = () => {
         {/* The pokeball icon along with the heading */}
         <NavLink to="/" className="hidden sm:flex">
           <div className="w-full flex items-center gap-1">
-            <img className="w-10 h-10" src="/images/pokeball_pixel.png" alt="no-image" />
+            <img className="w-10 h-10" src="https://res.cloudinary.com/dlchhddqg/image/upload/v1724486624/uploads/Images/prnnv3u8qwtocrerkwgk.png" alt="no-image" />
             <h1 className="nav-heading text-zinc-300 font-extrabold text-3xl">pokeInfo</h1>
           </div>
         </NavLink>
@@ -79,7 +80,7 @@ const Navbar = () => {
           <div className="w-fit text-5xl cursor-pointer sm:flex hidden" onClick={togglePlayPause}>
             {isPlaying ? <div className="text-white"><GiSoundOn /></div> : <div className="text-red-600"><GiSoundOff /></div>}
           </div>
-          <audio ref={audioRef} loop src="/audios/pokeAudio.mp3"></audio>
+          <audio ref={audioRef} loop src={audioUrl}></audio>
 
           <div onClick={openModal} className="mt-[12vw] sm:mt-0 w-fit cursor-pointer sm:hover:text-blue-600 transition-all">
             <FaInfoCircle />

@@ -1,7 +1,11 @@
+import { useState } from "react"
 import { NavLink } from "react-router-dom"
 
 
 const Not_Found = () => {
+
+    const [trioImageUrl] = useState("https://res.cloudinary.com/dlchhddqg/image/upload/v1724486221/uploads/Images/ulevvqndefo80ukidqfn.png")
+
     return (
 
         <div className="w-full h-screen bg-black text-white flex justify-center items-center">
@@ -9,7 +13,7 @@ const Not_Found = () => {
             <div className="flex flex-col justify-center items-center gap-6">
 
                 <div className="w-52">
-                    <img src="/images/trio.png" alt="pokemon trio" />
+                    <img src={trioImageUrl} alt="pokemon trio" />
                 </div>
 
                 <div className="flex flex-col items-center">

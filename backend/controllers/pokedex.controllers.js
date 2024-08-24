@@ -47,8 +47,8 @@ const pokedexController = async (req, res) => {
             type1,
             type2,
             ability,
-            gender1: isGender1 ? "https://res.cloudinary.com/dlchhddqg/image/upload/v1722444603/uploads/sdpbceanquurdxsrv3rz.png": "Unknown",
-            gender2: isGender2 ? "https://res.cloudinary.com/dlchhddqg/image/upload/v1722444604/uploads/jarx7dsv0mxyjcsf3wct.png": "Unknown", // Cloudinary returns the secure URL of the uploaded image
+            gender1: isGender1 ? "https://res.cloudinary.com/dlchhddqg/image/upload/v1724486982/uploads/Images/zf0i1kef0v7uh7lgdrlf.svg": "Unknown",
+            gender2: isGender2 ? "https://res.cloudinary.com/dlchhddqg/image/upload/v1724486987/uploads/Images/lriwsxqvhhmnjudvzg0r.svg": "Unknown", // Cloudinary returns the secure URL of the uploaded image
             category,
             height,
             weight,

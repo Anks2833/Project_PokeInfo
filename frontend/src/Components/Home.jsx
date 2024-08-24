@@ -1,8 +1,11 @@
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom'
 
 
 const Home = () => {
+
+  const [videoUrl] = useState("https://res.cloudinary.com/dlchhddqg/video/upload/v1724484940/uploads/Videos/i623fzz7ibdqasrhcndk.mp4")
 
 
   return (
@@ -10,12 +13,12 @@ const Home = () => {
 
       {/* The Image for Mobile */}
       <div className='w-full h-screen flex sm:hidden'>
-        <img className='w-full h-full object-cover object-center brightness-[0.3]' src="/images/eeve.jpg" alt="" />
+        <img className='w-full h-full object-cover object-center brightness-[0.3]' src="https://res.cloudinary.com/dlchhddqg/image/upload/v1724486568/uploads/Images/ovge6i5v8bpzqlo8d0aw.jpg" alt="" />
       </div>
 
       {/* The 3d animation */}
       <div className="hidden sm:block w-full h-screen brightness-50 overflow-hidden">
-        <video autoPlay loop muted src="https://res.cloudinary.com/dlchhddqg/video/upload/v1724428785/uploads/lqniqpk9p7n1bozrdg7j.mp4"></video>
+        <video autoPlay loop muted src={videoUrl}></video>
       </div>
 
 
@@ -41,12 +44,12 @@ const Home = () => {
         </div>
       </div>
 
-      {/* THe pokeball image for mobile */}
-      <div className='flex justify-center w-full absolute top-20 sm:hidden'>
-        <img className='w-40' src="/images/pokeball.png" alt="noimg" />
+      {/* The pokeball image for mobile */}
+      <div className='flex justify-center w-full absolute top-24 sm:hidden'>
+        <img className='w-32' src="https://res.cloudinary.com/dlchhddqg/image/upload/v1724486335/uploads/Images/butwyfgyhpo6rcmicyx3.png" alt="noimg" />
       </div>
 
-      {/* image art */}
+      {/* Welcome text */}
       <div className="w-full flex justify-center">
         <h1 className="welcome-text absolute z-0 flex justify-center sm:right-[30vw] top-[60vw] sm:top-[1vw] text-amber-400 text-[8vw] sm:text-[5vw]">WELCOME TRAINER</h1>
       </div>

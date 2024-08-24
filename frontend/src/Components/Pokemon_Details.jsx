@@ -51,7 +51,7 @@ const Pokemon_Details = () => {
   useEffect(() => {
 
     const fetchData = () => {
-      axios.get(`https://project-pokeinfo.onrender.com/api/pokeinfo/${number}`)
+      axios.get(`/api/pokeinfo/${number}`)
         .then((response) => {
           setPokemon(response.data)
         })
@@ -68,7 +68,7 @@ const Pokemon_Details = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`https://project-pokeinfo.onrender.com/api/ability`);
+        const response = await axios.get(`/api/ability`);
         const foundAbility = response.data.find(ability => ability.number === number);
         if (foundAbility) {
           setAbility([foundAbility]); // Assuming stats per Pokémon are unique, wrap in an array

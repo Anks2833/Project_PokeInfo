@@ -19,7 +19,7 @@ const Evolution_Details_Parent = (props) => {
     useEffect(() => {
 
         const fetchData = () => {
-            axios.get(`https://project-pokeinfo.onrender.com/api/evolution`)
+            axios.get(`/api/evolution`)
                 .then((response) => {
                     const foundEvolution = response.data.find(evo =>
                         evo.number1 === number ||

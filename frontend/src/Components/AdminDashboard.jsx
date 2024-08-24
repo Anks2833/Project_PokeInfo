@@ -13,7 +13,7 @@ const AdminDashboard = () => {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const response = await axios.get('https://project-pokeinfo.onrender.com/api/v1/user/profile', { withCredentials: true });
+                const response = await axios.get('/api/v1/user/profile', { withCredentials: true });
                 if (response.status === 200){  
                     setUsername(response.data.userProfile.username)
                     setImage(response.data.userProfile.image)
@@ -30,7 +30,7 @@ const AdminDashboard = () => {
 
         try {
 
-            const response = await axios.post('https://project-pokeinfo.onrender.com/api/v1/user/logout');
+            const response = await axios.post('/api/v1/user/logout');
 
             if (response.status === 200) {
                 navigate('/adminlogin');

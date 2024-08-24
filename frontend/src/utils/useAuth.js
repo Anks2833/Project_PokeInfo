@@ -27,13 +27,9 @@ const useAuth = () => {
         checkAuth();
     }, []);
 
-    useEffect(() => {
-        if (isAuthenticated) {
-            console.log('User authenticated:', isAuthenticated);
-        }
-    }, [isAuthenticated]);
 
-    return [isAuthenticated, error];
+
+    return isAuthenticated;
 };
 
 export default useAuth;

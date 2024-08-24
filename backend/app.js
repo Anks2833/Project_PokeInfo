@@ -6,9 +6,7 @@ import { connectDB } from "./config/db.js";
 
 const app = express()
 
-dotenv.config({
-    path: "./.env"
-});
+dotenv.config();
 
 connectDB()
 

@@ -17,8 +17,6 @@ export default function Model(props) {
   const { nodes, materials } = useGraph(clone)
   const { actions } = useAnimations(animations, group)
   useEffect(()=>{
-    console.log(actions);
-    
     actions.bd_ev100_wait00fly.play();
   })
   return (

@@ -8,12 +8,16 @@ const AdminDashboard = () => {
     const navigate = useNavigate();
 
     const [username, setUsername] = useState("");
+    const [image, setImage] = useState("");
 
     useEffect(() => {
         const checkAuth = async () => {
             try {
                 const response = await axios.get('/api/v1/user/profile', { withCredentials: true });
-                if (response.status === 200) return setUsername(response.data.userProfile.username)
+                if (response.status === 200){  
+                    setUsername(response.data.userProfile.username)
+                    setImage(response.data.userProfile.image)
+                }
             } catch (error) {
                 console.error('Authentication check failed:', error);
             }
@@ -48,13 +52,13 @@ const AdminDashboard = () => {
             <div className="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]">
                 {/* The welcome text with image */}
                 <div className="w-full flex flex-col gap-2 items-center pt-20">
-                    <div className="w-32 h-32 border border-teal-200 rounded-full">
-                        <img src="" alt="" />
+                    <div className="w-32 h-32 border border-teal-200 rounded-full overflow-hidden">
+                        <img className="w-full" src={image} alt="" />
                     </div>
 
                     <div className="flex gap-2 text-white">
                         <h1 className="link-text text-2xl font-bold">WELCOME,</h1>
-                        <h1 className="link-text text-2xl text-emerald-400">{username}</h1>
+                        <h1 className="link-text text-2xl text-emerald-400">{username.charAt(0).toUpperCase() + username.slice(1)}</h1>
                     </div>
                 </div>
 
@@ -89,6 +93,13 @@ const AdminDashboard = () => {
                         <h1>Pokémon Stats Data</h1>
                         <div><FaExternalLinkAlt /></div>
                     </NavLink>
+
+                    {/* Ability */}
+                    <NavLink to="/ability_data" className="w-fit text-white flex items-center gap-2 hover:text-emerald-400 underline cursor-pointer transition-all">
+                        <h1>Pokémon Ability Data</h1>
+                        <div><FaExternalLinkAlt /></div>
+                    </NavLink>
+
                 </div>
 
                 {/* Logout button */}

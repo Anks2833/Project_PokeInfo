@@ -42,13 +42,14 @@ const createEvolutions = async (req, res) => {
             });
         }
 
+        const paddedNumber1 = req.body.number1.toString().padStart(3, '0');
+        const paddedNumber2 = req.body.number2.toString().padStart(3, '0');
+        const paddedNumber3 = req.body.number3.toString().padStart(3, '0');
+
         const {
             name1,
-            number1,
             name2,
-            number2,
             name3,
-            number3,
             type11,
             type21,
             type12,
@@ -60,12 +61,12 @@ const createEvolutions = async (req, res) => {
         // Create the evolution object with only the fields that have data
         const evolutionData = {
             name1,
-            number1,
+            number1: paddedNumber1,
             image1: evolution1Result ? evolution1Result.secure_url : null,
             type11,
             type21,
             name2,
-            number2,
+            number2: paddedNumber2,
             image2: evolution2Result ? evolution2Result.secure_url : null,
             type12,
             type22
@@ -74,7 +75,7 @@ const createEvolutions = async (req, res) => {
         // Include evolution3 data only if it is provided
         if (name3 && number3 && (type13 || type23) && evolution3Result) {
             evolutionData.name3 = name3;
-            evolutionData.number3 = number3;
+            evolutionData.number3 = paddedNumber3;
             evolutionData.image3 = evolution3Result.secure_url;
             evolutionData.type13 = type13;
             evolutionData.type23 = type23;

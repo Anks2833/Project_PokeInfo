@@ -1,30 +1,62 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion"
 import axios from "axios";
 import Headings from "./Headings";
 import { NavLink } from "react-router-dom";
 import { MdArrowDropDownCircle } from "react-icons/md";
 import { IoMdArrowDropupCircle } from "react-icons/io";
+import { IoArrowDownCircle } from "react-icons/io5";
 import { Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { OrbitControls } from '@react-three/drei'
 import { useSpring, animated } from '@react-spring/three';
-import Model1 from "./Model1";
 import Heading_Mobile from "./Heading_Mobile"
+import Model from "../../public/Charizard";
 
 const Pokedex = () => {
 
   const variants = {
-    hidden: { y: 20, opacity: 0 }, // Start position off-screen and transparent
-    visible: { y: 0, opacity: 1, transition: { duration: 0.5 } }, // End position at original location and fully visible
+    hidden: { opacity: 0 }, // Start position off-screen and transparent
+    visible: { opacity: 1, transition: { duration: 0.5 } }, // End position at original location and fully visible
   };
+
+  const opacityVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.8 } }
+  }
 
   const scaleVariants = {
     initial: { scale: 1 },
     tapped: { scale: 0.95 }
   };
 
-  const orbitControlsRef = useRef();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const handleScroll = () => {
+    if (isScrolled) {
+      // Scroll to the top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      // Scroll to a particular point (e.g., 1000px down the page)
+      window.scrollTo({ top: 850, behavior: 'smooth' });
+    }
+    // Toggle scroll state
+    setIsScrolled(!isScrolled);
+  };
+
+  const handleManualScroll = () => {
+    if (window.scrollY >= 850 && !isScrolled) {
+      setIsScrolled(true);
+    } else if (window.scrollY < 850 && isScrolled) {
+      setIsScrolled(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleManualScroll);
+    return () => {
+      window.removeEventListener('scroll', handleManualScroll);
+    };
+  }, [isScrolled]);
+
   const maxRotation = Math.PI / 4; // Maximum rotation angle (45 degrees)
 
   const [{ rotation }, setRotation] = useSpring(() => ({
@@ -40,6 +72,9 @@ const Pokedex = () => {
   const [bgColor, setBgColor] = useState([]);
   const [selectedType, setSelectedType] = useState('');
   const [selectedTypeColor, setSelectedTypeColor] = useState('');
+  const [selectedArea, setSelectedArea] = useState(null);
+  const [selectedAreaColor, setSelectedAreaColor] = useState('');
+  const [selectedAreaTextColor, setSelectedAreaTextColor] = useState('');
 
 
   // To fetch pokemon data of all pokemons
@@ -120,10 +155,20 @@ const Pokedex = () => {
     setSelectedTypeColor(bgColorClass); // Update the state with the background color class
   };
 
+  const handleAreaClick = (region) => {
+
+    setSelectedArea(region)
+    setSelectedAreaColor("white");
+    setSelectedAreaTextColor("black")
+  }
+
   // Function to handle reset
   const handleReset = () => {
     setSelectedType('');
     setSelectedTypeColor('');
+    setSelectedArea('')
+    setSelectedAreaColor('')
+    setSelectedAreaTextColor('')
   };
 
 
@@ -148,7 +193,7 @@ const Pokedex = () => {
     { type: "Fairy", color: "#D685AD" },
   ]
 
-  const areaData = [
+  const regionData = [
     { name: "Kanto" },
     { name: "Johto" },
     { name: "Hoenn" },
@@ -235,6 +280,16 @@ const Pokedex = () => {
 
           {/* Header for mobile devices */}
           <Heading_Mobile name={"Pokédex"} to={"/"} />
+
+          {/* The arrow */}
+          <div className="fixed bottom-6 right-3 text-3xl cursor-pointer" onClick={handleScroll}>
+            <motion.div
+              animate={{ rotate: isScrolled ? 180 : 0 }} // Rotate the arrow
+              transition={{ duration: 0.5 }}
+            >
+              <IoArrowDownCircle />
+            </motion.div>
+          </div>
 
           {/* pokemons */}
           {imageUrls.length > 0 && (
@@ -437,14 +492,8 @@ const Pokedex = () => {
             <Canvas>
               <ambientLight intensity={4} />
               <animated.group rotation-y={rotation}>
-                <OrbitControls
-                  ref={orbitControlsRef}
-                  enableZoom={false}
-                  enablePan={false}
-                  autoRotate={false} // Disable automatic rotation
-                />
                 <Suspense fallback={null}>
-                  <Model1 />
+                  <Model />
                 </Suspense>
               </animated.group>
             </Canvas>
@@ -551,16 +600,17 @@ const Pokedex = () => {
                   </div>
                 </div>
 
-                {/* Area */}
+                {/* Region */}
                 <div className="w-full flex flex-col px-8 py-5">
-                  <div><h1 className="text-3xl border-b border-b-zinc-100 pb-3">Area</h1></div>
+                  <div><h1 className="text-3xl border-b border-b-zinc-100 pb-3">Region</h1></div>
 
                   <div className="w-full flex flex-wrap items-center gap-4 py-4">
-                    {areaData.map((area, index) => {
+                    {regionData.map((area, index) => {
                       return (
                         <h1
+                          onClick={() => handleAreaClick(area.name)}
                           key={index}
-                          className={`text-white border border-white px-8 py-1 rounded-full cursor-pointer`}>
+                          className={`border border-white ${selectedArea === area.name ? `bg-${selectedAreaColor} text-${selectedAreaTextColor}` : ""} px-8 py-1 rounded-full cursor-pointer`}>
                           {area.name}
                         </h1>
                       )
@@ -604,48 +654,56 @@ const Pokedex = () => {
                       </div> :
                       filteredPokemonList.map((poke, index) => (
 
-                        <NavLink to={`/pokeinfo/${poke.number}`} key={index} className={`shadow-sm shadow-zinc-100 cursor-pointer w-[22vw] h-[35vw] bg-[#0A141E] border border-zinc-100 rounded-xl overflow-hidden`} >
+                        <motion.div
+                          variants={opacityVariants}
+                          initial="hidden"
+                          whileInView="visible"
+                          key={index}
+                          className={`shadow-sm shadow-zinc-100 cursor-pointer w-[22vw] h-[35vw] bg-[#0A141E] border border-zinc-100 rounded-xl overflow-hidden`}
+                        >
+                          <NavLink to={`/pokeinfo/${poke.number}`}>
 
-                          {/* Image div */}
-                          <div className="relative w-full flex justify-center items-center" >
-                            <img className={`${pokemonTypeShadow(poke.type1)} ${pokemonTypeBorder(poke.type1)} absolute top-10 w-72 border rounded-full shadow-md`} src={poke.image} alt="nonimg" />
-                          </div>
-
-                          {/* info div */}
-                          <div className="mt-80 flex flex-col items-start px-6">
-
-                            {/* The name and number */}
-                            <div className="flex flex-col py-4 text-4xl">
-                              {/* The number */}
-                              <div>
-                                <h1 className="">#{poke.number}</h1>
-                              </div>
-
-                              {/* The name */}
-                              <div>
-                                <h1 className="font-semibold">{poke.name}</h1>
-                              </div>
+                            {/* Image div */}
+                            <div className="relative w-full flex justify-center items-center" >
+                              <img className={`${pokemonTypeShadow(poke.type1)} ${pokemonTypeBorder(poke.type1)} absolute top-10 w-72 border rounded-full shadow-md`} src={poke.image} alt="nonimg" />
                             </div>
 
-                            {/* Type */}
-                            <div className="w-full flex justify-center items-center mt-2 gap-2">
-                              <div className="w-1/2 flex justify-center items-center">
-                                <h1
-                                  className={
-                                    `${pokemonTypeColors(poke.type1)}
-  text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`
-                                  }>
-                                  {poke.type1}
-                                </h1>
+                            {/* info div */}
+                            <div className="mt-80 flex flex-col items-start px-6">
+
+                              {/* The name and number */}
+                              <div className="flex flex-col py-4 text-4xl">
+                                {/* The number */}
+                                <div>
+                                  <h1 className="">#{poke.number}</h1>
+                                </div>
+
+                                {/* The name */}
+                                <div>
+                                  <h1 className="font-semibold">{poke.name}</h1>
+                                </div>
                               </div>
-                              <div className="w-1/2 flex justify-center items-center">
-                                <h1 className={`${pokemonTypeColors(poke.type2)} ${poke.type2 ? "text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner" : "text-2xl border border-white px-10 py-2 rounded-full"}`}>{poke.type2 || "NA"}</h1>
+
+                              {/* Type */}
+                              <div className="w-full flex justify-center items-center mt-2 gap-2">
+                                <div className="w-1/2 flex justify-center items-center">
+                                  <h1
+                                    className={
+                                      `${pokemonTypeColors(poke.type1)}
+text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`
+                                    }>
+                                    {poke.type1}
+                                  </h1>
+                                </div>
+                                <div className="w-1/2 flex justify-center items-center">
+                                  <h1 className={`${pokemonTypeColors(poke.type2)} ${poke.type2 ? "text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner" : "text-2xl border border-white px-10 py-2 rounded-full"}`}>{poke.type2 || "NA"}</h1>
+                                </div>
                               </div>
+
                             </div>
 
-                          </div>
-
-                        </NavLink>
+                          </NavLink>
+                        </motion.div>
 
                       ))
                   }
@@ -713,6 +771,7 @@ const Pokedex = () => {
                 <div className="w-full min-h-20 mt-20 hidden sm:flex flex-wrap justify-start px-10 gap-6 pb-20">
 
                   {pokemon
+                    .filter((poke) => selectedArea ? poke.region[0] === selectedArea : true)
                     .filter((poke) => selectedType ? poke.type1 === selectedType || poke.type2 === selectedType : true)
                     .map((poke, index) => {
                       return (
@@ -722,8 +781,8 @@ const Pokedex = () => {
                           className={`cursor-pointer w-[22vw] h-[35vw] bg-[#0A141E] border-2 border-zinc-100 rounded-xl overflow-hidden`}
                           role="button"
                           variants={scaleVariants}
-                          initial="initial"
-                          animate="initial"
+                          initial={{ opacity: 0 }}
+                          whileInView={{ opacity: 1 }}
                           whileTap="tapped"
                         >
                           <NavLink to={`/pokeinfo/${poke.number}`}>

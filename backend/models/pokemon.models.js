@@ -3,12 +3,12 @@ import mongoose from "mongoose"
 const PokemonSchema = new mongoose.Schema({
   number: {
     type: String,
-    unique: true // Ensures each Pokémon has a unique number
+    unique: true 
   },
 
   name: {
     type: String,
-    unique: true // Ensures each Pokémon has a unique name
+    unique: true
   },
 
   image: {
@@ -17,7 +17,6 @@ const PokemonSchema = new mongoose.Schema({
 
   description: {
     type: String,
-    // required: true
   },
 
   type1: {
@@ -54,6 +53,10 @@ const PokemonSchema = new mongoose.Schema({
 
   weakness: [{
     type: String,
+  }],
+
+  region: [{
+    type: String
   }],
 
 });

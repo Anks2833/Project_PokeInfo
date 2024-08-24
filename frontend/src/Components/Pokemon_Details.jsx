@@ -8,6 +8,7 @@ import Evolution_Details_Parent from "./Evolution_Details_Parent";
 import { RiArrowDownDoubleFill } from "react-icons/ri";
 import { FaQuestionCircle } from "react-icons/fa";
 import { MdOutlineDoubleArrow } from "react-icons/md";
+import { FaArrowLeft } from "react-icons/fa";
 import Stats from "./Stats";
 import Heading_Mobile from "./Heading_Mobile";
 
@@ -35,6 +36,13 @@ const Pokemon_Details = () => {
 
   const { number } = useParams()
   const [pokemon, setPokemon] = useState([])
+  const [ability, setAbility] = useState()
+
+  const [showAbility, setShowAbility] = useState(false);
+  const abilityVisibility = () => {
+    setShowAbility(!showAbility); // Toggles the state between true and false
+  }
+
 
   useEffect(() => {
     controls.start('visible');
@@ -55,6 +63,25 @@ const Pokemon_Details = () => {
     fetchData()
 
   }, [number])
+
+  //Fetch ability data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`/api/ability`);
+        const foundAbility = response.data.find(ability => ability.number === number);
+        if (foundAbility) {
+          setAbility([foundAbility]); // Assuming stats per Pokémon are unique, wrap in an array
+        } else {
+          throw new Error('No Ability Description found for this Pokémon.');
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
+    fetchData();
+  }, [number]);
 
 
   function pokemonTypeColors(type) {
@@ -99,6 +126,30 @@ const Pokemon_Details = () => {
     if (type === "Dark") return "border-[#705746]";
     if (type === "Steel") return "border-[#B7B7CE]";
     return "bg-[#000]"; // Default bg color
+  }
+
+  function pokemonTextColors(type) {
+
+    if (type === "Grass") return "text-[#7AC74C]";
+    if (type === "Fire") return "text-[#EE8130]";
+    if (type === "Water") return "text-[#6390F0]";
+    if (type === "Electric") return "text-[#F7D02C]";
+    if (type === "Ground") return "text-[#E2BF65]";
+    if (type === "Rock") return "text-[#B6A136]";
+    if (type === "Fairy") return "text-[#D685AD]";
+    if (type === "Poison") return "text-[#A33EA1]";
+    if (type === "Bug") return "text-[#A6B91A]";
+    if (type === "Dragon") return "text-[#6F35FC]";
+    if (type === "Psychic") return "text-[#F95587]";
+    if (type === "Flying") return "text-[#A98FF3]";
+    if (type === "Fighting") return "text-[#C22E28]";
+    if (type === "Normal") return "text-[#A8A77A]";
+    if (type === "Ghost") return "text-[#735797]";
+    if (type === "Ice") return "text-[#96D9D6]";
+    if (type === "Dark") return "text-[#705746]";
+    if (type === "Steel") return "text-[#B7B7CE]";
+    return "text-[#000]"; // Default bg color
+
   }
 
   return (
@@ -261,50 +312,73 @@ const Pokemon_Details = () => {
 
             </div>
 
-            {/* The info and description */}
-            <div className="flex flex-col gap-2">
-              {/* Information */}
-              <motion.div
-                variants={{
-                  ...variants,
-                  visible: {
-                    ...variants.visible,
-                    transition: {
-                      ...variants.visible.transition,
-                      delay: 0.6 // Increment delay for the second item
+            {/* The info and description and ability */}
+            <div className="relative overflow-hidden">
+
+              {/* The ability */}
+              {ability && (
+                <div
+                  className={`absolute w-[25vw] h-[20vw] ${showAbility ? "translate-x-0 transition-all" : "-translate-x-[28vw] transition-all"} flex flex-col justify-start  bg-[#00091D] px-8 py-20 rounded-xl border border-zinc-600 shadow shadow-violet-600`}
+                >
+                  <div>
+                    <div
+                      onClick={abilityVisibility}
+                      className="absolute top-6 left-5 text-2xl cursor-pointer"
+                    >
+                      <FaArrowLeft />
+                    </div>
+
+                    <div className="absolute top-5 right-[50%] translate-x-[50%] text-2xl">
+                      <h1 className="font-semibold">Ability: <span className={`${pokemonTextColors(pokemon.type1)}`}>{pokemon.ability}</span></h1>
+                    </div>
+                  </div>
+
+                  {/* Ability description */}
+                  <div className="w-full">
+                    <p className="text-xl font-light">{ability[0]?.ability}</p>
+                  </div>
+                </div>
+              )}
+
+              {/* The info and description */}
+              <div className="flex flex-col gap-2">
+                {/* Information */}
+                <motion.div
+                  variants={{
+                    ...variants,
+                    visible: {
+                      ...variants.visible,
+                      transition: {
+                        ...variants.visible.transition,
+                        delay: 0.6 // Increment delay for the second item
+                      }
                     }
-                  }
-                }}
-                initial="hidden"
-                animate="visible"
-                className="w-[25vw] h-[20vw] flex flex-col justify-center gap-5 bg-[#00091D] px-5 py-10 rounded-xl border border-zinc-600 shadow shadow-violet-600"
-              >
+                  }}
+                  initial="hidden"
+                  animate="visible"
+                  className="w-[25vw] h-[20vw] flex flex-col justify-center gap-5 bg-[#00091D] px-5 py-10 rounded-xl border border-zinc-600 shadow shadow-violet-600"
+                >
 
-                {/* Height */}
-                <div className="flex items-center gap-2">
-                  <h1 className="text-2xl font-bold text-blue-500">Height:</h1>
+                  {/* Height */}
+                  <div className="flex items-center gap-2">
+                    <h1 className="text-2xl font-bold text-blue-500">Height:</h1>
 
-                  <h1 className="text-2xl">{pokemon.height}m</h1>
-                </div>
+                    <h1 className="text-2xl">{pokemon.height}m</h1>
+                  </div>
 
-                {/* Category */}
-                <div className="w-full flex items-center gap-2">
-                  <h1 className="text-2xl font-bold text-blue-500">Category:</h1>
-                  <h1 className="text-2xl">{pokemon.category} Pokémon</h1>
-                </div>
+                  {/* Category */}
+                  <div className="w-full flex items-center gap-2">
+                    <h1 className="text-2xl font-bold text-blue-500">Category:</h1>
+                    <h1 className="text-2xl">{pokemon.category} Pokémon</h1>
+                  </div>
 
-                {/* Weight */}
-                <div className="flex items-center gap-2">
-                  <h1 className="text-2xl font-bold text-blue-500">Weight:</h1>
-                  <h1 className="text-2xl">{pokemon.weight}kg</h1>
-                </div>
+                  {/* Weight */}
+                  <div className="flex items-center gap-2">
+                    <h1 className="text-2xl font-bold text-blue-500">Weight:</h1>
+                    <h1 className="text-2xl">{pokemon.weight}kg</h1>
+                  </div>
 
-                {/* Gender */}
-                {pokemon.gender1 || pokemon.gender2 === "" ?
-                  <div className="flex items-center text-2xl gap-2">
-                    <h1 className="text-2xl font-bold text-blue-500">Gender:</h1> 
-                    <h1>Unknown</h1>
-                  </div> :
+                  {/* Gender */}
                   <div className="flex items-center gap-2">
                     <h1 className="text-2xl font-bold text-blue-500">Gender:</h1>
                     <div className="flex items-center gap-2">
@@ -313,45 +387,52 @@ const Pokemon_Details = () => {
                       <img className="w-6 h-6" src={pokemon.gender2} alt="noimg" />
                     </div>
                   </div>
-                }
 
-                {/* Ability */}
-                <div className="flex items-center gap-2">
-                  <h1 className="text-2xl font-bold text-blue-500">Ability:</h1>
-                  <h1 className="text-2xl">{pokemon.ability}</h1>
-                  <div className="text-xl text-amber-400 cursor-pointer"><FaQuestionCircle /></div>
-                </div>
 
-              </motion.div>
+                  {/* Ability */}
+                  <div className="flex items-center gap-2">
+                    <h1 className="text-2xl font-bold text-blue-500">Ability:</h1>
+                    <h1 className="text-2xl">{pokemon.ability}</h1>
+                    <div
+                      onClick={abilityVisibility}
+                      className="text-xl text-amber-400 cursor-pointer"
+                    >
+                      <FaQuestionCircle />
+                    </div>
+                  </div>
 
-              {/* Description */}
-              <motion.div
-                variants={{
-                  ...variants,
-                  visible: {
-                    ...variants.visible,
-                    transition: {
-                      ...variants.visible.transition,
-                      delay: 0.7 // Increment delay for the second item
+                </motion.div>
+
+                {/* Description */}
+                <motion.div
+                  variants={{
+                    ...variants,
+                    visible: {
+                      ...variants.visible,
+                      transition: {
+                        ...variants.visible.transition,
+                        delay: 0.7 // Increment delay for the second item
+                      }
                     }
-                  }
-                }}
-                initial="hidden"
-                animate="visible"
-                className="w-[25vw] h-[17vw] flex flex-col justify-start gap-5 bg-[#00091D] p-4 rounded-xl border border-zinc-600 shadow shadow-violet-600"
-              >
+                  }}
+                  initial="hidden"
+                  animate="visible"
+                  className="w-[25vw] h-[17vw] flex flex-col justify-start gap-5 bg-[#00091D] p-4 rounded-xl border border-zinc-600 shadow shadow-violet-600"
+                >
 
-                {/* Text */}
-                <div className="text-3xl">
-                  <h1 className="text-blue-500 font-semibold">Description</h1>
-                </div>
+                  {/* Text */}
+                  <div className="text-3xl">
+                    <h1 className="text-blue-500 font-semibold">Description</h1>
+                  </div>
 
-                {/* para */}
-                <div>
-                  <p className="font-extralight">{pokemon.description}</p>
-                </div>
+                  {/* para */}
+                  <div>
+                    <p className="font-extralight">{pokemon.description}</p>
+                  </div>
 
-              </motion.div>
+                </motion.div>
+              </div>
+
             </div>
 
           </div>

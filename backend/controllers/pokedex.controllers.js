@@ -32,7 +32,8 @@ const pokedexController = async (req, res) => {
             weight,
             weakness,
             gender1,
-            gender2
+            gender2,
+            region
         } = req.body
 
         const isGender1 = gender1 === "true";
@@ -46,15 +47,16 @@ const pokedexController = async (req, res) => {
             type1,
             type2,
             ability,
-            gender1: isGender1 ? "https://res.cloudinary.com/dlchhddqg/image/upload/v1722444603/uploads/sdpbceanquurdxsrv3rz.png": "",
-            gender2: isGender2 ? "https://res.cloudinary.com/dlchhddqg/image/upload/v1722444604/uploads/jarx7dsv0mxyjcsf3wct.png": "", // Cloudinary returns the secure URL of the uploaded image
+            gender1: isGender1 ? "https://res.cloudinary.com/dlchhddqg/image/upload/v1722444603/uploads/sdpbceanquurdxsrv3rz.png": "Unknown",
+            gender2: isGender2 ? "https://res.cloudinary.com/dlchhddqg/image/upload/v1722444604/uploads/jarx7dsv0mxyjcsf3wct.png": "Unknown", // Cloudinary returns the secure URL of the uploaded image
             category,
             height,
             weight,
             weakness,
+            region
         })
 
-        res.send(createdPokemon)
+        res.status(200).send(createdPokemon)
 
         // Delete files from local storage
         fs.unlink(req.files.image[0].path, (err) => {
@@ -66,6 +68,7 @@ const pokedexController = async (req, res) => {
         });
 
     } catch (error) {
+        res.status(500).send(error)
         console.error(error);
     }
 
@@ -107,8 +110,8 @@ const deletePokemon = async (req, res) => {
 
     try {
 
-        let { number } = req.body
-        let delPokemon = await pokemonModel.findOneAndDelete({ number })
+        const paddedNumber = req.body.number.toString().padStart(3, '0');
+        let delPokemon = await pokemonModel.findOneAndDelete({ number: paddedNumber });
 
         if (!delPokemon) {
             return res.status(404).send({ message: 'Pokémon not found.' });

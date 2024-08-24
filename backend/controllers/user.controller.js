@@ -5,6 +5,7 @@ import generateToken from "../utils/GenerateToken.js";
 
 const registerUser = async (req, res) => {
 
+
     //To register a user
     const { username, password } = req.body
 
@@ -19,7 +20,8 @@ const registerUser = async (req, res) => {
 
         user = await userModel.create({
             username,
-            password: hashedPass
+            password: hashedPass,
+            image: ""
         })
 
         //user ko login kardo just after account creation
@@ -77,7 +79,7 @@ const logInUser = async (req, res) => {
 }
 
 
-const logOutUser = async (req, res) => {
+const logOutUser = async (_, res) => {
 
     res.cookie("token", "", {
         httpOnly: true,

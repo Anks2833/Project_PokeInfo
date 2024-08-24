@@ -3,6 +3,9 @@ import { statsModel } from "../models/stats.model.js"
 const createStats = async (req, res) => {
 
     try {
+
+        const paddedNumber = req.body.number.toString().padStart(3, '0');
+
         const {
             hp,
             attack,
@@ -13,7 +16,7 @@ const createStats = async (req, res) => {
         } = req.body;
 
         const createdStats = await statsModel.create({
-            number: req.body.number,
+            number: paddedNumber,
             hp,
             attack,
             defense,

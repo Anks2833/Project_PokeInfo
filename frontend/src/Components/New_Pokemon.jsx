@@ -98,7 +98,7 @@ const New_Pokemon = () => {
         formData.append('evolution3', data.evo3)
 
 
-        await axios.post('https://project-pokeinfo.onrender.com/api/pokedex', formData)
+        await axios.post('/api/pokedex', formData)
             .then((response) => {
                 setPokemon(`Pokémon ${response.data.name} Created Successfully`)
             })

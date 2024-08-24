@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { IoEyeSharp, IoEyeOffSharp } from "react-icons/io5";
 import { useState } from 'react';
 
-axios.defaults.withCredentials = true; // This allows cookies to be sent with requests
 
 const AdminPanel = () => {
   const { register, handleSubmit } = useForm();
@@ -17,7 +16,12 @@ const AdminPanel = () => {
 
     try {
 
-      const response = await axios.post('/api/v1/user/login', data);
+      const response = await axios.post('https://project-pokeinfo.onrender.com/api/v1/user/login', data, {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
       if (response.status === 200) {
         navigate('/admindashboard');
       } else {

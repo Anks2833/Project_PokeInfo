@@ -64,7 +64,7 @@ const Evolution_Data = () => {
         formData.append('type13', type13);
         formData.append('type23', type23);
 
-        await axios.post('/api/evolution', formData)
+        await axios.post('https://project-pokeinfo.onrender.com/api/evolution', formData)
             .then((response) => {
                 console.log(response.data);
                 setCreatedEvolution(`Evolution data for #${response.data.name1} created successfully`)

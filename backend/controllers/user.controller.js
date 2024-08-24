@@ -68,7 +68,7 @@ const logInUser = async (req, res) => {
 
             console.log("Login Successful"); // Debugging
             res.status(200).send(`Logged in successfully the user with name: ${user.username}`)
-            console.log(req.cookie)
+            console.log(req.cookies.token)
         } else {
             return res.status(500).send("Username or password Incorrect")
         }

@@ -64,7 +64,7 @@ const logInUser = async (req, res) => {
                 secure: true,
                 sameSite: 'none',
                 domain: 'https://project-poke-info.vercel.app',
-                path: "/"
+                path: "/",
                 maxAge: 30 * 24 * 60 * 60 * 1000
             })
 

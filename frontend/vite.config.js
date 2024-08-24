@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy:{
       "/api": {
-        target: "https://project-pokeinfo.onrender.com"
+        target: "https://project-pokeinfo.onrender.com/"
       }
     }
   },

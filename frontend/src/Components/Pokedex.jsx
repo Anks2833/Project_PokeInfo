@@ -82,7 +82,7 @@ const Pokedex = () => {
   useEffect(() => {
 
     const fetchData = () => {
-      axios.get('/api/pokedex')
+      axios.get('https://project-pokeinfo.onrender.com/api/pokedex')
         .then((response) => {
           setPokemon(response.data)
         })
@@ -97,7 +97,7 @@ const Pokedex = () => {
 
   // To fetch random pokemon images
   useEffect(() => {
-    axios.get('/api/pokedex/randomimage')
+    axios.get('https://project-pokeinfo.onrender.com/api/pokedex/randomimage')
       .then((response) => {
         setImageUrls(response.data);
         // console.log(response.data);

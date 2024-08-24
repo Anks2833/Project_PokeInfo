@@ -17,10 +17,7 @@ const AdminPanel = () => {
     try {
 
       const response = await axios.post('https://project-pokeinfo.onrender.com/api/v1/user/login', data, {
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        withCredentials: true
       });
       if (response.status === 200) {
         navigate('/admindashboard');

@@ -10,7 +10,6 @@
                     const response = await axios.get('https://project-pokeinfo.onrender.com/api/v1/user/profile', { withCredentials: true });
                     if (response.status === 200) {
                         setIsAuthenticated(true);
-                        // console.log(response.data);
                     } else {
                         setIsAuthenticated(false);
                     }

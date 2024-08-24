@@ -1,6 +1,5 @@
 import { NavLink } from 'react-router-dom';
 import useAuth from './useAuth';
-// import { useEffect } from 'react';
 
 const PrivateRoute = ({ children }) => {
     const isAuthenticated = useAuth();

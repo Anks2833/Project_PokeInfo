@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom"
 
 import PrivateRoute from "./PrivateRoute"
 import ScrollToTop from "./scrollToTop"
+import useAuth from './useAuth';
 
 import Home from "../Components/Home"
 import Pokedex from "../Components/Pokedex"
@@ -16,6 +17,9 @@ import New_Ability from "../Components/New_Ability"
 import Not_Found from "../Components/Not_Found"
 
 const Routing = () => {
+
+  const isAuthenticated = useAuth();
+
   return (
 
     <>
@@ -32,39 +36,27 @@ const Routing = () => {
         <Route path="/pokeinfo/:number" element={<Pokemon_Details />} />
 
         <Route path="/admindashboard" element={
-          <PrivateRoute>
-            <AdminDashboard />
-          </PrivateRoute>
+            isAuthenticated ? <AdminDashboard />: <PrivateRoute />
         } />
 
         <Route path="/new_pokemon" element={
-          <PrivateRoute>
-            <New_Pokemon />
-          </PrivateRoute>
+          isAuthenticated ? <New_Pokemon />: <PrivateRoute />
         } />
 
         <Route path="/delete_pokemon" element={
-          <PrivateRoute>
-            <Delete_Pokemon />
-          </PrivateRoute>
+          isAuthenticated ? <Delete_Pokemon />: <PrivateRoute />
         } />
 
         <Route path="/evolution_data" element={
-          <PrivateRoute>
-            <Evolution_Data />
-          </PrivateRoute>
+          isAuthenticated ? <Evolution_Data />: <PrivateRoute />
         } />
 
         <Route path="/stats_data" element={
-          <PrivateRoute>
-            <New_Stats />
-          </PrivateRoute>
+          isAuthenticated ? <New_Stats />: <PrivateRoute />
         } />
 
         <Route path="/ability_data" element={
-          <PrivateRoute>
-            <New_Ability />
-          </PrivateRoute>
+          isAuthenticated ? <New_Ability />: <PrivateRoute />
         } />
 
       </Routes>

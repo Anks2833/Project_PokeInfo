@@ -63,12 +63,10 @@ const logInUser = async (req, res) => {
                 httpOnly: true,
                 secure: true,
                 sameSite: 'none',
-                domain: 'https://project-poke-info.vercel.app',
-                path: "/",
                 maxAge: 30 * 24 * 60 * 60 * 1000
             })
 
-            console.log("Login Successful"); // Debugging
+            console.log("Login Successful");
             res.status(200).send(`Logged in successfully the user with name: ${user.username}`)
             console.log(req.cookies.token)
         } else {

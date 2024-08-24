@@ -12,8 +12,10 @@ const useAuth = () => {
                 });
                 if (response.status === 200) {
                     setIsAuthenticated(true);
+                    console.log(isAuthenticated);
                 } else {
                     setIsAuthenticated(false);
+                    console.log(isAuthenticated);
                 }
             } catch (error) {
                 console.error('Authentication check failed:', error);

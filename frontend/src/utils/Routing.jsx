@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router-dom"
 
-import PrivateRoute from "./PrivateRoute"
 import ScrollToTop from "./scrollToTop"
 import useAuth from './useAuth';
 
@@ -36,27 +35,27 @@ const Routing = () => {
         <Route path="/pokeinfo/:number" element={<Pokemon_Details />} />
 
         <Route path="/admindashboard" element={
-            isAuthenticated ? <AdminDashboard />: <PrivateRoute />
+            isAuthenticated ? <AdminDashboard />: <Not_Found />
         } />
 
         <Route path="/new_pokemon" element={
-          isAuthenticated ? <New_Pokemon />: <PrivateRoute />
+          isAuthenticated ? <New_Pokemon />: <Not_Found />
         } />
 
         <Route path="/delete_pokemon" element={
-          isAuthenticated ? <Delete_Pokemon />: <PrivateRoute />
+          isAuthenticated ? <Delete_Pokemon />: <Not_Found />
         } />
 
         <Route path="/evolution_data" element={
-          isAuthenticated ? <Evolution_Data />: <PrivateRoute />
+          isAuthenticated ? <Evolution_Data />: <Not_Found />
         } />
 
         <Route path="/stats_data" element={
-          isAuthenticated ? <New_Stats />: <PrivateRoute />
+          isAuthenticated ? <New_Stats />: <Not_Found />
         } />
 
         <Route path="/ability_data" element={
-          isAuthenticated ? <New_Ability />: <PrivateRoute />
+          isAuthenticated ? <New_Ability />: <Not_Found />
         } />
 
       </Routes>

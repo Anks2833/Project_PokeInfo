@@ -10,17 +10,5 @@ export default defineConfig({
         changeOrigin: true
       }
     }
-  },
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks: undefined
-      }
-    }
-  },
-  resolve: {
-    alias: {
-      '@': '/src'
-    }
   }
 })

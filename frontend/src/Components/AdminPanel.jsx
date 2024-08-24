@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { IoEyeSharp, IoEyeOffSharp } from "react-icons/io5";
 import { useState } from 'react';
 
+axios.defaults.withCredentials = true; // This allows cookies to be sent with requests
+
 const AdminPanel = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();

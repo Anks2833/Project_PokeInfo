@@ -7,7 +7,20 @@ export default defineConfig({
     proxy: {
       '/api': {
         target: 'https://project-pokeinfo.onrender.com',
+        changeOrigin: true
       }
+    }
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: undefined
+      }
+    }
+  },
+  resolve: {
+    alias: {
+      '@': '/src'
     }
   }
 })

@@ -7,7 +7,7 @@
         useEffect(() => {
             const checkAuth = async () => {
                 try {
-                    const response = await axios.get('/api/v1/user/profile', { withCredentials: true });
+                    const response = await axios.get('https://project-pokeinfo.onrender.com/api/v1/user/profile', { withCredentials: true });
                     if (response.status === 200) {
                         setIsAuthenticated(true);
                         // console.log(response.data);

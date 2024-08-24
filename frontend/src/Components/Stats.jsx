@@ -13,7 +13,7 @@ const Stats = (props) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`/api/stats`);
+                const response = await axios.get(`https://project-pokeinfo.onrender.com/api/stats`);
                 const foundStat = response.data.find(stat => stat.number === number);
                 if (foundStat) {
                     setStats([foundStat]); // Assuming stats per Pokémon are unique, wrap in an array

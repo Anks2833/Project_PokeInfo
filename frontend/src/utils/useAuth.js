@@ -3,30 +3,41 @@ import axios from 'axios';
 
 const useAuth = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const checkAuth = async () => {
             try {
                 const response = await axios.get('https://project-pokeinfo.onrender.com/api/v1/user/profile', {
                     withCredentials: true,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
                 });
+                console.log('Response:', response);
                 if (response.status === 200) {
                     setIsAuthenticated(true);
-                    console.log(isAuthenticated);
                 } else {
-                    setIsAuthenticated(false);
-                    console.log(isAuthenticated);
+                    console.log('Authentication failed:', response.status);
+                    setError(`Authentication failed: ${response.statusText}`);
                 }
             } catch (error) {
                 console.error('Authentication check failed:', error);
-                setIsAuthenticated(false);
+                setError(error.message);
             }
         };
 
         checkAuth();
     }, []);
 
-    return isAuthenticated;
+    useEffect(() => {
+        if (isAuthenticated) {
+            console.log('User authenticated:', isAuthenticated);
+        }
+    }, [isAuthenticated]);
+
+    return [isAuthenticated, error];
 };
 
 export default useAuth;

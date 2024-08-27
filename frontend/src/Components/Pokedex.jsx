@@ -80,24 +80,20 @@ const Pokedex = () => {
 
   // To fetch pokemon data of all pokemons
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('/api/pokedex');
-        if (Array.isArray(response.data)) {
-          setPokemon(response.data);
-        } else {
-          console.error("Expected an array but got:", response.data);
-          setPokemon([]); // Set an empty array if the response isn't what you expect
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error.message);
-        setPokemon([]); // Fallback to an empty array in case of error
-      }
-    };
-  
-    fetchData();
-  }, []);
-  
+
+    const fetchData = () => {
+      axios.get('/api/pokedex')
+        .then((response) => {
+          setPokemon(response.data)
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    }
+
+    fetchData()
+  }, [pokemon])
 
   // To fetch random pokemon images
   useEffect(() => {
@@ -153,10 +149,8 @@ const Pokedex = () => {
     }
   }, [pokemon]);
 
-
-  console.log('pokemon before filtering:', pokemon);
   //To filter out pokemons based on name and number
-  const filteredPokemonList = (Array.isArray(pokemon) ? pokemon : []).filter((poke) =>
+  const filteredPokemonList = pokemon.filter((poke) =>
     poke?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     poke?.number?.toString().includes(searchTerm)
   );

@@ -85,6 +85,7 @@ const Pokedex = () => {
       axios.get('/api/pokedex')
         .then((response) => {
           setPokemon(response.data)
+          console.log(response.data);
         })
         .catch((error) => {
           console.log(error.message);
@@ -100,7 +101,7 @@ const Pokedex = () => {
     axios.get('/api/pokedex/randomimage')
       .then((response) => {
         setImageUrls(response.data);
-        // console.log(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         console.error(error)

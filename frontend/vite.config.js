@@ -7,6 +7,7 @@ export default defineConfig({
     proxy: {
       '/api': {
         target: 'https://project-pokeinfo.onrender.com',
+        // target: 'http://localhost:3000',
       }
     }
   }

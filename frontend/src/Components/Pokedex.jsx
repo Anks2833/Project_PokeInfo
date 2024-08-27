@@ -144,11 +144,17 @@ const Pokedex = () => {
     }
   };
 
+  useEffect(() => {
+    if (!Array.isArray(pokemon)) {
+      setPokemon([]);
+    }
+  }, [pokemon]);
+
   //To filter out pokemons based on name and number
-  const filteredPokemonList = Array.isArray(pokemon) ? pokemon.filter((pokemon) =>
-    pokemon.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    pokemon.number.toString().includes(searchTerm)
-  ) : [];
+  const filteredPokemonList = pokemon.filter((poke) =>
+    poke?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    poke?.number?.toString().includes(searchTerm)
+  );
 
   // Function to handle type selection
   const handleTypeClick = (type) => {
@@ -650,7 +656,7 @@ const Pokedex = () => {
 
                 <div className="pokemon-list w-full min-h-20 mt-20 hidden sm:flex flex-wrap justify-start px-10 gap-6 pb-20">
                   {
-                    Array.isArray(filteredPokemonList) && filteredPokemonList.length === 0 ?
+                    filteredPokemonList.length === 0 ?
                       <div className="w-full flex items-center justify-center">
                         <h1 className="text-3xl font-semibold">No Pokémons Found</h1>
                       </div> :
@@ -714,7 +720,7 @@ text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inne
                 {/* For mobile devices */}
                 <div className="w-full min-h-20 mt-5 sm:hidden flex flex-col">
                   {
-                    Array.isArray(filteredPokemonList) && filteredPokemonList.length === 0 ?
+                    filteredPokemonList.length === 0 ?
                       <div className="w-full flex items-center justify-center">
                         <h1 className="text-3xl font-semibold">No Pokémons Found</h1>
                       </div> :
@@ -772,7 +778,7 @@ text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inne
 
                 <div className="w-full min-h-20 mt-20 hidden sm:flex flex-wrap justify-start px-10 gap-6 pb-20">
 
-                  {Array.isArray(pokemon) && pokemon
+                  {pokemon
                     .filter((poke) => selectedArea ? poke.region[0] === selectedArea : true)
                     .filter((poke) => selectedType ? poke.type1 === selectedType || poke.type2 === selectedType : true)
                     .map((poke, index) => {
@@ -839,7 +845,7 @@ text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inne
                 {/* For mobile devices */}
                 <div className="w-full min-h-20 mt-5 sm:hidden flex flex-col">
 
-                  {Array.isArray(pokemon) && pokemon
+                  {pokemon
                     .filter((poke) => selectedType ? poke.type1 === selectedType || poke.type2 === selectedType : true)
                     .map((poke, index) => {
                       return (

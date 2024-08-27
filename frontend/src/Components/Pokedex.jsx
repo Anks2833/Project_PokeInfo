@@ -496,7 +496,7 @@ const Pokedex = () => {
           )}
 
           {/* 3d model */}
-          <div className='w-fit h-[80vh] absolute translate-x-[0%] translate-y-[0%] z-[0] hidden sm:block'>
+          {/* <div className='w-fit h-[80vh] absolute translate-x-[0%] translate-y-[0%] z-[0] hidden sm:block'>
             <Canvas>
               <ambientLight intensity={4} />
               <animated.group rotation-y={rotation}>
@@ -505,7 +505,7 @@ const Pokedex = () => {
                 </Suspense>
               </animated.group>
             </Canvas>
-          </div>
+          </div> */}
 
           {/* Input search */}
           <div className="w-full hidden sm:flex flex-col items-center mt-20">

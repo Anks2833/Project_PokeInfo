@@ -80,21 +80,24 @@ const Pokedex = () => {
 
   // To fetch pokemon data of all pokemons
   useEffect(() => {
-
-    const fetchData = () => {
-      axios.get('/api/pokedex')
-        .then((response) => {
-          setPokemon(response.data)
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
-    }
-
-    fetchData()
-
-  }, [])
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('/api/pokedex');
+        if (Array.isArray(response.data)) {
+          setPokemon(response.data);
+        } else {
+          console.error("Expected an array but got:", response.data);
+          setPokemon([]); // Set an empty array if the response isn't what you expect
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
+        setPokemon([]); // Fallback to an empty array in case of error
+      }
+    };
+  
+    fetchData();
+  }, []);
+  
 
   // To fetch random pokemon images
   useEffect(() => {
@@ -150,8 +153,10 @@ const Pokedex = () => {
     }
   }, [pokemon]);
 
+
+  console.log('pokemon before filtering:', pokemon);
   //To filter out pokemons based on name and number
-  const filteredPokemonList = pokemon.filter((poke) =>
+  const filteredPokemonList = (Array.isArray(pokemon) ? pokemon : []).filter((poke) =>
     poke?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     poke?.number?.toString().includes(searchTerm)
   );
@@ -496,7 +501,7 @@ const Pokedex = () => {
           )}
 
           {/* 3d model */}
-          {/* <div className='w-fit h-[80vh] absolute translate-x-[0%] translate-y-[0%] z-[0] hidden sm:block'>
+          <div className='w-fit h-[80vh] absolute translate-x-[0%] translate-y-[0%] z-[0] hidden sm:block'>
             <Canvas>
               <ambientLight intensity={4} />
               <animated.group rotation-y={rotation}>
@@ -505,7 +510,7 @@ const Pokedex = () => {
                 </Suspense>
               </animated.group>
             </Canvas>
-          </div> */}
+          </div>
 
           {/* Input search */}
           <div className="w-full hidden sm:flex flex-col items-center mt-20">

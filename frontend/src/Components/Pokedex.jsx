@@ -80,20 +80,19 @@ const Pokedex = () => {
 
   // To fetch pokemon data of all pokemons
   useEffect(() => {
-
-    const fetchData = () => {
-      axios.get('/api/pokedex')
-        .then((response) => {
-          setPokemon(response.data)
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
-    }
-
-    fetchData()
-  }, [])
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('/api/pokedex');
+        console.log("API response:", response.data);
+        setPokemon(Array.isArray(response.data) ? response.data : []);
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
+        setPokemon([]); // Fallback to an empty array in case of error
+      }
+    };
+  
+    fetchData();
+  }, []);
 
   // To fetch random pokemon images
   useEffect(() => {
@@ -641,128 +640,256 @@ const Pokedex = () => {
           }
 
           {/* All pokemons */}
-          <>
+          {
+            isSearchMode ? (
 
-            <div className="w-full min-h-20 mt-20 hidden sm:flex flex-wrap justify-start px-10 gap-6 pb-20">
+              // Render each Pokemon from filtered list
+              <>
 
-              {pokemon
-                .filter((poke) => selectedArea ? poke.region[0] === selectedArea : true)
-                .filter((poke) => selectedType ? poke.type1 === selectedType || poke.type2 === selectedType : true)
-                .map((poke, index) => {
-                  return (
+                <div className="pokemon-list w-full min-h-20 mt-20 hidden sm:flex flex-wrap justify-start px-10 gap-6 pb-20">
+                  {
+                    filteredPokemonList.length === 0 ?
+                      <div className="w-full flex items-center justify-center">
+                        <h1 className="text-3xl font-semibold">No Pokémons Found</h1>
+                      </div> :
+                      filteredPokemonList.map((poke, index) => (
 
-                    <motion.div
-                      key={index}
-                      className={`cursor-pointer w-[22vw] h-[35vw] bg-[#0A141E] border-2 border-zinc-100 rounded-xl overflow-hidden`}
-                      role="button"
-                      variants={scaleVariants}
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      whileTap="tapped"
-                    >
-                      <NavLink to={`/pokeinfo/${poke.number}`}>
+                        <motion.div
+                          variants={opacityVariants}
+                          initial="hidden"
+                          whileInView="visible"
+                          key={index}
+                          className={`shadow-sm shadow-zinc-100 cursor-pointer w-[22vw] h-[35vw] bg-[#0A141E] border border-zinc-100 rounded-xl overflow-hidden`}
+                        >
+                          <NavLink to={`/pokeinfo/${poke.number}`}>
 
-                        {/* Image div */}
-                        <div className="relative w-full flex justify-center items-center" >
-                          {/* <img className="absolute top-0" src="/images/pokedex.png" alt="" /> */}
-                          <img className={`${pokemonTypeShadow(poke.type1)} ${pokemonTypeBorder(poke.type1)} absolute top-10 w-72 border rounded-full shadow-md`} src={poke.image} alt="nonimg" />
-                        </div>
-
-                        {/* info div */}
-                        <div className="mt-80 flex flex-col items-start px-6">
-
-                          {/* The name and number */}
-                          <div className="flex flex-col py-4 text-4xl">
-                            {/* The number */}
-                            <div>
-                              <h1 className="">#{poke.number}</h1>
+                            {/* Image div */}
+                            <div className="relative w-full flex justify-center items-center" >
+                              <img className={`${pokemonTypeShadow(poke.type1)} ${pokemonTypeBorder(poke.type1)} absolute top-10 w-72 border rounded-full shadow-md`} src={poke.image} alt="nonimg" />
                             </div>
 
-                            {/* The name */}
-                            <div>
+                            {/* info div */}
+                            <div className="mt-80 flex flex-col items-start px-6">
+
+                              {/* The name and number */}
+                              <div className="flex flex-col py-4 text-4xl">
+                                {/* The number */}
+                                <div>
+                                  <h1 className="">#{poke.number}</h1>
+                                </div>
+
+                                {/* The name */}
+                                <div>
+                                  <h1 className="font-semibold">{poke.name}</h1>
+                                </div>
+                              </div>
+
+                              {/* Type */}
+                              <div className="w-full flex justify-center items-center mt-2 gap-2">
+                                <div className="w-1/2 flex justify-center items-center">
+                                  <h1
+                                    className={
+                                      `${pokemonTypeColors(poke.type1)}
+text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`
+                                    }>
+                                    {poke.type1}
+                                  </h1>
+                                </div>
+                                <div className="w-1/2 flex justify-center items-center">
+                                  <h1 className={`${pokemonTypeColors(poke.type2)} ${poke.type2 ? "text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner" : "text-2xl border border-white px-10 py-2 rounded-full"}`}>{poke.type2 || "NA"}</h1>
+                                </div>
+                              </div>
+
+                            </div>
+
+                          </NavLink>
+                        </motion.div>
+
+                      ))
+                  }
+                </div>
+
+                {/* For mobile devices */}
+                <div className="w-full min-h-20 mt-5 sm:hidden flex flex-col">
+                  {
+                    filteredPokemonList.length === 0 ?
+                      <div className="w-full flex items-center justify-center">
+                        <h1 className="text-3xl font-semibold">No Pokémons Found</h1>
+                      </div> :
+                      filteredPokemonList.map((poke, index) => (
+
+                        <NavLink to={`/pokeinfo/${poke.number}`} key={index} className={`w-full h-20 flex justify-between cursor-pointer bg-[#0A141E] border-t border-t-zinc-800 overflow-hidden`} >
+
+                          {/* Image div and info div */}
+                          <div className="w-1/2 flex justify-start pl-4 gap-2">
+
+                            {/* The image div */}
+                            <div className="flex items-center">
+                              <img className={`${pokemonTypeShadow(poke.type1)} ${pokemonTypeBorder(poke.type1)} w-12 border rounded shadow`} src={poke.image} alt="nonimg" />
+                            </div>
+
+                            {/* The name and number */}
+                            <div className="flex flex-col justify-center text-lg">
+                              {/* The name */}
                               <h1 className="font-semibold">{poke.name}</h1>
+
+                              {/* The number */}
+                              <h1 className="font-light">#{poke.number}</h1>
                             </div>
                           </div>
 
-                          {/* Type */}
-                          <div className="w-full flex justify-center items-center mt-2 gap-2">
-                            <div className="w-1/2 flex justify-center items-center">
+                          {/* Type div */}
+                          <div className={`w-1/2 flex justify-end items-end pr-2 pb-2 ${poke.type2 && "gap-1"}`}>
+
+                            {/* Type-1 */}
+                            <div className="flex justify-center items-center">
                               <h1
                                 className={
-                                  `${pokemonTypeColors(poke.type1)}
-text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`
+                                  `${pokemonTypeColors(poke.type1)} text-xs px-5 py-2 rounded-md border border-zinc-900 shadow-black shadow-inner`
                                 }>
                                 {poke.type1}
                               </h1>
                             </div>
-                            <div className="w-1/2 flex justify-center items-center">
-                              <h1 className={`${pokemonTypeColors(poke.type2)} ${poke.type2 ? "text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner" : "text-2xl border border-white px-10 py-2 rounded-full"}`}>{poke.type2 || "NA"}</h1>
+
+                            {/* Type-2 */}
+                            <div className="flex justify-center items-center">
+                              <h1 className={`${pokemonTypeColors(poke.type2)} ${poke.type2 && "text-xs px-5 py-2 rounded-md border border-zinc-900 shadow-black shadow-inner"}`}>{poke.type2}</h1>
                             </div>
                           </div>
 
-                        </div>
+                        </NavLink>
+                      ))
+                  }
+                </div>
 
-                      </NavLink>
-                    </motion.div>
-                  )
-                })}
+              </>
 
-            </div>
+            ) : (
+              // Render each Pokemon from full list
+              <>
 
-            {/* For mobile devices */}
-            <div className="w-full min-h-20 mt-5 sm:hidden flex flex-col">
+                <div className="w-full min-h-20 mt-20 hidden sm:flex flex-wrap justify-start px-10 gap-6 pb-20">
 
-              {pokemon
-                .filter((poke) => selectedType ? poke.type1 === selectedType || poke.type2 === selectedType : true)
-                .map((poke, index) => {
-                  return (
+                  {pokemon
+                    .filter((poke) => selectedArea ? poke.region[0] === selectedArea : true)
+                    .filter((poke) => selectedType ? poke.type1 === selectedType || poke.type2 === selectedType : true)
+                    .map((poke, index) => {
+                      return (
 
-                    <NavLink to={`/pokeinfo/${poke.number}`} key={index} className={`w-full h-20 flex justify-between cursor-pointer bg-[#0A141E] border-t border-t-zinc-800 overflow-hidden`} >
+                        <motion.div
+                          key={index}
+                          className={`cursor-pointer w-[22vw] h-[35vw] bg-[#0A141E] border-2 border-zinc-100 rounded-xl overflow-hidden`}
+                          role="button"
+                          variants={scaleVariants}
+                          initial={{ opacity: 0 }}
+                          whileInView={{ opacity: 1 }}
+                          whileTap="tapped"
+                        >
+                          <NavLink to={`/pokeinfo/${poke.number}`}>
 
-                      {/* Image div and info div */}
-                      <div className="w-1/2 flex justify-start pl-4 gap-2">
+                            {/* Image div */}
+                            <div className="relative w-full flex justify-center items-center" >
+                              {/* <img className="absolute top-0" src="/images/pokedex.png" alt="" /> */}
+                              <img className={`${pokemonTypeShadow(poke.type1)} ${pokemonTypeBorder(poke.type1)} absolute top-10 w-72 border rounded-full shadow-md`} src={poke.image} alt="nonimg" />
+                            </div>
 
-                        {/* The image div */}
-                        <div className="flex items-center">
-                          <img className={`${pokemonTypeShadow(poke.type1)} ${pokemonTypeBorder(poke.type1)} w-12 border rounded shadow`} src={poke.image} alt="nonimg" />
-                        </div>
+                            {/* info div */}
+                            <div className="mt-80 flex flex-col items-start px-6">
 
-                        {/* The name and number */}
-                        <div className="flex flex-col justify-center text-lg">
-                          {/* The name */}
-                          <h1 className="font-semibold">{poke.name}</h1>
+                              {/* The name and number */}
+                              <div className="flex flex-col py-4 text-4xl">
+                                {/* The number */}
+                                <div>
+                                  <h1 className="">#{poke.number}</h1>
+                                </div>
 
-                          {/* The number */}
-                          <h1 className="font-light">#{poke.number}</h1>
-                        </div>
-                      </div>
+                                {/* The name */}
+                                <div>
+                                  <h1 className="font-semibold">{poke.name}</h1>
+                                </div>
+                              </div>
 
-                      {/* Type div */}
-                      <div className={`w-1/2 flex justify-end items-end pr-2 pb-2 ${poke.type2 && "gap-1"}`}>
+                              {/* Type */}
+                              <div className="w-full flex justify-center items-center mt-2 gap-2">
+                                <div className="w-1/2 flex justify-center items-center">
+                                  <h1
+                                    className={
+                                      `${pokemonTypeColors(poke.type1)}
+text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`
+                                    }>
+                                    {poke.type1}
+                                  </h1>
+                                </div>
+                                <div className="w-1/2 flex justify-center items-center">
+                                  <h1 className={`${pokemonTypeColors(poke.type2)} ${poke.type2 ? "text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner" : "text-2xl border border-white px-10 py-2 rounded-full"}`}>{poke.type2 || "NA"}</h1>
+                                </div>
+                              </div>
 
-                        {/* Type-1 */}
-                        <div className="flex justify-center items-center">
-                          <h1
-                            className={
-                              `${pokemonTypeColors(poke.type1)} text-xs px-5 py-2 rounded-md border border-zinc-900 shadow-black shadow-inner`
-                            }>
-                            {poke.type1}
-                          </h1>
-                        </div>
+                            </div>
 
-                        {/* Type-2 */}
-                        <div className="flex justify-center items-center">
-                          <h1 className={`${pokemonTypeColors(poke.type2)} ${poke.type2 && "text-xs px-5 py-2 rounded-md border border-zinc-900 shadow-black shadow-inner"}`}>{poke.type2}</h1>
-                        </div>
-                      </div>
+                          </NavLink>
+                        </motion.div>
+                      )
+                    })}
 
-                    </NavLink>
-                  )
-                })}
+                </div>
 
-            </div>
+                {/* For mobile devices */}
+                <div className="w-full min-h-20 mt-5 sm:hidden flex flex-col">
 
-          </>
+                  {pokemon
+                    .filter((poke) => selectedType ? poke.type1 === selectedType || poke.type2 === selectedType : true)
+                    .map((poke, index) => {
+                      return (
+
+                        <NavLink to={`/pokeinfo/${poke.number}`} key={index} className={`w-full h-20 flex justify-between cursor-pointer bg-[#0A141E] border-t border-t-zinc-800 overflow-hidden`} >
+
+                          {/* Image div and info div */}
+                          <div className="w-1/2 flex justify-start pl-4 gap-2">
+
+                            {/* The image div */}
+                            <div className="flex items-center">
+                              <img className={`${pokemonTypeShadow(poke.type1)} ${pokemonTypeBorder(poke.type1)} w-12 border rounded shadow`} src={poke.image} alt="nonimg" />
+                            </div>
+
+                            {/* The name and number */}
+                            <div className="flex flex-col justify-center text-lg">
+                              {/* The name */}
+                              <h1 className="font-semibold">{poke.name}</h1>
+
+                              {/* The number */}
+                              <h1 className="font-light">#{poke.number}</h1>
+                            </div>
+                          </div>
+
+                          {/* Type div */}
+                          <div className={`w-1/2 flex justify-end items-end pr-2 pb-2 ${poke.type2 && "gap-1"}`}>
+
+                            {/* Type-1 */}
+                            <div className="flex justify-center items-center">
+                              <h1
+                                className={
+                                  `${pokemonTypeColors(poke.type1)} text-xs px-5 py-2 rounded-md border border-zinc-900 shadow-black shadow-inner`
+                                }>
+                                {poke.type1}
+                              </h1>
+                            </div>
+
+                            {/* Type-2 */}
+                            <div className="flex justify-center items-center">
+                              <h1 className={`${pokemonTypeColors(poke.type2)} ${poke.type2 && "text-xs px-5 py-2 rounded-md border border-zinc-900 shadow-black shadow-inner"}`}>{poke.type2}</h1>
+                            </div>
+                          </div>
+
+                        </NavLink>
+                      )
+                    })}
+
+                </div>
+
+              </>
+            )
+          }
 
 
         </div >

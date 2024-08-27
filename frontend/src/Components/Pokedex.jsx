@@ -144,10 +144,10 @@ const Pokedex = () => {
   };
 
   //To filter out pokemons based on name and number
-  const filteredPokemonList = pokemon.filter((pokemon) =>
-    pokemon.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    pokemon.number.toString().includes(searchTerm)
-  );
+  // const filteredPokemonList = pokemon.filter((pokemon) =>
+  //   pokemon.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //   pokemon.number.toString().includes(searchTerm)
+  // );
 
   // Function to handle type selection
   const handleTypeClick = (type) => {

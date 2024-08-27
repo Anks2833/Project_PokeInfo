@@ -144,12 +144,10 @@ const Pokedex = () => {
   };
 
   //To filter out pokemons based on name and number
-  console.log("Type of pokemon:", typeof pokemon);
-console.log("Value of pokemon:", pokemon);
-const filteredPokemonList = Array.isArray(pokemon) ? pokemon.filter((pokemon) =>
+  const filteredPokemonList = pokemon.filter((pokemon) =>
     pokemon.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     pokemon.number.toString().includes(searchTerm)
-) : [];
+  );
 
   // Function to handle type selection
   const handleTypeClick = (type) => {
@@ -285,7 +283,7 @@ const filteredPokemonList = Array.isArray(pokemon) ? pokemon.filter((pokemon) =>
           <Heading_Mobile name={"Pokédex"} to={"/"} />
 
           {/* The arrow */}
-          <div className="hidden sm:block fixed bottom-6 right-3 text-3xl cursor-pointer" onClick={handleScroll}>
+          <div className="fixed bottom-6 right-3 text-3xl cursor-pointer" onClick={handleScroll}>
             <motion.div
               animate={{ rotate: isScrolled ? 180 : 0 }} // Rotate the arrow
               transition={{ duration: 0.5 }}
@@ -655,7 +653,6 @@ const filteredPokemonList = Array.isArray(pokemon) ? pokemon.filter((pokemon) =>
                       <div className="w-full flex items-center justify-center">
                         <h1 className="text-3xl font-semibold">No Pokémons Found</h1>
                       </div> :
-
                       filteredPokemonList.map((poke, index) => (
 
                         <motion.div

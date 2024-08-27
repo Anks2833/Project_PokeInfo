@@ -144,10 +144,12 @@ const Pokedex = () => {
   };
 
   //To filter out pokemons based on name and number
-  const filteredPokemonList = pokemon.filter((pokemon) =>
+  console.log("Type of pokemon:", typeof pokemon);
+console.log("Value of pokemon:", pokemon);
+const filteredPokemonList = Array.isArray(pokemon) ? pokemon.filter((pokemon) =>
     pokemon.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     pokemon.number.toString().includes(searchTerm)
-  );
+) : [];
 
   // Function to handle type selection
   const handleTypeClick = (type) => {
@@ -653,6 +655,7 @@ const Pokedex = () => {
                       <div className="w-full flex items-center justify-center">
                         <h1 className="text-3xl font-semibold">No Pokémons Found</h1>
                       </div> :
+
                       filteredPokemonList.map((poke, index) => (
 
                         <motion.div

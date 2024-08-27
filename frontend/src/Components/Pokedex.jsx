@@ -83,16 +83,29 @@ const Pokedex = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get('/api/pokedex');
-        console.log("API response:", response.data);
-        setPokemon(Array.isArray(response.data) ? response.data : []);
+        const data = response.data;
+  
+        // Ensure the data is an array
+        if (Array.isArray(data)) {
+          setPokemon(data);
+        } else if (data && typeof data === 'object') {
+          // If data is an object, you might need to convert it to an array
+          setPokemon(Object.values(data));
+        } else {
+          // Handle case where data is not what you expect
+          setPokemon([]);
+        }
+  
+        console.log(data);
       } catch (error) {
         console.error("Error fetching data:", error.message);
-        setPokemon([]); // Fallback to an empty array in case of error
+        setPokemon([]);
       }
-    };
+    }
   
     fetchData();
   }, []);
+  
 
   // To fetch random pokemon images
   useEffect(() => {
@@ -143,10 +156,10 @@ const Pokedex = () => {
   };
 
   //To filter out pokemons based on name and number
-  // const filteredPokemonList = pokemon.filter((poke) =>
-  //   poke?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  //   poke?.number?.toString().includes(searchTerm)
-  // );
+  const filteredPokemonList = pokemon.filter((pokemon) =>
+    pokemon.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    pokemon.number.toString().includes(searchTerm)
+  );
 
   // Function to handle type selection
   const handleTypeClick = (type) => {

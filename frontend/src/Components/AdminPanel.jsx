@@ -16,7 +16,7 @@ const AdminPanel = () => {
 
     try {
 
-      const response = await axios.post('/api/v1/user/login', data, {
+      const response = await axios.post('https://project-pokeinfo.onrender.com/api/v1/user/login', data, {
         withCredentials: true
       });
       if (response.status === 200) {

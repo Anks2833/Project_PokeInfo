@@ -80,39 +80,27 @@ const Pokedex = () => {
 
   // To fetch pokemon data of all pokemons
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('/api/pokedex');
-        const data = response.data;
-  
-        // Ensure the data is an array
-        if (Array.isArray(data)) {
-          setPokemon(data);
-        } else if (data && typeof data === 'object') {
-          // If data is an object, you might need to convert it to an array
-          setPokemon(Object.values(data));
-        } else {
-          // Handle case where data is not what you expect
-          setPokemon([]);
-        }
-  
-        console.log(data);
-      } catch (error) {
-        console.error("Error fetching data:", error.message);
-        setPokemon([]);
-      }
+
+    const fetchData = () => {
+      axios.get('https://project-pokeinfo.onrender.com//api/pokedex')
+        .then((response) => {
+          setPokemon(response.data)
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
     }
-  
-    fetchData();
-  }, []);
-  
+
+    fetchData()
+
+  }, [])
 
   // To fetch random pokemon images
   useEffect(() => {
-    axios.get('/api/pokedex/randomimage')
+    axios.get('https://project-pokeinfo.onrender.com//api/pokedex/randomimage')
       .then((response) => {
         setImageUrls(response.data);
-        console.log(response.data);
+        // console.log(response.data);
       })
       .catch((error) => {
         console.error(error)
@@ -903,7 +891,6 @@ text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inne
               </>
             )
           }
-
 
         </div >
       </div>

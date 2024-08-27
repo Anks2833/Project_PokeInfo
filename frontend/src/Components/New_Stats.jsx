@@ -39,7 +39,7 @@ const New_Stats = () => {
     formData.append('speed', data.speed);
 
 
-    await axios.post('/api/stats', formData)
+    await axios.post('https://project-pokeinfo.onrender.com/api/stats', formData)
       .then((response) => {
         console.log(response.data);
         setCreatedStats(`Stats for #${response.data.number} created successfully`);

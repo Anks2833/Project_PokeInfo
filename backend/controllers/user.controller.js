@@ -85,15 +85,16 @@ const logInUser = async (req, res) => {
 
 
 const logOutUser = async (_, res) => {
-
     res.cookie("token", "", {
         httpOnly: true,
         secure: true,
-        sameSite: 'none'
-    })
+        sameSite: 'none',  // Include this if it was set originally
+        maxAge: 0,  // This will expire the cookie immediately
+    });
 
-    res.status(200).json({ isAuthenticated: false })
+    res.status(200).json({ isAuthenticated: false });
 }
+
 
 const getUserProfile = (req, res) => {
     // Always check if req.user exists to avoid sending undefined properties

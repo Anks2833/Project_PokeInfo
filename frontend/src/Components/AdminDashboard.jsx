@@ -33,7 +33,7 @@ const AdminDashboard = () => {
 
             const response = await axios.post('https://project-pokeinfo.onrender.com/api/v1/user/logout');
 
-            if (response.status === 200 && response.data.isAuthenticated === false) {
+            if (response.data.isAuthenticated === false) {
                 navigate('/adminlogin');
             } else {
                 console.log('Failed status:', response.status); // Debugging: Log the failed status

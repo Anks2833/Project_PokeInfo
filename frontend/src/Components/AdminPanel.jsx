@@ -10,6 +10,7 @@ const AdminPanel = () => {
   const navigate = useNavigate();
 
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [isAuth, setIsAuth] = useState(false)
 
   const onSubmit = async (data) => {
 
@@ -18,7 +19,8 @@ const AdminPanel = () => {
       const response = await axios.post('https://project-pokeinfo.onrender.com/api/v1/user/login', data, {
         withCredentials: true
       });
-      if (response.status === 200) {
+      if (response.data.isAuthenticated) {
+        setIsAuth(true)
         navigate('/admindashboard');
       } else {
         console.log('Failed status:', response.status);

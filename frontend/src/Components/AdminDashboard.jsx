@@ -15,7 +15,7 @@ const AdminDashboard = () => {
         const checkAuth = async () => {
             try {
                 const response = await axios.get('https://project-pokeinfo.onrender.com/api/v1/user/profile', { withCredentials: true });
-                if (response.status === 200 && response.data.isAuthenticated) {
+                if (response.data.isAuthenticated) {
                     setIsAuth(true)
                     setUsername(response.data.userProfile.username)
                     setImage(response.data.userProfile.image)
@@ -34,7 +34,7 @@ const AdminDashboard = () => {
 
             const response = await axios.post('https://project-pokeinfo.onrender.com/api/v1/user/logout');
 
-            if (response.status === 200 && response.data.isAuthenticated === false) {
+            if (response.data.isAuthenticated === false) {
                 setIsAuth(false)
             } else {
                 console.log('Failed status:', response.status); // Debugging: Log the failed status

@@ -67,10 +67,14 @@ const logInUser = async (req, res) => {
             })
 
             console.log("Login Successful");
-            res.status(200).send(`Logged in successfully the user with name: ${user.username}`)
+            res.status(200).json({
+                isAuthenticated: true
+            })
             console.log(req.cookies.token)
         } else {
-            return res.status(500).json("Username or password Incorrect")
+            return res.status(500).json({
+                isAuthenticated: false
+            })
         }
 
     } catch (err) {
@@ -88,15 +92,15 @@ const logOutUser = async (_, res) => {
         sameSite: 'none'
     })
 
-    res.status(200).json({isAuthenticated: false})
+    res.status(200).json({ isAuthenticated: false })
 }
 
 const getUserProfile = (req, res) => {
     // Always check if req.user exists to avoid sending undefined properties
     if (!req.user) {
-        return res.status(401).json({ 
+        return res.status(401).json({
             message: 'Unauthorized: No user found.',
-            isAuthenticated: false 
+            isAuthenticated: false
         });
     }
 

@@ -10,6 +10,7 @@ import { Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { useSpring, animated } from '@react-spring/three';
 import Heading_Mobile from "./Heading_Mobile"
+import Spinner from "./Spinner";
 import Model from "../../public/Charizard";
 
 const Pokedex = () => {
@@ -487,7 +488,9 @@ const Pokedex = () => {
 
             </div>
           ) : (
-            <h1>Loading...</h1>
+            <div className="w-full flex items-center justify-center">
+              <Spinner />
+            </div>
           )}
 
           {/* 3d model */}
@@ -646,7 +649,7 @@ const Pokedex = () => {
           {
             pokemon.length === 0 ? (
               <div className="w-full flex items-center justify-center min-h-screen">
-                <h1 className="text-3xl font-semibold">Loading...</h1>
+                <Spinner />
               </div>
             ) : (
               isSearchMode ? (

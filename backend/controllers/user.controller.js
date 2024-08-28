@@ -89,8 +89,7 @@ const logOutUser = async (_, res) => {
         httpOnly: true,
         secure: true,
         sameSite: 'none',
-        expires: new Date(Date.now()),
-        path: '/'
+        maxAge: 0,
     });
 
     res.status(200).json({ isAuthenticated: false });

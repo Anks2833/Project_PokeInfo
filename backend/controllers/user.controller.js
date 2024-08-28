@@ -88,13 +88,16 @@ const logOutUser = async (_, res) => {
         sameSite: 'none'
     })
 
-    res.status(200).send("Logged out successfully")
+    res.status(200).json({isAuthenticated: false})
 }
 
 const getUserProfile = (req, res) => {
     // Always check if req.user exists to avoid sending undefined properties
     if (!req.user) {
-        return res.status(401).json({ message: 'Unauthorized: No user found.' });
+        return res.status(401).json({ 
+            message: 'Unauthorized: No user found.',
+            isAuthenticated: false 
+        });
     }
 
     // Send the user profile information

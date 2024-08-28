@@ -70,7 +70,7 @@ const logInUser = async (req, res) => {
             res.status(200).send(`Logged in successfully the user with name: ${user.username}`)
             console.log(req.cookies.token)
         } else {
-            return res.status(500).send("Username or password Incorrect")
+            return res.status(500).json("Username or password Incorrect")
         }
 
     } catch (err) {
@@ -85,6 +85,7 @@ const logOutUser = async (_, res) => {
     res.cookie("token", "", {
         httpOnly: true,
         secure: true,
+        sameSite: 'none'
     })
 
     res.status(200).send("Logged out successfully")
@@ -99,7 +100,8 @@ const getUserProfile = (req, res) => {
     // Send the user profile information
     res.status(200).json({
         message: 'Logged in ho aap',
-        userProfile: req.user
+        userProfile: req.user,
+        isAuthenticated: true
     });
 };
 

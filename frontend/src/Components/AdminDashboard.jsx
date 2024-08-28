@@ -14,12 +14,13 @@ const AdminDashboard = () => {
         const checkAuth = async () => {
             try {
                 const response = await axios.get('https://project-pokeinfo.onrender.com/api/v1/user/profile', { withCredentials: true });
-                if (response.status === 200){  
+                if (response.status === 200) {  
                     setUsername(response.data.userProfile.username)
                     setImage(response.data.userProfile.image)
                 }
             } catch (error) {
                 console.error('Authentication check failed:', error);
+                navigate('/adminlogin')
             }
         };
 

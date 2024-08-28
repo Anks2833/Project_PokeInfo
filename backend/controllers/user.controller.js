@@ -88,8 +88,9 @@ const logOutUser = async (_, res) => {
     res.cookie("token", "", {
         httpOnly: true,
         secure: true,
-        sameSite: 'none',  // Include this if it was set originally
-        maxAge: 0,  // This will expire the cookie immediately
+        sameSite: 'none',
+        expires: new Date(Date.now()),
+        path: '/'
     });
 
     res.status(200).json({ isAuthenticated: false });

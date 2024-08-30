@@ -91,7 +91,6 @@ const Evolution_Details_Parent = (props) => {
         return location.pathname === href ? 'bg-[#0A141E]' : ''; // Tailwind classes for active state
     };
 
-
     return (
         <>
             <div className="w-full rounded-3xl bg-[#00091D] hidden sm:flex flex-col items-center py-10 mb-10 border border-zinc-700 shadow shadow-violet-600">

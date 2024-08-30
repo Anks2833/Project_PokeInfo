@@ -577,20 +577,34 @@ const Pokemon_Details = () => {
             variants={inViewVariants}
             initial="hidden"
             whileInView="inView"
-            className="w-full py-5 min-h-32 sm:px-10 sm:mt-20 flex"
+            className="w-full py-5 min-h-32 sm:px-10 sm:mt-20 hidden sm:flex"
           >
             <Stats number={number} />
           </motion.div>
+
+          {/* Stats for mobile devices */}
+          <div
+            className="w-full py-5 min-h-32 sm:hidden"
+          >
+            <Stats number={number} />
+          </div>
 
           {/* Evolution-Info */}
           <motion.div
             variants={inViewVariants}
             initial="hidden"
             whileInView="inView"
-            className="w-full py-5 min-h-32 px-0 sm:px-10 sm:mt-20 flex"
+            className="w-full py-5 min-h-32 px-0 sm:px-10 sm:mt-20 hidden sm:flex"
           >
             <Evolution_Details_Parent number={number} />
           </motion.div>
+          
+          {/* Evolution-Info for mobile devices */}
+          <div
+            className="w-full py-5 min-h-32 px-0 sm:hidden"
+          >
+            <Evolution_Details_Parent number={number} />
+          </div>
 
         </div>
 

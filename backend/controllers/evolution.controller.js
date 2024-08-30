@@ -35,7 +35,12 @@ const createEvolutions = async (req, res) => {
             number2: paddedNumber2,
             image2: evolution2,
             type12,
-            type22
+            type22,
+            name3: null,
+            number3: null,
+            image3: null,
+            type13: null,
+            type23: null
         };
 
         // Include evolution3 data only if it is provided

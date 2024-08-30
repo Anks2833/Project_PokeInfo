@@ -538,7 +538,7 @@ const Pokedex = () => {
           </div>
 
           {/* Input search for mobile devices */}
-          <div className="sm:hidden w-full flex flex-col items-center pt-32">
+          <div className="sm:hidden w-full flex flex-col items-center pt-28">
 
             <div className="w-full px-4">
 

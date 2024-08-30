@@ -6,17 +6,17 @@ const createEvolutions = async (req, res) => {
         const {
             name1,
             number1,
-            image1,
+            evolution1,
             type11,
             type21,
             name2,
             number2,
-            image2,
+            evolution2,
             type12,
             type22,
             name3,
             number3,
-            image3,
+            evolution3,
             type13,
             type23
         } = req.body;
@@ -28,17 +28,17 @@ const createEvolutions = async (req, res) => {
         const evolutionData = {
             name1,
             number1: paddedNumber1,
-            image1,
+            image1: evolution1,
             type11,
             type21,
             name2,
             number2: paddedNumber2,
-            image2,
+            image2: evolution2,
             type12,
             type22,
             name3: name3 || undefined,
             number3: paddedNumber3 || undefined,
-            image3,
+            image3: evolution3,
             type13,
             type23
         };

@@ -31,7 +31,6 @@ const New_Ability = () => {
 
     axios.post("https://project-pokeinfo.onrender.com/api/ability", data)
       .then((response) => {
-        console.log(response.data);
         setCreatedAbility(`Ability for ${response.data.number} created successfully`)
       })
       .catch((error) => {

@@ -31,8 +31,7 @@ const Delete_Pokemon = () => {
 
         await axios.delete('https://project-pokeinfo.onrender.com/api/pokedex', { data })
             .then((response) => {
-                console.log(response.data);
-                setDeletePokemon(`Pokemon #${data.number} deleted`)
+                setDeletePokemon(`Pokemon #${response.data.number} deleted`)
             })
             .catch((err) => {
                 console.log(err.message);

@@ -308,7 +308,7 @@ const Pokemon_Details = () => {
 
               {/* The arrow pointing downwards */}
               <motion.div
-                className="text-5xl text-zinc-400"
+                className="text-5xl text-zinc-400 cursor-pointer"
                 animate={{
                   y: [0, 60, 0], // Move downwards 100 units and then back to original position
                   scale: [1, 1.2, 1] // Start at normal size, shrink to half size, then return to normal size
@@ -364,7 +364,7 @@ const Pokemon_Details = () => {
                       ...variants.visible,
                       transition: {
                         ...variants.visible.transition,
-                        delay: 0.6 // Increment delay for the second item
+                        delay: 0.6
                       }
                     }
                   }}
@@ -490,7 +490,7 @@ const Pokemon_Details = () => {
                 <h1 className="text-blue-500 text-3xl">Weaknesses</h1>
               </div>
 
-              <div className="flex flex-wrap justify-start gap-1 text-sm">
+              <div className="flex flex-wrap justify-start gap-1 text-sm px-3">
                 {pokemon.weakness && pokemon.weakness.map((weakness, index) => (
                   <div key={index} className={`${pokemonTypeColors(weakness)} px-5 py-2 rounded-md border border-zinc-900 shadow-black shadow-inner`}>
                     {weakness}

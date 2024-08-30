@@ -41,7 +41,6 @@ const New_Stats = () => {
 
     await axios.post('https://project-pokeinfo.onrender.com/api/stats', formData)
       .then((response) => {
-        console.log(response.data);
         setCreatedStats(`Stats for #${response.data.number} created successfully`);
       })
       .catch((err) => {

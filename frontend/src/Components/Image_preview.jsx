@@ -12,7 +12,6 @@ const Image_preview = () => {
         if (file) {
             const previewUrl = URL.createObjectURL(file);
             setImagePreview(previewUrl);
-            console.log('Image preview URL set to:', previewUrl);
         } else {
             setImagePreview("");
         }

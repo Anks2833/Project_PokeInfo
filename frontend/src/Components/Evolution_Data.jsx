@@ -39,7 +39,6 @@ const Evolution_Data = () => {
             try {
                 const response = await axios.get('https://project-pokeinfo.onrender.com/api/pokedex');
                 setPokemon(response.data);
-                console.log(response.data);
             } catch (error) {
                 console.error(error.message);
                 setPokemon([]);
@@ -71,7 +70,6 @@ const Evolution_Data = () => {
 
         await axios.post('https://project-pokeinfo.onrender.com/api/evolution', formData)
             .then((response) => {
-                console.log(response.data);
                 setCreatedEvolution(`Evolution data for #${response.data.name1} created successfully`)
             })
             .catch((err) => {

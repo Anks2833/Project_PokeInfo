@@ -28,8 +28,6 @@ const Stats = (props) => {
         fetchData();
     }, [number]);
 
-    // console.log(stats);
-
     return (
 
         <>
@@ -149,8 +147,8 @@ const Stats = (props) => {
 
                     </div> :
 
-                    <div className="w-full flex justify-center items-center text-4xl px-40 gap-6 my-10">
-                        <h1>No Stats Found For This Pokemon</h1>
+                    <div className="w-full flex justify-center items-center text-xl px-2 gap-6 my-3">
+                        <p>No Stats Found For This Pokemon</p>
                     </div>
                 }
 

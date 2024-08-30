@@ -106,96 +106,96 @@ const Evolution_Details_Parent = (props) => {
                     <div className="relative flex gap-52">
 
                         {/* Evo1 */}
-                        {evoData[0].number1 && (
-                            <NavLink to={`/pokeinfo/${evoData[0].number1}`} className="py-12 flex flex-col items-center gap-2">
+                        {evoData.number1 && (
+                            <NavLink to={`/pokeinfo/${evoData.number1}`} className="py-12 flex flex-col items-center gap-2">
 
                                 {/* Image */}
-                                <div className={`${pokemonTypeBorder(evoData[0].type11)} bg-zinc-900 border-[6px] rounded-full`}>
-                                    <img src={evoData[0].image1} alt="noimg" />
+                                <div className={`${pokemonTypeBorder(evoData.type11)} bg-zinc-900 border-[6px] rounded-full`}>
+                                    <img src={evoData.image1} alt="noimg" />
                                 </div>
 
                                 {/* Number and Name */}
                                 <div className="flex flex-col items-center">
-                                    <h1 className="text-3xl">#{evoData[0].number1}</h1>
-                                    <h1 className="text-3xl">{evoData[0].name1}</h1>
+                                    <h1 className="text-3xl">#{evoData.number1}</h1>
+                                    <h1 className="text-3xl">{evoData.name1}</h1>
                                 </div>
 
                                 {/* Types */}
                                 <div className="flex gap-2">
                                     {/* Type-1 */}
                                     <div>
-                                        <h1 className={`${pokemonTypeColors(evoData[0].type11)} text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>{evoData[0].type11 || "NA"}</h1>
+                                        <h1 className={`${pokemonTypeColors(evoData.type11)} text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>{evoData.type11 || "NA"}</h1>
                                     </div>
 
                                     {/* Type-2 */}
                                     <div>
-                                        <h1 className={`${pokemonTypeColors(evoData[0].type21)} text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>{evoData[0].type21 || "NA"}</h1>
+                                        <h1 className={`${pokemonTypeColors(evoData.type21)} text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>{evoData.type21 || "NA"}</h1>
                                     </div>
                                 </div>
 
                             </NavLink>
                         )}
 
-                        {evoData[0].number2 && <div className="absolute left-[25vw] top-[10vw] text-6xl text-amber-500"><RiArrowRightDoubleFill /></div>}
+                        {evoData.number2 && <div className="absolute left-[25vw] top-[10vw] text-6xl text-amber-500"><RiArrowRightDoubleFill /></div>}
 
                         {/* Evo2 */}
-                        {evoData[0].number2 && (
-                            <NavLink to={`/pokeinfo/${evoData[0].number2}`} className="py-12 flex flex-col items-center gap-2">
+                        {evoData.number2 && (
+                            <NavLink to={`/pokeinfo/${evoData.number2}`} className="py-12 flex flex-col items-center gap-2">
 
                                 {/* Image */}
-                                <div className={`${pokemonTypeBorder(evoData[0].type11)} bg-zinc-900 border-[6px] rounded-full`}>
-                                    <img src={evoData[0].image2} alt="noimg" />
+                                <div className={`${pokemonTypeBorder(evoData.type11)} bg-zinc-900 border-[6px] rounded-full`}>
+                                    <img src={evoData.image2} alt="noimg" />
                                 </div>
 
                                 {/* Number and Name */}
                                 <div className="flex flex-col items-center">
-                                    <h1 className="text-3xl">#{evoData[0].number2}</h1>
-                                    <h1 className="text-3xl">{evoData[0].name2}</h1>
+                                    <h1 className="text-3xl">#{evoData.number2}</h1>
+                                    <h1 className="text-3xl">{evoData.name2}</h1>
                                 </div>
 
                                 {/* Types */}
                                 <div className="flex gap-2">
                                     {/* Type-1 */}
                                     <div>
-                                        <h1 className={`${pokemonTypeColors(evoData[0].type12)} text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>{evoData[0].type12 || "NA"}</h1>
+                                        <h1 className={`${pokemonTypeColors(evoData.type12)} text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>{evoData.type12 || "NA"}</h1>
                                     </div>
 
                                     {/* Type-2 */}
                                     <div>
-                                        <h1 className={`${pokemonTypeColors(evoData[0].type22)} text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>{evoData[0].type22 || "NA"}</h1>
+                                        <h1 className={`${pokemonTypeColors(evoData.type22)} text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>{evoData.type22 || "NA"}</h1>
                                     </div>
                                 </div>
 
                             </NavLink>
                         )}
 
-                        {evoData[0].number3 && <div className="absolute right-[25vw] top-[10vw] text-6xl text-amber-500"><RiArrowRightDoubleFill /></div>}
+                        {evoData.number3 && <div className="absolute right-[25vw] top-[10vw] text-6xl text-amber-500"><RiArrowRightDoubleFill /></div>}
 
                         {/* Evo3 */}
-                        {evoData[0].number3 && (
-                            <NavLink to={`/pokeinfo/${evoData[0].number3}`} className="py-12 flex flex-col items-center gap-2">
+                        {evoData.number3 && (
+                            <NavLink to={`/pokeinfo/${evoData.number3}`} className="py-12 flex flex-col items-center gap-2">
 
                                 {/* Image */}
-                                <div className={`${pokemonTypeBorder(evoData[0].type11)} bg-zinc-900 border-[6px] rounded-full`}>
-                                    <img src={evoData[0].image3} alt="noimg" />
+                                <div className={`${pokemonTypeBorder(evoData.type11)} bg-zinc-900 border-[6px] rounded-full`}>
+                                    <img src={evoData.image3} alt="noimg" />
                                 </div>
 
                                 {/* Number and Name */}
                                 <div className="flex flex-col items-center">
-                                    <h1 className="text-3xl">#{evoData[0].number3}</h1>
-                                    <h1 className="text-3xl">{evoData[0].name3}</h1>
+                                    <h1 className="text-3xl">#{evoData.number3}</h1>
+                                    <h1 className="text-3xl">{evoData.name3}</h1>
                                 </div>
 
                                 {/* Types */}
                                 <div className="flex gap-2">
                                     {/* Type-1 */}
                                     <div>
-                                        <h1 className={`${pokemonTypeColors(evoData[0].type13)} text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>{evoData[0].type13 || "NA"}</h1>
+                                        <h1 className={`${pokemonTypeColors(evoData.type13)} text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>{evoData.type13 || "NA"}</h1>
                                     </div>
 
                                     {/* Type-2 */}
                                     <div>
-                                        <h1 className={`${pokemonTypeColors(evoData[0].type23)} text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>{evoData[0].type23 || "NA"}</h1>
+                                        <h1 className={`${pokemonTypeColors(evoData.type23)} text-2xl px-10 py-2 rounded-full border border-zinc-900 shadow-black shadow-inner`}>{evoData.type23 || "NA"}</h1>
                                     </div>
                                 </div>
 
@@ -227,36 +227,36 @@ const Evolution_Details_Parent = (props) => {
                     <div className="relative flex flex-col mt-2">
 
                         {/* Evo1 */}
-                        {evoData[0].number1 && (
+                        {evoData.number1 && (
                             <NavLink
-                                to={`/pokeinfo/${evoData[0].number1}`}
+                                to={`/pokeinfo/${evoData.number1}`}
                                 className={`w-full h-20 flex justify-between cursor-pointer overflow-hidden 
-                             ${getActiveClassName(location, `/pokeinfo/${evoData[0].number1}`)}`}
+                             ${getActiveClassName(location, `/pokeinfo/${evoData.number1}`)}`}
                             >
 
                                 {/* Image along with number and name */}
                                 <div className="w-1/2 flex justify-start pl-4 gap-2">
                                     {/* Image */}
                                     <div className="flex items-center">
-                                        <img className={`${pokemonTypeBorder(evoData[0].type11)} w-12 border rounded shadow`} src={evoData[0].image1} alt="noimg" />
+                                        <img className={`${pokemonTypeBorder(evoData.type11)} w-12 border rounded shadow`} src={evoData.image1} alt="noimg" />
                                     </div>
 
                                     {/* Name */}
                                     <div className="flex flex-col justify-center text-lg">
-                                        <h1 className="text-xl">{evoData[0].name1}</h1>
+                                        <h1 className="text-xl">{evoData.name1}</h1>
                                     </div>
                                 </div>
 
                                 {/* Types */}
-                                <div className={`w-1/2 flex justify-end items-end pr-2 pb-2 ${evoData[0].type11 && "gap-1"}`}>
+                                <div className={`w-1/2 flex justify-end items-end pr-2 pb-2 ${evoData.type11 && "gap-1"}`}>
                                     {/* Type-1 */}
                                     <div className="flex justify-center items-center">
-                                        <h1 className={`${pokemonTypeColors(evoData[0].type11)} text-xs px-5 py-2 rounded-md border border-zinc-900 shadow-black shadow-inner`}>{evoData[0].type11}</h1>
+                                        <h1 className={`${pokemonTypeColors(evoData.type11)} text-xs px-5 py-2 rounded-md border border-zinc-900 shadow-black shadow-inner`}>{evoData.type11}</h1>
                                     </div>
 
                                     {/* Type-2 */}
                                     <div className="flex justify-center items-center">
-                                        <h1 className={`${pokemonTypeColors(evoData[0].type21)} ${evoData[0].type21 && "text-xs px-5 py-2 rounded-md border border-zinc-900 shadow-black shadow-inner"}`}>{evoData[0].type21}</h1>
+                                        <h1 className={`${pokemonTypeColors(evoData.type21)} ${evoData.type21 && "text-xs px-5 py-2 rounded-md border border-zinc-900 shadow-black shadow-inner"}`}>{evoData.type21}</h1>
                                     </div>
                                 </div>
 
@@ -266,36 +266,36 @@ const Evolution_Details_Parent = (props) => {
                         {/* {evoData[0].number2 && <div className="absolute left-[25vw] top-[10vw] text-6xl text-amber-500"><RiArrowRightDoubleFill /></div>} */}
 
                         {/* Evo2 */}
-                        {evoData[0].number2 && (
+                        {evoData.number2 && (
                             <NavLink
-                                to={`/pokeinfo/${evoData[0].number2}`}
+                                to={`/pokeinfo/${evoData.number2}`}
                                 className={`w-full h-20 flex justify-between cursor-pointer overflow-hidden 
-                             ${getActiveClassName(location, `/pokeinfo/${evoData[0].number2}`)}`}
+                             ${getActiveClassName(location, `/pokeinfo/${evoData.number2}`)}`}
                             >
 
                                 {/* Image along with number and name */}
                                 <div className="w-1/2 flex justify-start pl-4 gap-2">
                                     {/* Image */}
                                     <div className="flex items-center">
-                                        <img className={`${pokemonTypeBorder(evoData[0].type12)} w-12 border rounded shadow`} src={evoData[0].image2} alt="noimg" />
+                                        <img className={`${pokemonTypeBorder(evoData.type12)} w-12 border rounded shadow`} src={evoData.image2} alt="noimg" />
                                     </div>
 
                                     {/* Name */}
                                     <div className="flex flex-col justify-center text-lg">
-                                        <h1 className="text-xl">{evoData[0].name2}</h1>
+                                        <h1 className="text-xl">{evoData.name2}</h1>
                                     </div>
                                 </div>
 
                                 {/* Types */}
-                                <div className={`w-1/2 flex justify-end items-end pr-2 pb-2 ${evoData[0].type12 && "gap-1"}`}>
+                                <div className={`w-1/2 flex justify-end items-end pr-2 pb-2 ${evoData.type12 && "gap-1"}`}>
                                     {/* Type-1 */}
                                     <div className="flex justify-center items-center">
-                                        <h1 className={`${pokemonTypeColors(evoData[0].type12)} text-xs px-5 py-2 rounded-md border border-zinc-900 shadow-black shadow-inner`}>{evoData[0].type12}</h1>
+                                        <h1 className={`${pokemonTypeColors(evoData.type12)} text-xs px-5 py-2 rounded-md border border-zinc-900 shadow-black shadow-inner`}>{evoData.type12}</h1>
                                     </div>
 
                                     {/* Type-2 */}
                                     <div className="flex justify-center items-center">
-                                        <h1 className={`${pokemonTypeColors(evoData[0].type22)} ${evoData[0].type22 && "text-xs px-5 py-2 rounded-md border border-zinc-900 shadow-black shadow-inner"}`}>{evoData[0].type22}</h1>
+                                        <h1 className={`${pokemonTypeColors(evoData.type22)} ${evoData.type22 && "text-xs px-5 py-2 rounded-md border border-zinc-900 shadow-black shadow-inner"}`}>{evoData.type22}</h1>
                                     </div>
                                 </div>
 
@@ -305,41 +305,41 @@ const Evolution_Details_Parent = (props) => {
                         {/* {evoData[0].number3 && <div className="absolute right-[25vw] top-[10vw] text-6xl text-amber-500"><RiArrowRightDoubleFill /></div>} */}
 
                         {/* Evo3 */}
-                        {evoData[0].number3 && (
+                        {evoData.number3 ? (
                             <NavLink
-                                to={`/pokeinfo/${evoData[0].number3}`}
+                                to={`/pokeinfo/${evoData.number3}`}
                                 className={`w-full h-20 flex justify-between cursor-pointer overflow-hidden 
-                             ${getActiveClassName(location, `/pokeinfo/${evoData[0].number3}`)}`}
+                             ${getActiveClassName(location, `/pokeinfo/${evoData.number3}`)}`}
                             >
 
                                 {/* Image along with number and name */}
                                 <div className="w-1/2 flex justify-start pl-4 gap-2">
                                     {/* Image */}
                                     <div className="flex items-center">
-                                        <img className={`${pokemonTypeBorder(evoData[0].type13)} w-12 border rounded shadow`} src={evoData[0].image3} alt="noimg" />
+                                        <img className={`${pokemonTypeBorder(evoData.type13)} w-12 border rounded shadow`} src={evoData.image3} alt="noimg" />
                                     </div>
 
                                     {/* Name */}
                                     <div className="flex flex-col justify-center text-lg">
-                                        <h1 className="text-xl">{evoData[0].name3}</h1>
+                                        <h1 className="text-xl">{evoData.name3}</h1>
                                     </div>
                                 </div>
 
                                 {/* Types */}
-                                <div className={`w-1/2 flex justify-end items-end pr-2 pb-2 ${evoData[0].type13 && "gap-1"}`}>
+                                <div className={`w-1/2 flex justify-end items-end pr-2 pb-2 ${evoData.type13 && "gap-1"}`}>
                                     {/* Type-1 */}
                                     <div className="flex justify-center items-center">
-                                        <h1 className={`${pokemonTypeColors(evoData[0].type13)} text-xs px-5 py-2 rounded-md border border-zinc-900 shadow-black shadow-inner`}>{evoData[0].type13}</h1>
+                                        <h1 className={`${pokemonTypeColors(evoData.type13)} text-xs px-5 py-2 rounded-md border border-zinc-900 shadow-black shadow-inner`}>{evoData.type13}</h1>
                                     </div>
 
                                     {/* Type-2 */}
                                     <div className="flex justify-center items-center">
-                                        <h1 className={`${pokemonTypeColors(evoData[0].type23)} ${evoData[0].type23 && "text-xs px-5 py-2 rounded-md border border-zinc-900 shadow-black shadow-inner"}`}>{evoData[0].type23}</h1>
+                                        <h1 className={`${pokemonTypeColors(evoData.type23)} ${evoData.type23 && "text-xs px-5 py-2 rounded-md border border-zinc-900 shadow-black shadow-inner"}`}>{evoData.type23}</h1>
                                     </div>
                                 </div>
 
                             </NavLink>
-                        )}
+                        ) : null}
                     </div>
                     :
 

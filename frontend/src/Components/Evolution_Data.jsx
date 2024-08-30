@@ -2,7 +2,6 @@ import { useForm } from 'react-hook-form';
 import axios from "axios"
 import { motion } from "framer-motion"
 import To_AdminDash from "./To_AdminDash";
-import Type_Dropdown from './Type_Dropdown';
 import { useState, useEffect } from 'react';
 
 
@@ -150,6 +149,7 @@ const Evolution_Data = () => {
                                 className="w-[24vw] rounded-lg bg-zinc-800 text-white"
                                 {...register("number1", { onChange: handleNumberChange1 })}
                                 placeholder="Number1"
+                                required
                                 type="text"
                             />
                         </div>
@@ -203,6 +203,7 @@ const Evolution_Data = () => {
                                 className="w-[24vw] rounded-lg bg-zinc-800 text-white"
                                 {...register("number2", { onChange: handleNumberChange2 })}
                                 placeholder="Number2"
+                                required
                                 type="text"
                             />
                         </div>

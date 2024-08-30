@@ -43,6 +43,19 @@ const Pokemon_Details = () => {
     setShowAbility(!showAbility); // Toggles the state between true and false
   }
 
+  const [isScrolled, setIsScrolled] = useState(false);
+  const handleScroll = () => {
+    if (isScrolled) {
+      // Scroll to the top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      // Scroll to a particular point (e.g., 1000px down the page)
+      window.scrollTo({ top: 850, behavior: 'smooth' });
+    }
+    // Toggle scroll state
+    setIsScrolled(!isScrolled);
+  };
+
 
   useEffect(() => {
     controls.start('visible');
@@ -306,6 +319,7 @@ const Pokemon_Details = () => {
                   repeat: Infinity, // Repeat the animation indefinitely
                   repeatType: "reverse" // Reverse the animation on each iteration
                 }}
+                onClick={handleScroll}
               >
                 <RiArrowDownDoubleFill />
               </motion.div>

@@ -44,7 +44,7 @@ const createEvolutions = async (req, res) => {
         };
 
         // Include evolution3 data only if it is provided
-        if (name3 && number3 && (type13 || type23) && evolution3) {
+        if (name3 && paddedNumber3 && (type13 || type23) && evolution3) {
             evolutionData.name3 = name3;
             evolutionData.number3 = paddedNumber3;
             evolutionData.image3 = evolution3;

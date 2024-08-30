@@ -305,7 +305,7 @@ const Evolution_Details_Parent = (props) => {
                         {/* {evoData[0].number3 && <div className="absolute right-[25vw] top-[10vw] text-6xl text-amber-500"><RiArrowRightDoubleFill /></div>} */}
 
                         {/* Evo3 */}
-                        {evoData[0].number3 ? (
+                        {evoData[0].number3 && (
                             <NavLink
                                 to={`/pokeinfo/${evoData[0].number3}`}
                                 className={`w-full h-20 flex justify-between cursor-pointer overflow-hidden 
@@ -339,7 +339,7 @@ const Evolution_Details_Parent = (props) => {
                                 </div>
 
                             </NavLink>
-                        ): null}
+                        )}
                     </div>
                     :
 

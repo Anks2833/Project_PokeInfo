@@ -342,7 +342,7 @@ const Pokemon_Details = () => {
                       <FaArrowLeft />
                     </div>
 
-                    <div className="absolute top-5 right-[50%] translate-x-[50%] text-2xl">
+                    <div className="absolute top-5 right-[50%] translate-x-[50%] text-lg">
                       <h1 className="font-semibold">Ability: <span className={`${pokemonTextColors(pokemon.type1)}`}>{pokemon.ability}</span></h1>
                     </div>
                   </div>
